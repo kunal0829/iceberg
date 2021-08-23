@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/maintenance/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
     <title>Maintenance - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li class="active">
-    <a href="./">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -169,6 +156,12 @@
 
                         
                             
+<li class="active">
+    <a href="./">Maintenance</a>
+</li>
+
+                        
+                            
 <li >
     <a href="../performance/">Performance</a>
 </li>
@@ -180,9 +173,93 @@
 </li>
 
                         
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
                             
 <li >
-    <a href="../spark#time-travel">Time Travel</a>
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -192,26 +269,35 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="../jdbc/">JDBC</a>
 </li>
 
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                         
                             
 <li >
@@ -221,40 +307,37 @@
                         
                             
 <li >
-    <a href="../custom-catalog/">Custom Catalog</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../api/">Java API intro</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../java-api-quickstart/">Java Quickstart</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../custom-catalog/">Java Custom Catalog</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -332,12 +415,12 @@
 
             <ul class="nav navbar-nav navbar-right">
                     <li >
-                        <a rel="prev" href="../presto/">
+                        <a rel="prev" href="../evolution/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../configuration/">
+                        <a rel="next" href="../performance/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -390,23 +473,21 @@
 <h2 id="recommended-maintenance">Recommended Maintenance<a class="headerlink" href="#recommended-maintenance" title="Permanent link">&para;</a></h2>
 <h3 id="expire-snapshots">Expire Snapshots<a class="headerlink" href="#expire-snapshots" title="Permanent link">&para;</a></h3>
 <p>Each write to an Iceberg table creates a new <em>snapshot</em>, or version, of a table. Snapshots can be used for time-travel queries, or the table can be rolled back to any valid snapshot.</p>
-<p>Snapshots accumulate until they are expired by the <a href="/javadoc/master/org/apache/iceberg/Table.html#expireSnapshots--"><code>expireSnapshots</code></a> operation. Regularly expiring snapshots is recommended to delete data files that are no longer needed, and to keep the size of table metadata small.</p>
+<p>Snapshots accumulate until they are expired by the <a href="../javadoc/0.11.1/org/apache/iceberg/Table.html#expireSnapshots--"><code>expireSnapshots</code></a> operation. Regularly expiring snapshots is recommended to delete data files that are no longer needed, and to keep the size of table metadata small.</p>
 <p>This example expires snapshots that are older than 1 day:</p>
-<pre><code class="java">Table table = ...
+<pre><code class="language-java">Table table = ...
 long tsToExpire = System.currentTimeMillis() - (1000 * 60 * 60 * 24); // 1 day
 table.expireSnapshots()
      .expireOlderThan(tsToExpire)
      .commit();
 </code></pre>
-
-<p>See the <a href="/javadoc/master/org/apache/iceberg/ExpireSnapshots.html"><code>ExpireSnapshots</code> Javadoc</a> to see more configuration options.</p>
+<p>See the <a href="../javadoc/0.11.1/org/apache/iceberg/ExpireSnapshots.html"><code>ExpireSnapshots</code> Javadoc</a> to see more configuration options.</p>
 <p>There is also a Spark action that can run table expiration in parallel for large tables:</p>
-<pre><code class="java">Actions.forTable(table)
+<pre><code class="language-java">Actions.forTable(table)
     .expireSnapshots()
     .expireOlderThan(tsToExpire)
     .execute();
 </code></pre>
-
 <p>Expiring old snapshots removes them from metadata, so they are no longer available for time travel queries.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -439,13 +520,12 @@ Regularly expiring snapshots deletes unused data files.</p>
 <h3 id="remove-orphan-files">Remove orphan files<a class="headerlink" href="#remove-orphan-files" title="Permanent link">&para;</a></h3>
 <p>In Spark and other distributed processing engines, task or job failures can leave files that are not referenced by table metadata, and in some cases normal snapshot expiration may not be able to determine a file is no longer needed and delete it.</p>
 <p>To clean up these &ldquo;orphan&rdquo; files under a table location, use the <code>removeOrphanFiles</code> action.</p>
-<pre><code class="java">Table table = ...
+<pre><code class="language-java">Table table = ...
 Actions.forTable(table)
     .removeOrphanFiles()
     .execute();
 </code></pre>
-
-<p>See the <a href="/javadoc/master/org/apache/iceberg/actions/RemoveOrphanFilesAction.html">RemoveOrphanFilesAction Javadoc</a> to see more configuration options.</p>
+<p>See the <a href="../javadoc/0.11.1/org/apache/iceberg/actions/RemoveOrphanFilesAction.html">RemoveOrphanFilesAction Javadoc</a> to see more configuration options.</p>
 <p>This action may take a long time to finish if you have lots of files in data and metadata directories. It is recommended to execute this periodically, but you may not need to execute this often.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -465,47 +545,55 @@ FileSystem API to avoid unintentional deletion. </p>
 <h3 id="compact-data-files">Compact data files<a class="headerlink" href="#compact-data-files" title="Permanent link">&para;</a></h3>
 <p>Iceberg tracks each data file in a table. More data files leads to more metadata stored in manifest files, and small data files causes an unnecessary amount of metadata and less efficient queries from file open costs.</p>
 <p>Iceberg can compact data files in parallel using Spark with the <code>rewriteDataFiles</code> action. This will combine small files into larger files to reduce metadata overhead and runtime file open cost.</p>
-<pre><code class="java">Table table = ...
+<pre><code class="language-java">Table table = ...
 Actions.forTable(table).rewriteDataFiles()
     .filter(Expressions.equal(&quot;date&quot;, &quot;2020-08-18&quot;))
     .targetSizeInBytes(500 * 1024 * 1024) // 500 MB
     .execute();
 </code></pre>
-
 <p>The <code>files</code> metadata table is useful for inspecting data file sizes and determining when to compact partitons.</p>
-<p>See the <a href="/javadoc/master/org/apache/iceberg/actions/RewriteDataFilesAction.html"><code>RewriteDataFilesAction</code> Javadoc</a> to see more configuration options.</p>
+<p>See the <a href="../javadoc/0.11.1/org/apache/iceberg/actions/RewriteDataFilesAction.html"><code>RewriteDataFilesAction</code> Javadoc</a> to see more configuration options.</p>
 <h3 id="rewrite-manifests">Rewrite manifests<a class="headerlink" href="#rewrite-manifests" title="Permanent link">&para;</a></h3>
 <p>Iceberg uses metadata in its manifest list and manifest files speed up query planning and to prune unnecessary data files. The metadata tree functions as an index over a table&rsquo;s data.</p>
 <p>Manifests in the metadata tree are automatically compacted in the order they are added, which makes queries faster when the write pattern aligns with read filters. For example, writing hourly-partitioned data as it arrives is aligned with time range query filters.</p>
 <p>When a table&rsquo;s write pattern doesn&rsquo;t align with the query pattern, metadata and be rewritten to re-group data files into manifests using <code>rewriteManifests</code> or the <code>rewriteManifests</code> action (for parallel rewrites using Spark).</p>
 <p>This example rewrites small manifests and groups data files by the first partition field.</p>
-<pre><code class="java">Table table = ...
+<pre><code class="language-java">Table table = ...
 table.rewriteManifests()
     .rewriteIf(file -&gt; file.length() &lt; 10 * 1024 * 1024) // 10 MB
     .clusterBy(file -&gt; file.partition().get(0, Integer.class))
     .commit();
 </code></pre>
-
-<p>See the <a href="/javadoc/master/org/apache/iceberg/actions/RewriteManifestsAction.html"><code>RewriteManifestsAction</code> Javadoc</a> to see more configuration options.</p></div>
+<p>See the <a href="../javadoc/0.11.1/org/apache/iceberg/actions/RewriteManifestsAction.html"><code>RewriteManifestsAction</code> Javadoc</a> to see more configuration options.</p></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

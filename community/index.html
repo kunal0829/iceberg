@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/community/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
     <title>Community - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li class="active">
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,9 +173,93 @@
 </li>
 
                         
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
                             
 <li >
-    <a href="../spark#time-travel">Time Travel</a>
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -192,26 +269,35 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="../jdbc/">JDBC</a>
 </li>
 
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                         
                             
 <li >
@@ -221,40 +307,37 @@
                         
                             
 <li >
-    <a href="../custom-catalog/">Custom Catalog</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../api/">Java API intro</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../java-api-quickstart/">Java Quickstart</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../custom-catalog/">Java Custom Catalog</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -360,6 +443,11 @@
                 
             <li class="second-level"><a href="#mailing-lists">Mailing Lists</a></li>
                 
+            <li class="second-level"><a href="#setting-up-ide-and-code-style">Setting up IDE and Code Style</a></li>
+                
+                <li class="third-level"><a href="#configuring-code-formatter-for-intellij-idea">Configuring Code Formatter for IntelliJ IDEA</a></li>
+            <li class="second-level"><a href="#running-benchmarks">Running Benchmarks</a></li>
+                
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -385,9 +473,9 @@
 
 <h1 id="welcome">Welcome!<a class="headerlink" href="#welcome" title="Permanent link">&para;</a></h1>
 <p>Apache Iceberg tracks issues in GitHub and prefers to receive contributions as pull requests.</p>
-<p>Community discussions happen primarily on the dev mailing list or on specific issues.</p>
+<p>Community discussions happen primarily on the dev mailing list, on apache-iceberg Slack workspace, and on specific GitHub issues.</p>
 <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
-<p>Iceberg uses Apache&rsquo;s GitHub integration. The code is available at <a href="https://github.com/apache/iceberg">https://github.com/apache/iceberg</a></p>
+<p>The Iceberg Project is hosted on Github at <a href="https://github.com/apache/iceberg">https://github.com/apache/iceberg</a>.</p>
 <p>The Iceberg community prefers to receive contributions as <a href="https://help.github.com/articles/about-pull-requests/">Github pull requests</a>.</p>
 <ul>
 <li><a href="https://github.com/apache/iceberg/pulls">View open pull requests</a></li>
@@ -400,7 +488,8 @@
 <li><a href="https://github.com/apache/iceberg/issues/new">Open a new issue</a></li>
 </ul>
 <h2 id="slack">Slack<a class="headerlink" href="#slack" title="Permanent link">&para;</a></h2>
-<p><a href="https://the-asf.slack.com/archives/CF01LKV9S"><img alt="Slack" src="https://img.shields.io/badge/chat-on%20Slack-brightgreen.svg" /></a></p>
+<p>We use the <a href="https://apache-iceberg.slack.com/">Apache Iceberg workspace</a> on Slack. To be invited, follow <a href="https://join.slack.com/t/apache-iceberg/shared_invite/zt-tlv0zjz6-jGJEkHfb1~heMCJA3Uycrg">this invite link</a>.</p>
+<p>Please note that this link may occasionally break when Slack does an upgrade. If you encounter problems using it, please let us know by sending an email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#101;&#118;&#64;&#105;&#99;&#101;&#98;&#101;&#114;&#103;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;">&#100;&#101;&#118;&#64;&#105;&#99;&#101;&#98;&#101;&#114;&#103;&#46;&#97;&#112;&#97;&#99;&#104;&#101;&#46;&#111;&#114;&#103;</a>.</p>
 <h2 id="mailing-lists">Mailing Lists<a class="headerlink" href="#mailing-lists" title="Permanent link">&para;</a></h2>
 <p>Iceberg has four mailing lists:</p>
 <ul>
@@ -426,26 +515,46 @@
 <li><a href="https://lists.apache.org/list.html?private@iceberg.apache.org">Archive</a></li>
 </ul>
 </li>
-</ul></div>
+</ul>
+<h2 id="setting-up-ide-and-code-style">Setting up IDE and Code Style<a class="headerlink" href="#setting-up-ide-and-code-style" title="Permanent link">&para;</a></h2>
+<h3 id="configuring-code-formatter-for-intellij-idea">Configuring Code Formatter for IntelliJ IDEA<a class="headerlink" href="#configuring-code-formatter-for-intellij-idea" title="Permanent link">&para;</a></h3>
+<p>In the <strong>Settings/Preferences</strong> dialog go to <strong>Editor &gt; Code Style &gt; Java</strong>. Click on the gear wheel and select <strong>Import Scheme</strong> to import IntelliJ IDEA XML code style settings.
+Point to <a href="https://github.com/apache/iceberg/blob/master/.baseline/idea/intellij-java-palantir-style.xml">intellij-java-palantir-style.xml</a> and hit <strong>OK</strong> (you might need to enable <strong>Show Hidden Files and Directories</strong> in the dialog). The code itself can then be formatted via <strong>Code &gt; Reformat Code</strong>.</p>
+<p>See also the IntelliJ <a href="https://www.jetbrains.com/help/idea/copying-code-style-settings.html">Code Style docs</a> and <a href="https://www.jetbrains.com/help/idea/reformat-and-rearrange-code.html">Reformat Code docs</a> for additional details.</p>
+<h2 id="running-benchmarks">Running Benchmarks<a class="headerlink" href="#running-benchmarks" title="Permanent link">&para;</a></h2>
+<p>Some PRs/changesets might require running benchmarks to determine whether they are affecting the baseline performance. Currently there is 
+no &ldquo;push a single button to get a performance comparison&rdquo; solution available, therefore one has to run JMH performance tests on their local machine and
+post the results on the PR.</p>
+<p>See <a href="../benchmarks/">Benchmarks</a> for a summary of available benchmarks and how to run them.</p></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

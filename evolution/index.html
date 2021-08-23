@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/evolution/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
     <title>Table evolution - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,9 +173,93 @@
 </li>
 
                         
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
                             
 <li >
-    <a href="../spark#time-travel">Time Travel</a>
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -192,26 +269,35 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="../jdbc/">JDBC</a>
 </li>
 
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                         
                             
 <li >
@@ -221,40 +307,37 @@
                         
                             
 <li >
-    <a href="../custom-catalog/">Custom Catalog</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../api/">Java API intro</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../java-api-quickstart/">Java Quickstart</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../custom-catalog/">Java Custom Catalog</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -337,7 +420,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../performance/">
+                        <a rel="next" href="../maintenance/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -356,6 +439,8 @@
                 
                 <li class="third-level"><a href="#correctness">Correctness</a></li>
             <li class="second-level"><a href="#partition-evolution">Partition evolution</a></li>
+                
+            <li class="second-level"><a href="#sort-order-evolution">Sort order evolution</a></li>
                 
     </ul>
 </div></div>
@@ -390,10 +475,10 @@
 <li><strong>Update</strong> &ndash; widen the type of a column, struct field, map key, map value, or list element</li>
 <li><strong>Reorder</strong> &ndash; change the order of columns or fields in a nested struct</li>
 </ul>
-<p>Iceberg schema updates are metadata changes. Data files are not eagerly rewritten.</p>
+<p>Iceberg schema updates are <strong>metadata changes</strong>, so no data files need to be rewritten to perform the update.</p>
 <p>Note that map keys do not support adding or dropping struct fields that would change equality.</p>
 <h3 id="correctness">Correctness<a class="headerlink" href="#correctness" title="Permanent link">&para;</a></h3>
-<p>Iceberg guarantees that <strong>schema evolution changes are independent and free of side-effects</strong>:</p>
+<p>Iceberg guarantees that <strong>schema evolution changes are independent and free of side-effects</strong>, without rewriting files:</p>
 <ol>
 <li>Added columns never read existing values from another column.</li>
 <li>Dropping a column or field does not change the values in any other column.</li>
@@ -410,27 +495,61 @@
 <p>When you evolve a partition spec, the old data written with an earlier spec remains unchanged. New data is written using the new spec in a new layout. Metadata for each of the partition versions is kept separately. Because of this, when you start writing queries, you get split planning. This is where each partition layout plans files separately using the filter it derives for that specific partition layout. Here&rsquo;s a visual representation of a contrived example: </p>
 <p><img alt="Partition evolution diagram" src="../img/partition-spec-evolution.png" />
 <em>The data for 2008 is partitioned by month. Starting from 2009 the table is updated so that the data is instead partitioned by day. Both partitioning layouts are able to coexist in the same table.</em></p>
-<p>Iceberg uses <a href="../partitioning">hidden partitioning</a>, so you don&rsquo;t <em>need</em> to write queries for a specific partition layout to be fast. Instead, you can write queries that select the data you need, and Iceberg automatically prunes out files that don&rsquo;t contain matching data.</p>
-<p>Partition evolution is a metadata operation and does not eagerly rewrite files.</p></div>
+<p>Iceberg uses <a href="../partitioning/">hidden partitioning</a>, so you don&rsquo;t <em>need</em> to write queries for a specific partition layout to be fast. Instead, you can write queries that select the data you need, and Iceberg automatically prunes out files that don&rsquo;t contain matching data.</p>
+<p>Partition evolution is a metadata operation and does not eagerly rewrite files.</p>
+<p>Iceberg&rsquo;s Java table API provides <code>updateSpec</code> API to update partition spec. 
+For example, the following code could be used to update the partition spec to add a new partition field that places <code>id</code> column values into 8 buckets and remove an existing partition field <code>category</code>:</p>
+<pre><code class="language-java">Table sampleTable = ...;
+sampleTable.updateSpec()
+    .addField(bucket(&quot;id&quot;, 8))
+    .removeField(&quot;category&quot;)
+    .commit();
+</code></pre>
+<p>Spark supports updating partition spec through its <code>ALTER TABLE</code> SQL statement, see more details in <a href="../spark-ddl/#alter-table-add-partition-field">Spark SQL</a>.</p>
+<h2 id="sort-order-evolution">Sort order evolution<a class="headerlink" href="#sort-order-evolution" title="Permanent link">&para;</a></h2>
+<p>Similar to partition spec, Iceberg sort order can also be updated in an existing table.
+When you evolve a sort order, the old data written with an earlier order remains unchanged.
+Engines can always choose to write data in the latest sort order or unsorted when sorting is prohibitively expensive.</p>
+<p>Iceberg&rsquo;s Java table API provides <code>replaceSortOrder</code> API to update partition spec. 
+For example, the following code could be used to create a new sort order 
+with <code>id</code> column sorted in ascending order with nulls last,
+and <code>category</code> column sorted in descending order with nulls first:</p>
+<pre><code class="language-java">Table sampleTable = ...;
+sampleTable.replaceSortOrder()
+   .asc(&quot;id&quot;, NullOrder.NULLS_LAST)
+   .dec(&quot;category&quot;, NullOrder.NULL_FIRST)
+   .commit();
+</code></pre>
+<p>Spark supports updating sort order through its <code>ALTER TABLE</code> SQL statement, see more details in <a href="../spark-ddl/#alter-table-write-ordered-by">Spark SQL</a>.</p></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

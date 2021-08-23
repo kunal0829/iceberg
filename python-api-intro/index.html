@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/python-api-intro/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>API Intro - Apache Iceberg</title>
+    <title>Python API Intro - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,9 +173,93 @@
 </li>
 
                         
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
                             
 <li >
-    <a href="../spark#time-travel">Time Travel</a>
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -192,36 +269,24 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="/javadoc/">Javadoc</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../custom-catalog/">Custom Catalog</a>
+    <a href="../jdbc/">JDBC</a>
 </li>
 
                         
@@ -231,30 +296,48 @@
                 
                 
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="/javadoc/">Javadoc</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../api/">Java API intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../java-api-quickstart/">Java Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../custom-catalog/">Java Custom Catalog</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-quickstart/">Python Quickstart</a>
 </li>
 
                         
                             
 <li class="active">
-    <a href="./">API Intro</a>
+    <a href="./">Python API Intro</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -352,6 +435,8 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="first-level active"><a href="#iceberg-python-api">Iceberg Python API</a></li>
+            <li class="second-level"><a href="#catalog">Catalog</a></li>
+                
             <li class="second-level"><a href="#tables">Tables</a></li>
                 
                 <li class="third-level"><a href="#scanning">Scanning</a></li>
@@ -384,6 +469,28 @@
 
 <h1 id="iceberg-python-api">Iceberg Python API<a class="headerlink" href="#iceberg-python-api" title="Permanent link">&para;</a></h1>
 <p>Much of the python api conforms to the java api. You can get more info about the java api <a href="https://iceberg.apache.org/api/">here</a>.</p>
+<h2 id="catalog">Catalog<a class="headerlink" href="#catalog" title="Permanent link">&para;</a></h2>
+<p>The Catalog interface, like java provides search and management operations for tables.</p>
+<p>To create a catalog:</p>
+<pre><code class="language-python">from iceberg.hive import HiveTables
+
+# instantiate Hive Tables
+conf = {&quot;hive.metastore.uris&quot;: 'thrift://{hms_host}:{hms_port}'}
+tables = HiveTables(conf)
+</code></pre>
+<p>and to create a table from a catalog:</p>
+<pre><code class="language-python">from iceberg.api.schema import Schema\
+from iceberg.api.types import TimestampType, DoubleType, StringType, NestedField
+from iceberg.api.partition_spec import PartitionSpecBuilder
+
+schema = Schema(NestedField.optional(1, &quot;DateTime&quot;, TimestampType.with_timezone()),
+                NestedField.optional(2, &quot;Bid&quot;, DoubleType.get()),
+                NestedField.optional(3, &quot;Ask&quot;, DoubleType.get()),
+                NestedField.optional(4, &quot;symbol&quot;, StringType.get()))
+partition_spec = PartitionSpecBuilder(schema).add(1, 1000, &quot;DateTime_day&quot;, &quot;day&quot;).build()
+
+tables.create(schema, &quot;test.test_123&quot;, partition)
+</code></pre>
 <h2 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h2>
 <p>The Table interface provides access to table metadata</p>
 <ul>
@@ -398,28 +505,23 @@
 <p>Tables also provide refresh to update the table to the latest version.</p>
 <h3 id="scanning">Scanning<a class="headerlink" href="#scanning" title="Permanent link">&para;</a></h3>
 <p>Iceberg table scans start by creating a <code>TableScan</code> object with <code>newScan</code>.</p>
-<pre><code class="python">scan = table.new_scan();
+<pre><code class="language-python">scan = table.new_scan();
 </code></pre>
-
 <p>To configure a scan, call filter and select on the <code>TableScan</code> to get a new <code>TableScan</code> with those changes.</p>
-<pre><code class="python">filtered_scan = scan.filter(Expressions.equal(&quot;id&quot;, 5))
+<pre><code class="language-python">filtered_scan = scan.filter(Expressions.equal(&quot;id&quot;, 5))
 </code></pre>
-
 <p>String expressions can also be passed to the filter method.</p>
-<pre><code class="python">filtered_scan = scan.filter(&quot;id=5&quot;)
+<pre><code class="language-python">filtered_scan = scan.filter(&quot;id=5&quot;)
 </code></pre>
-
 <p><code>Schema</code> projections can be applied against a <code>TableScan</code> by passing a list of column names.</p>
-<pre><code class="python">filtered_scan = scan.select([&quot;col_1&quot;, &quot;col_2&quot;, &quot;col_3&quot;])
+<pre><code class="language-python">filtered_scan = scan.select([&quot;col_1&quot;, &quot;col_2&quot;, &quot;col_3&quot;])
 </code></pre>
-
 <p>Because some data types cannot be read using the python library, a convenience method for excluding columns from projection is provided.</p>
-<pre><code class="python">filtered_scan = scan.select_except([&quot;unsupported_col_1&quot;, &quot;unsupported_col_2&quot;])
+<pre><code class="language-python">filtered_scan = scan.select_except([&quot;unsupported_col_1&quot;, &quot;unsupported_col_2&quot;])
 </code></pre>
-
 <p>Calls to configuration methods create a new <code>TableScan</code> so that each <code>TableScan</code> is immutable.</p>
 <p>When a scan is configured, <code>planFiles</code>, <code>planTasks</code>, and <code>Schema</code> are used to return files, tasks, and the read projection.</p>
-<pre><code class="python">scan = table.new_scan() \
+<pre><code class="language-python">scan = table.new_scan() \
     .filter(&quot;id=5&quot;) \
     .select([&quot;id&quot;, &quot;data&quot;])
 
@@ -427,35 +529,30 @@ projection = scan.schema
 for task in scan.plan_tasks():
     print(task)
 </code></pre>
-
 <h2 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h2>
 <p>Iceberg data types are located in <code>iceberg.api.types.types</code></p>
 <h3 id="primitives">Primitives<a class="headerlink" href="#primitives" title="Permanent link">&para;</a></h3>
 <p>Primitive type instances are available from static methods in each type class. Types without parameters use <code>get</code>, and types like <code>DecimalType</code> use factory methods:</p>
-<pre><code class="python">IntegerType.get()    # int
+<pre><code class="language-python">IntegerType.get()    # int
 DoubleType.get()     # double
 DecimalType.of(9, 2) # decimal(9, 2)
 </code></pre>
-
 <h3 id="nested-types">Nested types<a class="headerlink" href="#nested-types" title="Permanent link">&para;</a></h3>
 <p>Structs, maps, and lists are created using factory methods in type classes.</p>
 <p>Like struct fields, map keys or values and list elements are tracked as nested fields. Nested fields track <a href="https://iceberg.apache.org/evolution/#correctness">field IDs</a> and nullability.</p>
 <p>Struct fields are created using <code>NestedField.optional</code> or <code>NestedField.required</code>. Map value and list element nullability is set in the map and list factory methods.</p>
-<pre><code class="python"># struct&lt;1 id: int, 2 data: optional string&gt;
+<pre><code class="language-python"># struct&lt;1 id: int, 2 data: optional string&gt;
 struct = StructType.of([NestedField.required(1, &quot;id&quot;, IntegerType.get()),
                         NestedField.optional(2, &quot;data&quot;, StringType.get()])
   )
 </code></pre>
-
-<pre><code class="python"># map&lt;1 key: int, 2 value: optional string&gt;
+<pre><code class="language-python"># map&lt;1 key: int, 2 value: optional string&gt;
 map_var = MapType.of_optional(1, IntegerType.get(),
                           2, StringType.get())
 </code></pre>
-
-<pre><code class="python"># array&lt;1 element: int&gt;
+<pre><code class="language-python"># array&lt;1 element: int&gt;
 list_var = ListType.of_required(1, IntegerType.get());
 </code></pre>
-
 <h2 id="expressions">Expressions<a class="headerlink" href="#expressions" title="Permanent link">&para;</a></h2>
 <p>Iceberg’s <code>Expressions</code> are used to configure table scans. To create <code>Expressions</code>, use the factory methods in <code>Expressions</code>.</p>
 <p>Supported <code>Predicate</code> expressions are:</p>
@@ -484,21 +581,31 @@ list_var = ListType.of_required(1, IntegerType.get());
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

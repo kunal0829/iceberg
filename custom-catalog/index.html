@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/custom-catalog/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Custom Catalog - Apache Iceberg</title>
+    <title>Java Custom Catalog - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,48 +173,93 @@
 </li>
 
                         
-                            
-<li >
-    <a href="../spark#time-travel">Time Travel</a>
-</li>
-
-                        
                         </ul>
                     </li>
                 
                 
                 
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../flink/">Flink</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../hive/">Hive</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
 </li>
 
                         
                             
 <li >
-    <a href="/javadoc/">Javadoc</a>
-</li>
-
-                        
-                            
-<li class="active">
-    <a href="./">Custom Catalog</a>
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -231,30 +269,75 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../jdbc/">JDBC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="/javadoc/">Javadoc</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../api/">Java API intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../java-api-quickstart/">Java Quickstart</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Java Custom Catalog</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -332,7 +415,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                     <li >
-                        <a rel="prev" href="../api/">
+                        <a rel="prev" href="../java-api-quickstart/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -354,7 +437,11 @@
         <li class="first-level active"><a href="#custom-catalog-implementation">Custom Catalog Implementation</a></li>
             <li class="second-level"><a href="#custom-table-operations-implementation">Custom table operations implementation</a></li>
                 
-            <li class="second-level"><a href="#custom-table-implementation">Custom table implementation</a></li>
+            <li class="second-level"><a href="#custom-catalog-implementation_1">Custom catalog implementation</a></li>
+                
+            <li class="second-level"><a href="#custom-file-io-implementation">Custom file IO implementation</a></li>
+                
+            <li class="second-level"><a href="#custom-location-provider-implementation">Custom location provider implementation</a></li>
                 
             <li class="second-level"><a href="#custom-icebergsource">Custom IcebergSource</a></li>
                 
@@ -383,13 +470,15 @@
 <p>It&rsquo;s possible to read an iceberg table either from an hdfs path or from a hive table. It&rsquo;s also possible to use a custom metastore in place of hive. The steps to do that are as follows.</p>
 <ul>
 <li><a href="#custom-table-operations-implementation">Custom TableOperations</a></li>
-<li><a href="#custom-table-implementation">Custom Catalog</a></li>
+<li><a href="#custom-catalog-implementation">Custom Catalog</a></li>
+<li><a href="#custom-file-io-implementation">Custom FileIO</a></li>
+<li><a href="#custom-location-provider-implementation">Custom LocationProvider</a></li>
 <li><a href="#custom-icebergsource">Custom IcebergSource</a></li>
 </ul>
 <h3 id="custom-table-operations-implementation">Custom table operations implementation<a class="headerlink" href="#custom-table-operations-implementation" title="Permanent link">&para;</a></h3>
 <p>Extend <code>BaseMetastoreTableOperations</code> to provide implementation on how to read and write metadata</p>
 <p>Example:</p>
-<pre><code class="java">class CustomTableOperations extends BaseMetastoreTableOperations {
+<pre><code class="language-java">class CustomTableOperations extends BaseMetastoreTableOperations {
   private String dbName;
   private String tableName;
   private Configuration conf;
@@ -436,13 +525,19 @@
   }
 }
 </code></pre>
-
-<h3 id="custom-table-implementation">Custom table implementation<a class="headerlink" href="#custom-table-implementation" title="Permanent link">&para;</a></h3>
+<p>A <code>TableOperations</code> instance is usually obtained by calling <code>Catalog.newTableOps(TableIdentifier)</code>.
+See the next section about implementing and loading a custom catalog.</p>
+<h3 id="custom-catalog-implementation_1">Custom catalog implementation<a class="headerlink" href="#custom-catalog-implementation_1" title="Permanent link">&para;</a></h3>
 <p>Extend <code>BaseMetastoreCatalog</code> to provide default warehouse locations and instantiate <code>CustomTableOperations</code></p>
 <p>Example:</p>
-<pre><code class="java">public class CustomCatalog extends BaseMetastoreCatalog {
+<pre><code class="language-java">public class CustomCatalog extends BaseMetastoreCatalog {
 
   private Configuration configuration;
+
+  // must have a no-arg constructor to be dynamically loaded
+  // initialize(String name, Map&lt;String, String&gt; properties) will be called to complete initialization
+  public CustomCatalog() {
+  }
 
   public CustomCatalog(Configuration configuration) {
     this.configuration = configuration;
@@ -486,13 +581,101 @@
     // Example service to rename table
     CustomService.renameTable(from.namepsace().level(0), from.name(), to.name());
   }
+
+  // implement this method to read catalog name and properties during initialization
+  public void initialize(String name, Map&lt;String, String&gt; properties) {
+  }
 }
 </code></pre>
+<p>Catalog implementations can be dynamically loaded in most compute engines.
+For Spark and Flink, you can specify the <code>catalog-impl</code> catalog property to load it.
+Read the <a href="../configuration/#catalog-properties">Configuration</a> section for more details.
+For MapReduce, implement <code>org.apache.iceberg.mr.CatalogLoader</code> and set Hadoop property <code>iceberg.mr.catalog.loader.class</code> to load it.
+If your catalog must read Hadoop configuration to access certain environment properties, make your catalog implement <code>org.apache.hadoop.conf.Configurable</code>.</p>
+<h3 id="custom-file-io-implementation">Custom file IO implementation<a class="headerlink" href="#custom-file-io-implementation" title="Permanent link">&para;</a></h3>
+<p>Extend <code>FileIO</code> and provide implementation to read and write data files</p>
+<p>Example:</p>
+<pre><code class="language-java">public class CustomFileIO implements FileIO {
 
+  // must have a no-arg constructor to be dynamically loaded
+  // initialize(Map&lt;String, String&gt; properties) will be called to complete initialization
+  public CustomFileIO() {
+  }
+
+  @Override
+  public InputFile newInputFile(String s) {
+    // you also need to implement the InputFile interface for a custom input file
+    return new CustomInputFile(s);
+  }
+
+  @Override
+  public OutputFile newOutputFile(String s) {
+    // you also need to implement the OutputFile interface for a custom output file
+    return new CustomOutputFile(s);
+  }
+
+  @Override
+  public void deleteFile(String path) {
+    Path toDelete = new Path(path);
+    FileSystem fs = Util.getFs(toDelete);
+    try {
+        fs.delete(toDelete, false /* not recursive */);
+    } catch (IOException e) {
+        throw new RuntimeIOException(e, &quot;Failed to delete file: %s&quot;, path);
+    }
+  }
+
+  // implement this method to read catalog properties during initialization
+  public void initialize(Map&lt;String, String&gt; properties) {
+  }
+}
+</code></pre>
+<p>If you are already implementing your own catalog, you can implement <code>TableOperations.io()</code> to use your custom <code>FileIO</code>.
+In addition, custom <code>FileIO</code> implementations can also be dynamically loaded in <code>HadoopCatalog</code> and <code>HiveCatalog</code> by specifying the <code>io-impl</code> catalog property.
+Read the <a href="../configuration/#catalog-properties">Configuration</a> section for more details.
+If your <code>FileIO</code> must read Hadoop configuration to access certain environment properties, make your <code>FileIO</code> implement <code>org.apache.hadoop.conf.Configurable</code>.</p>
+<h3 id="custom-location-provider-implementation">Custom location provider implementation<a class="headerlink" href="#custom-location-provider-implementation" title="Permanent link">&para;</a></h3>
+<p>Extend <code>LocationProvider</code> and provide implementation to determine the file path to write data</p>
+<p>Example:</p>
+<pre><code class="language-java">public class CustomLocationProvider implements LocationProvider {
+
+  private String tableLocation;
+
+  // must have a 2-arg constructor like this, or a no-arg constructor
+  public CustomLocationProvider(String tableLocation, Map&lt;String, String&gt; properties) {
+    this.tableLocation = tableLocation;
+  }
+
+  @Override
+  public String newDataLocation(String filename) {
+    // can use any custom method to generate a file path given a file name
+    return String.format(&quot;%s/%s/%s&quot;, tableLocation, UUID.randomUUID().toString(), filename);
+  }
+
+  @Override
+  public String newDataLocation(PartitionSpec spec, StructLike partitionData, String filename) {
+    // can use any custom method to generate a file path given a partition info and file name
+    return newDataLocation(filename);
+  }
+}
+</code></pre>
+<p>If you are already implementing your own catalog, you can override <code>TableOperations.locationProvider()</code> to use your custom default <code>LocationProvider</code>.
+To use a different custom location provider for a specific table, specify the implementation when creating the table using table property <code>write.location-provider.impl</code></p>
+<p>Example:</p>
+<pre><code class="language-sql">CREATE TABLE hive.default.my_table (
+  id bigint,
+  data string,
+  category string)
+USING iceberg
+OPTIONS (
+  'write.location-provider.impl'='com.my.CustomLocationProvider'
+)
+PARTITIONED BY (category);
+</code></pre>
 <h3 id="custom-icebergsource">Custom IcebergSource<a class="headerlink" href="#custom-icebergsource" title="Permanent link">&para;</a></h3>
 <p>Extend <code>IcebergSource</code> and provide implementation to read from <code>CustomCatalog</code></p>
 <p>Example:</p>
-<pre><code class="java">public class CustomIcebergSource extends IcebergSource {
+<pre><code class="language-java">public class CustomIcebergSource extends IcebergSource {
 
   @Override
   protected Table findTable(DataSourceOptions options, Configuration conf) {
@@ -506,27 +689,36 @@
   }
 }
 </code></pre>
-
 <p>Register the <code>CustomIcebergSource</code> by updating  <code>META-INF/services/org.apache.spark.sql.sources.DataSourceRegister</code> with its fully qualified name</p></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

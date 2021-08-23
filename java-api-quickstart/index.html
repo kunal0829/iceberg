@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/java-api-quickstart/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Quickstart - Apache Iceberg</title>
+    <title>Java Quickstart - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,48 +173,93 @@
 </li>
 
                         
-                            
-<li >
-    <a href="../spark#time-travel">Time Travel</a>
-</li>
-
-                        
                         </ul>
                     </li>
                 
                 
                 
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../flink/">Flink</a>
 </li>
 
                         
                             
-<li class="active">
-    <a href="./">Quickstart</a>
+<li >
+    <a href="../hive/">Hive</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
 </li>
 
                         
                             
 <li >
-    <a href="/javadoc/">Javadoc</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../custom-catalog/">Custom Catalog</a>
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -231,30 +269,75 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../jdbc/">JDBC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="/javadoc/">Javadoc</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../api/">Java API intro</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Java Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../custom-catalog/">Java Custom Catalog</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -332,12 +415,12 @@
 
             <ul class="nav navbar-nav navbar-right">
                     <li >
-                        <a rel="prev" href="../reliability/">
+                        <a rel="prev" href="../api/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../api/">
+                        <a rel="next" href="../custom-catalog/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -389,17 +472,16 @@
 
 <h1 id="java-api-quickstart">Java API Quickstart<a class="headerlink" href="#java-api-quickstart" title="Permanent link">&para;</a></h1>
 <h2 id="create-a-table">Create a table<a class="headerlink" href="#create-a-table" title="Permanent link">&para;</a></h2>
-<p>Tables are created using either a <a href="/javadoc/master/index.html?org/apache/iceberg/catalog/Catalog.html"><code>Catalog</code></a> or an implementation of the <a href="/javadoc/master/index.html?org/apache/iceberg/Tables.html"><code>Tables</code></a> interface.</p>
+<p>Tables are created using either a <a href="../javadoc/master/?org/apache/iceberg/catalog/Catalog.html"><code>Catalog</code></a> or an implementation of the <a href="../javadoc/master/?org/apache/iceberg/Tables.html"><code>Tables</code></a> interface.</p>
 <h3 id="using-a-hive-catalog">Using a Hive catalog<a class="headerlink" href="#using-a-hive-catalog" title="Permanent link">&para;</a></h3>
 <p>The Hive catalog connects to a Hive MetaStore to keep track of Iceberg tables. This example uses Spark&rsquo;s Hadoop configuration to get a Hive catalog:</p>
-<pre><code class="java">import org.apache.iceberg.hive.HiveCatalog;
+<pre><code class="language-java">import org.apache.iceberg.hive.HiveCatalog;
 
 Catalog catalog = new HiveCatalog(spark.sparkContext().hadoopConfiguration());
 </code></pre>
-
 <p>The <code>Catalog</code> interface defines methods for working with tables, like <code>createTable</code>, <code>loadTable</code>, <code>renameTable</code>, and <code>dropTable</code>.</p>
 <p>To create a table, pass an <code>Identifier</code> and a <code>Schema</code> along with other initial metadata:</p>
-<pre><code class="java">import org.apache.iceberg.Table;
+<pre><code class="language-java">import org.apache.iceberg.Table;
 import org.apache.iceberg.catalog.TableIdentifier;
 
 TableIdentifier name = TableIdentifier.of(&quot;logging&quot;, &quot;logs&quot;);
@@ -408,21 +490,19 @@ Table table = catalog.createTable(name, schema, spec);
 // or to load an existing table, use the following line
 // Table table = catalog.loadTable(name);
 </code></pre>
-
 <p>The logs <a href="#create-a-schema">schema</a> and <a href="#create-a-partition-spec">partition spec</a> are created below.</p>
 <h3 id="using-a-hadoop-catalog">Using a Hadoop catalog<a class="headerlink" href="#using-a-hadoop-catalog" title="Permanent link">&para;</a></h3>
 <p>A Hadoop catalog doesn&rsquo;t need to connect to a Hive MetaStore, but can only be used with HDFS or similar file systems that support atomic rename. Concurrent writes with a Hadoop catalog are not safe with a local FS or S3. To create a Hadoop catalog:</p>
-<pre><code class="java">import org.apache.hadoop.conf.Configuration;
+<pre><code class="language-java">import org.apache.hadoop.conf.Configuration;
 import org.apache.iceberg.hadoop.HadoopCatalog;
 
 Configuration conf = new Configuration();
 String warehousePath = &quot;hdfs://host:8020/warehouse_path&quot;;
 HadoopCatalog catalog = new HadoopCatalog(conf, warehousePath);
 </code></pre>
-
 <p>Like the Hive catalog, <code>HadoopCatalog</code> implements <code>Catalog</code>, so it also has methods for working with tables, like <code>createTable</code>, <code>loadTable</code>, and <code>dropTable</code>.</p>
 <p>This example creates a table with Hadoop catalog:</p>
-<pre><code class="java">import org.apache.iceberg.Table;
+<pre><code class="language-java">import org.apache.iceberg.Table;
 import org.apache.iceberg.catalog.TableIdentifier;
 
 TableIdentifier name = TableIdentifier.of(&quot;logging&quot;, &quot;logs&quot;);
@@ -431,23 +511,21 @@ Table table = catalog.createTable(name, schema, spec);
 // or to load an existing table, use the following line
 // Table table = catalog.loadTable(name);
 </code></pre>
-
 <p>The logs <a href="#create-a-schema">schema</a> and <a href="#create-a-partition-spec">partition spec</a> are created below.</p>
 <h3 id="using-hadoop-tables">Using Hadoop tables<a class="headerlink" href="#using-hadoop-tables" title="Permanent link">&para;</a></h3>
 <p>Iceberg also supports tables that are stored in a directory in HDFS. Concurrent writes with a Hadoop tables are not safe when stored in the local FS or S3. Directory tables don&rsquo;t support all catalog operations, like rename, so they use the <code>Tables</code> interface instead of <code>Catalog</code>.</p>
 <p>To create a table in HDFS, use <code>HadoopTables</code>:</p>
-<pre><code class="java">import org.apache.hadoop.conf.Configuration;
+<pre><code class="language-java">import org.apache.hadoop.conf.Configuration;
 import org.apache.iceberg.hadoop.HadoopTables;
 import org.apache.iceberg.Table;
 
-Configuration conf = new Configuration():
+Configuration conf = new Configuration();
 HadoopTables tables = new HadoopTables(conf);
 Table table = tables.create(schema, spec, table_location);
 
 // or to load an existing table, use the following line
 // Table table = tables.load(table_location);
 </code></pre>
-
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Hadoop tables shouldn&rsquo;t be used with file systems that do not support atomic rename. Iceberg relies on rename to synchronize concurrent commits for directory tables.</p>
@@ -456,14 +534,14 @@ Table table = tables.create(schema, spec, table_location);
 <p>Spark uses both <code>HiveCatalog</code> and <code>HadoopTables</code> to load tables. Hive is used when the identifier passed to <code>load</code> or <code>save</code> is not a path, otherwise Spark assumes it is a path-based table.</p>
 <p>To read and write to tables from Spark see:</p>
 <ul>
-<li><a href="../spark#reading-an-iceberg-table">Reading a table in Spark</a></li>
-<li><a href="../spark#appending-data">Appending to a table in Spark</a></li>
-<li><a href="../spark#overwriting-data">Overwriting data in a table in Spark</a></li>
+<li><a href="../spark-queries/#querying-with-sql">SQL queries in Spark</a></li>
+<li><a href="../spark-writes/#insert-into"><code>INSERT INTO</code> in Spark</a></li>
+<li><a href="../spark-writes/#merge-into"><code>MERGE INTO</code> in Spark</a></li>
 </ul>
 <h2 id="schemas">Schemas<a class="headerlink" href="#schemas" title="Permanent link">&para;</a></h2>
 <h3 id="create-a-schema">Create a schema<a class="headerlink" href="#create-a-schema" title="Permanent link">&para;</a></h3>
 <p>This example creates a schema for a <code>logs</code> table:</p>
-<pre><code class="java">import org.apache.iceberg.Schema;
+<pre><code class="language-java">import org.apache.iceberg.Schema;
 import org.apache.iceberg.types.Types;
 
 Schema schema = new Schema(
@@ -473,58 +551,64 @@ Schema schema = new Schema(
       Types.NestedField.optional(4, &quot;call_stack&quot;, Types.ListType.ofRequired(5, Types.StringType.get()))
     );
 </code></pre>
-
 <p>When using the Iceberg API directly, type IDs are required. Conversions from other schema formats, like Spark, Avro, and Parquet will automatically assign new IDs.</p>
 <p>When a table is created, all IDs in the schema are re-assigned to ensure uniqueness.</p>
 <h3 id="convert-a-schema-from-avro">Convert a schema from Avro<a class="headerlink" href="#convert-a-schema-from-avro" title="Permanent link">&para;</a></h3>
 <p>To create an Iceberg schema from an existing Avro schema, use converters in <code>AvroSchemaUtil</code>:</p>
-<pre><code class="java">import org.apache.avro.Schema;
+<pre><code class="language-java">import org.apache.avro.Schema;
 import org.apache.avro.Schema.Parser;
 import org.apache.iceberg.avro.AvroSchemaUtil;
 
 Schema avroSchema = new Parser().parse(&quot;{\&quot;type\&quot;: \&quot;record\&quot; , ... }&quot;);
 Schema icebergSchema = AvroSchemaUtil.toIceberg(avroSchema);
 </code></pre>
-
 <h3 id="convert-a-schema-from-spark">Convert a schema from Spark<a class="headerlink" href="#convert-a-schema-from-spark" title="Permanent link">&para;</a></h3>
 <p>To create an Iceberg schema from an existing table, use converters in <code>SparkSchemaUtil</code>:</p>
-<pre><code class="java">import org.apache.iceberg.spark.SparkSchemaUtil;
+<pre><code class="language-java">import org.apache.iceberg.spark.SparkSchemaUtil;
 
 Schema schema = SparkSchemaUtil.schemaForTable(sparkSession, table_name);
 </code></pre>
-
 <h2 id="partitioning">Partitioning<a class="headerlink" href="#partitioning" title="Permanent link">&para;</a></h2>
 <h3 id="create-a-partition-spec">Create a partition spec<a class="headerlink" href="#create-a-partition-spec" title="Permanent link">&para;</a></h3>
 <p>Partition specs describe how Iceberg should group records into data files. Partition specs are created for a table&rsquo;s schema using a builder.</p>
 <p>This example creates a partition spec for the <code>logs</code> table that partitions records by the hour of the log event&rsquo;s timestamp and by log level:</p>
-<pre><code class="java">import org.apache.iceberg.PartitionSpec;
+<pre><code class="language-java">import org.apache.iceberg.PartitionSpec;
 
 PartitionSpec spec = PartitionSpec.builderFor(schema)
       .hour(&quot;event_time&quot;)
       .identity(&quot;level&quot;)
       .build();
 </code></pre>
-
-<p>For more information on the different partition transforms that Iceberg offers, visit <a href="../spec#partitioning">this page</a>.</p></div>
+<p>For more information on the different partition transforms that Iceberg offers, visit <a href="../spec/#partitioning">this page</a>.</p></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

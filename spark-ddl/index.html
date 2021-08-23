@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A table format for large, slow-moving tabular data">
+    
+    <link rel="canonical" href="https://iceberg.apache.org/spark-ddl/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>DDL - Apache Iceberg</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+    <link href="../css/extra.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../community/">Community</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../releases/">Releases</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../trademarks/">Trademarks</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../how-to-release/">How to Release</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../configuration/">Configuration</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schemas/">Schemas</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../partitioning/">Partitioning</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../evolution/">Table evolution</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../performance/">Performance</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../reliability/">Reliability</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../aws/">AWS</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../nessie/">Nessie</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../jdbc/">JDBC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="/javadoc/">Javadoc</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../api/">Java API intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../java-api-quickstart/">Java Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../custom-catalog/">Java Custom Catalog</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../terms/">Definitions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../spec/">Spec</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ASF <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="https://www.apache.org/licenses/">License</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/security/">Security</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/foundation/thanks.html">Sponsors</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/foundation/sponsorship.html">Donate</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/events/current-event.html">Events</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <a rel="prev" href="../spark-configuration/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../spark-queries/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#spark-ddl">Spark DDL</a></li>
+            <li class="second-level"><a href="#create-table">CREATE TABLE</a></li>
+                
+                <li class="third-level"><a href="#partitioned-by">PARTITIONED BY</a></li>
+            <li class="second-level"><a href="#create-table-as-select">CREATE TABLE ... AS SELECT</a></li>
+                
+            <li class="second-level"><a href="#replace-table-as-select">REPLACE TABLE ... AS SELECT</a></li>
+                
+            <li class="second-level"><a href="#drop-table">DROP TABLE</a></li>
+                
+            <li class="second-level"><a href="#alter-table">ALTER TABLE</a></li>
+                
+                <li class="third-level"><a href="#alter-table-rename-to">ALTER TABLE ... RENAME TO</a></li>
+                <li class="third-level"><a href="#alter-table-set-tblproperties">ALTER TABLE ... SET TBLPROPERTIES</a></li>
+                <li class="third-level"><a href="#alter-table-add-column">ALTER TABLE ... ADD COLUMN</a></li>
+                <li class="third-level"><a href="#alter-table-rename-column">ALTER TABLE ... RENAME COLUMN</a></li>
+                <li class="third-level"><a href="#alter-table-alter-column">ALTER TABLE ... ALTER COLUMN</a></li>
+                <li class="third-level"><a href="#alter-table-drop-column">ALTER TABLE ... DROP COLUMN</a></li>
+            <li class="second-level"><a href="#alter-table-sql-extensions">ALTER TABLE SQL extensions</a></li>
+                
+                <li class="third-level"><a href="#alter-table-add-partition-field">ALTER TABLE ... ADD PARTITION FIELD</a></li>
+                <li class="third-level"><a href="#alter-table-drop-partition-field">ALTER TABLE ... DROP PARTITION FIELD</a></li>
+                <li class="third-level"><a href="#alter-table-write-ordered-by">ALTER TABLE ... WRITE ORDERED BY</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<!--
+ - Licensed to the Apache Software Foundation (ASF) under one or more
+ - contributor license agreements.  See the NOTICE file distributed with
+ - this work for additional information regarding copyright ownership.
+ - The ASF licenses this file to You under the Apache License, Version 2.0
+ - (the "License"); you may not use this file except in compliance with
+ - the License.  You may obtain a copy of the License at
+ -
+ -   http://www.apache.org/licenses/LICENSE-2.0
+ -
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+ -->
+
+<h1 id="spark-ddl">Spark DDL<a class="headerlink" href="#spark-ddl" title="Permanent link">&para;</a></h1>
+<p>To use Iceberg in Spark, first configure <a href="../spark-configuration/">Spark catalogs</a>.</p>
+<p>Iceberg uses Apache Spark&rsquo;s DataSourceV2 API for data source and catalog implementations. Spark DSv2 is an evolving API with different levels of support in Spark versions. Spark 2.4 does not support SQL DDL.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Spark 2.4 can&rsquo;t create Iceberg tables with DDL, instead use Spark 3.x or the <a href="../java-api-quickstart/">Iceberg API</a>.</p>
+</div>
+<h2 id="create-table"><code>CREATE TABLE</code><a class="headerlink" href="#create-table" title="Permanent link">&para;</a></h2>
+<p>Spark 3.0 can create tables in any Iceberg catalog with the clause <code>USING iceberg</code>:</p>
+<pre><code class="language-sql">CREATE TABLE prod.db.sample (
+    id bigint COMMENT 'unique id',
+    data string)
+USING iceberg
+</code></pre>
+<p>Iceberg will convert the column type in Spark to corresponding Iceberg type. Please check the section of <a href="../spark-writes/#spark-type-to-iceberg-type">type compatibility on creating table</a> for details.</p>
+<p>Table create commands, including CTAS and RTAS, support the full range of Spark create clauses, including:</p>
+<ul>
+<li><code>PARTITION BY (partition-expressions)</code> to configure partitioning</li>
+<li><code>LOCATION '(fully-qualified-uri)'</code> to set the table location</li>
+<li><code>COMMENT 'table documentation'</code> to set a table description</li>
+<li><code>TBLPROPERTIES ('key'='value', ...)</code> to set <a href="../configuration/">table configuration</a></li>
+</ul>
+<p>Create commands may also set the default format with the <code>USING</code> clause. This is only supported for <code>SparkCatalog</code> because Spark handles the <code>USING</code> clause differently for the built-in catalog.</p>
+<h3 id="partitioned-by"><code>PARTITIONED BY</code><a class="headerlink" href="#partitioned-by" title="Permanent link">&para;</a></h3>
+<p>To create a partitioned table, use <code>PARTITIONED BY</code>:</p>
+<pre><code class="language-sql">CREATE TABLE prod.db.sample (
+    id bigint,
+    data string,
+    category string)
+USING iceberg
+PARTITIONED BY (category)
+</code></pre>
+<p>The <code>PARTITIONED BY</code> clause supports transform expressions to create <a href="../partitioning/">hidden partitions</a>.</p>
+<pre><code class="language-sql">CREATE TABLE prod.db.sample (
+    id bigint,
+    data string,
+    category string,
+    ts timestamp)
+USING iceberg
+PARTITIONED BY (bucket(16, id), days(ts), category)
+</code></pre>
+<p>Supported transformations are:</p>
+<ul>
+<li><code>years(ts)</code>: partition by year</li>
+<li><code>months(ts)</code>: partition by month</li>
+<li><code>days(ts)</code> or <code>date(ts)</code>: equivalent to dateint partitioning</li>
+<li><code>hours(ts)</code> or <code>date_hour(ts)</code>: equivalent to dateint and hour partitioning</li>
+<li><code>bucket(N, col)</code>: partition by hashed value mod N buckets</li>
+<li><code>truncate(L, col)</code>: partition by value truncated to L<ul>
+<li>Strings are truncated to the given length</li>
+<li>Integers and longs truncate to bins: <code>truncate(10, i)</code> produces partitions 0, 10, 20, 30, &hellip;</li>
+</ul>
+</li>
+</ul>
+<h2 id="create-table-as-select"><code>CREATE TABLE ... AS SELECT</code><a class="headerlink" href="#create-table-as-select" title="Permanent link">&para;</a></h2>
+<p>Iceberg supports CTAS as an atomic operation when using a <a href="#configuring-catalogs"><code>SparkCatalog</code></a>. CTAS is supported, but is not atomic when using <a href="#replacing-the-session-catalog"><code>SparkSessionCatalog</code></a>.</p>
+<pre><code class="language-sql">CREATE TABLE prod.db.sample
+USING iceberg
+AS SELECT ...
+</code></pre>
+<h2 id="replace-table-as-select"><code>REPLACE TABLE ... AS SELECT</code><a class="headerlink" href="#replace-table-as-select" title="Permanent link">&para;</a></h2>
+<p>Iceberg supports RTAS as an atomic operation when using a <a href="#configuring-catalogs"><code>SparkCatalog</code></a>. RTAS is supported, but is not atomic when using <a href="#replacing-the-session-catalog"><code>SparkSessionCatalog</code></a>.</p>
+<p>Atomic table replacement creates a new snapshot with the results of the <code>SELECT</code> query, but keeps table history.</p>
+<pre><code class="language-sql">REPLACE TABLE prod.db.sample
+USING iceberg
+AS SELECT ...
+</code></pre>
+<pre><code class="language-sql">CREATE OR REPLACE TABLE prod.db.sample
+USING iceberg
+AS SELECT ...
+</code></pre>
+<p>The schema and partition spec will be replaced if changed. To avoid modifying the table&rsquo;s schema and partitioning, use <code>INSERT OVERWRITE</code> instead of <code>REPLACE TABLE</code>.
+The new table properties in the <code>REPLACE TABLE</code> command will be merged with any existing table properties. The existing table properties will be updated if changed else they are preserved.</p>
+<h2 id="drop-table"><code>DROP TABLE</code><a class="headerlink" href="#drop-table" title="Permanent link">&para;</a></h2>
+<p>To delete a table, run:</p>
+<pre><code class="language-sql">DROP TABLE prod.db.sample
+</code></pre>
+<h2 id="alter-table"><code>ALTER TABLE</code><a class="headerlink" href="#alter-table" title="Permanent link">&para;</a></h2>
+<p>Iceberg has full <code>ALTER TABLE</code> support in Spark 3, including:</p>
+<ul>
+<li>Renaming a table</li>
+<li>Setting or removing table properties</li>
+<li>Adding, deleting, and renaming columns</li>
+<li>Adding, deleting, and renaming nested fields</li>
+<li>Reordering top-level columns and nested struct fields</li>
+<li>Widening the type of <code>int</code>, <code>float</code>, and <code>decimal</code> fields</li>
+<li>Making required columns optional</li>
+</ul>
+<p>In addition, <a href="../spark-configuration/#sql-extensions">SQL extensions</a> can be used to add support for partition evolution and setting a table&rsquo;s write order</p>
+<h3 id="alter-table-rename-to"><code>ALTER TABLE ... RENAME TO</code><a class="headerlink" href="#alter-table-rename-to" title="Permanent link">&para;</a></h3>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample RENAME TO prod.db.new_name
+</code></pre>
+<h3 id="alter-table-set-tblproperties"><code>ALTER TABLE ... SET TBLPROPERTIES</code><a class="headerlink" href="#alter-table-set-tblproperties" title="Permanent link">&para;</a></h3>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample SET TBLPROPERTIES (
+    'read.split.target-size'='268435456'
+)
+</code></pre>
+<p>Iceberg uses table properties to control table behavior. For a list of available properties, see <a href="../configuration/">Table configuration</a>.</p>
+<p><code>UNSET</code> is used to remove properties:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample UNSET TBLPROPERTIES ('read.split.target-size')
+</code></pre>
+<h3 id="alter-table-add-column"><code>ALTER TABLE ... ADD COLUMN</code><a class="headerlink" href="#alter-table-add-column" title="Permanent link">&para;</a></h3>
+<p>To add a column to Iceberg, use the <code>ADD COLUMNS</code> clause with <code>ALTER TABLE</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample
+ADD COLUMNS (
+    new_column string comment 'new_column docs'
+  )
+</code></pre>
+<p>Multiple columns can be added at the same time, separated by commas.</p>
+<p>Nested columns should be identified using the full column name:</p>
+<pre><code class="language-sql">-- create a struct column
+ALTER TABLE prod.db.sample
+ADD COLUMN point struct&lt;x: double, y: double&gt;;
+
+-- add a field to the struct
+ALTER TABLE prod.db.sample
+ADD COLUMN point.z double
+</code></pre>
+<p>In Spark 2.4.4 and later, you can add columns in any position by adding <code>FIRST</code> or <code>AFTER</code> clauses:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample
+ADD COLUMN new_column bigint AFTER other_column
+</code></pre>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample
+ADD COLUMN nested.new_column bigint FIRST
+</code></pre>
+<h3 id="alter-table-rename-column"><code>ALTER TABLE ... RENAME COLUMN</code><a class="headerlink" href="#alter-table-rename-column" title="Permanent link">&para;</a></h3>
+<p>Iceberg allows any field to be renamed. To rename a field, use <code>RENAME COLUMN</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample RENAME COLUMN data TO payload
+ALTER TABLE prod.db.sample RENAME COLUMN location.lat TO latitude
+</code></pre>
+<p>Note that nested rename commands only rename the leaf field. The above command renames <code>location.lat</code> to <code>location.latitude</code></p>
+<h3 id="alter-table-alter-column"><code>ALTER TABLE ... ALTER COLUMN</code><a class="headerlink" href="#alter-table-alter-column" title="Permanent link">&para;</a></h3>
+<p>Alter column is used to widen types, make a field optional, set comments, and reorder fields.</p>
+<p>Iceberg allows updating column types if the update is safe. Safe updates are:</p>
+<ul>
+<li><code>int</code> to <code>bigint</code></li>
+<li><code>float</code> to <code>double</code></li>
+<li><code>decimal(P,S)</code> to <code>decimal(P2,S)</code> when P2 &gt; P (scale cannot change)</li>
+</ul>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample ALTER COLUMN measurement TYPE double
+</code></pre>
+<p>To add or remove columns from a struct, use <code>ADD COLUMN</code> or <code>DROP COLUMN</code> with a nested column name.</p>
+<p>Column comments can also be updated using <code>ALTER COLUMN</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample ALTER COLUMN measurement TYPE double COMMENT 'unit is bytes per second'
+ALTER TABLE prod.db.sample ALTER COLUMN measurement COMMENT 'unit is kilobytes per second'
+</code></pre>
+<p>Iceberg allows reordering top-level columns or columns in a struct using <code>FIRST</code> and <code>AFTER</code> clauses:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample ALTER COLUMN col FIRST
+</code></pre>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample ALTER COLUMN nested.col AFTER other_col
+</code></pre>
+<p>Nullability can be changed using <code>SET NOT NULL</code> and <code>DROP NOT NULL</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample ALTER COLUMN id DROP NOT NULL
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>ALTER COLUMN</code> is not used to update <code>struct</code> types. Use <code>ADD COLUMN</code> and <code>DROP COLUMN</code> to add or remove struct fields.</p>
+</div>
+<h3 id="alter-table-drop-column"><code>ALTER TABLE ... DROP COLUMN</code><a class="headerlink" href="#alter-table-drop-column" title="Permanent link">&para;</a></h3>
+<p>To drop columns, use <code>ALTER TABLE ... DROP COLUMN</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample DROP COLUMN id
+ALTER TABLE prod.db.sample DROP COLUMN point.z
+</code></pre>
+<h2 id="alter-table-sql-extensions"><code>ALTER TABLE</code> SQL extensions<a class="headerlink" href="#alter-table-sql-extensions" title="Permanent link">&para;</a></h2>
+<p>These commands are available in Spark 3.x when using Iceberg <a href="../spark-configuration/#sql-extensions">SQL extensions</a>.</p>
+<h3 id="alter-table-add-partition-field"><code>ALTER TABLE ... ADD PARTITION FIELD</code><a class="headerlink" href="#alter-table-add-partition-field" title="Permanent link">&para;</a></h3>
+<p>Iceberg supports adding new partition fields to a spec using <code>ADD PARTITION FIELD</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample ADD PARTITION FIELD catalog -- identity transform
+</code></pre>
+<p><a href="#partitioned-by">Partition transforms</a> are also supported:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample ADD PARTITION FIELD bucket(16, id)
+ALTER TABLE prod.db.sample ADD PARTITION FIELD truncate(data, 4)
+ALTER TABLE prod.db.sample ADD PARTITION FIELD years(ts)
+-- use optional AS keyword to specify a custom name for the partition field 
+ALTER TABLE prod.db.sample ADD PARTITION FIELD bucket(16, id) AS shard
+</code></pre>
+<p>Adding a partition field is a metadata operation and does not change any of the existing table data. New data will be written with the new partitioning, but existing data will remain in the old partition layout. Old data files will have null values for the new partition fields in metadata tables.</p>
+<p>Dynamic partition overwrite behavior will change when the table&rsquo;s partitioning changes because dynamic overwrite replaces partitions implicitly. To overwrite explicitly, use the new <code>DataFrameWriterV2</code> API.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To migrate from daily to hourly partitioning with transforms, it is not necessary to drop the daily partition field. Keeping the field ensures existing metadata table queries continue to work.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Dynamic partition overwrite behavior will change</strong> when partitioning changes
+For example, if you partition by days and move to partitioning by hours, overwrites will overwrite hourly partitions but not days anymore.</p>
+</div>
+<h3 id="alter-table-drop-partition-field"><code>ALTER TABLE ... DROP PARTITION FIELD</code><a class="headerlink" href="#alter-table-drop-partition-field" title="Permanent link">&para;</a></h3>
+<p>Partition fields can be removed using <code>DROP PARTITION FIELD</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample DROP PARTITION FIELD catalog
+ALTER TABLE prod.db.sample DROP PARTITION FIELD bucket(16, id)
+ALTER TABLE prod.db.sample DROP PARTITION FIELD truncate(data, 4)
+ALTER TABLE prod.db.sample DROP PARTITION FIELD years(ts)
+ALTER TABLE prod.db.sample DROP PARTITION FIELD shard
+</code></pre>
+<p>Note that although the partition is removed, the column will still exist in the table schema.</p>
+<p>Dropping a partition field is a metadata operation and does not change any of the existing table data. New data will be written with the new partitioning, but existing data will remain in the old partition layout.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Dynamic partition overwrite behavior will change</strong> when partitioning changes
+For example, if you partition by days and move to partitioning by hours, overwrites will overwrite hourly partitions but not days anymore.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful when dropping a partition field because it will change the schema of metadata tables, like <code>files</code>, and may cause metadata queries to fail or produce different results.</p>
+</div>
+<h3 id="alter-table-write-ordered-by"><code>ALTER TABLE ... WRITE ORDERED BY</code><a class="headerlink" href="#alter-table-write-ordered-by" title="Permanent link">&para;</a></h3>
+<p>Iceberg tables can be configured with a sort order that is used to automatically sort data that is written to the table in some engines. For example, <code>MERGE INTO</code> in Spark will use the table ordering.</p>
+<p>To set the write order for a table, use <code>WRITE ORDERED BY</code>:</p>
+<pre><code class="language-sql">ALTER TABLE prod.db.sample WRITE ORDERED BY category, id
+-- use optional ASC/DEC keyword to specify sort order of each field (default ASC)
+ALTER TABLE prod.db.sample WRITE ORDERED BY category ASC, id DESC
+-- use optional NULLS FIRST/NULLS LAST keyword to specify null order of each field (default FIRST)
+ALTER TABLE prod.db.sample WRITE ORDERED BY category ASC NULLS LAST, id DESC NULLS FIRST
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Table write order does not guarantee data order for queries. It only affects how data is written to the table.</p>
+</div></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

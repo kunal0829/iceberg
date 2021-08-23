@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A table format for large, slow-moving tabular data">
+    
+    <link rel="canonical" href="https://iceberg.apache.org/spark-queries/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>Queries - Apache Iceberg</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+    <link href="../css/extra.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../community/">Community</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../releases/">Releases</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../trademarks/">Trademarks</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../how-to-release/">How to Release</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../configuration/">Configuration</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schemas/">Schemas</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../partitioning/">Partitioning</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../evolution/">Table evolution</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../performance/">Performance</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../reliability/">Reliability</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../aws/">AWS</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../nessie/">Nessie</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../jdbc/">JDBC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="/javadoc/">Javadoc</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../api/">Java API intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../java-api-quickstart/">Java Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../custom-catalog/">Java Custom Catalog</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../terms/">Definitions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../spec/">Spec</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ASF <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="https://www.apache.org/licenses/">License</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/security/">Security</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/foundation/thanks.html">Sponsors</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/foundation/sponsorship.html">Donate</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/events/current-event.html">Events</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <a rel="prev" href="../spark-ddl/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../spark-writes/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#spark-queries">Spark Queries</a></li>
+            <li class="second-level"><a href="#querying-with-sql">Querying with SQL</a></li>
+                
+            <li class="second-level"><a href="#querying-with-dataframes">Querying with DataFrames</a></li>
+                
+                <li class="third-level"><a href="#catalogs-with-dataframereader">Catalogs with DataFrameReader</a></li>
+                <li class="third-level"><a href="#time-travel">Time travel</a></li>
+                <li class="third-level"><a href="#spark-24">Spark 2.4</a></li>
+            <li class="second-level"><a href="#inspecting-tables">Inspecting tables</a></li>
+                
+                <li class="third-level"><a href="#history">History</a></li>
+                <li class="third-level"><a href="#snapshots">Snapshots</a></li>
+                <li class="third-level"><a href="#files">Files</a></li>
+                <li class="third-level"><a href="#manifests">Manifests</a></li>
+            <li class="second-level"><a href="#inspecting-with-dataframes">Inspecting with DataFrames</a></li>
+                
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<!--
+ - Licensed to the Apache Software Foundation (ASF) under one or more
+ - contributor license agreements.  See the NOTICE file distributed with
+ - this work for additional information regarding copyright ownership.
+ - The ASF licenses this file to You under the Apache License, Version 2.0
+ - (the "License"); you may not use this file except in compliance with
+ - the License.  You may obtain a copy of the License at
+ -
+ -   http://www.apache.org/licenses/LICENSE-2.0
+ -
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+ -->
+
+<h1 id="spark-queries">Spark Queries<a class="headerlink" href="#spark-queries" title="Permanent link">&para;</a></h1>
+<p>To use Iceberg in Spark, first configure <a href="../spark-configuration/">Spark catalogs</a>.</p>
+<p>Iceberg uses Apache Spark&rsquo;s DataSourceV2 API for data source and catalog implementations. Spark DSv2 is an evolving API with different levels of support in Spark versions:</p>
+<table>
+<thead>
+<tr>
+<th>Feature support</th>
+<th>Spark 3.0</th>
+<th>Spark 2.4</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#querying-with-sql"><code>SELECT</code></a></td>
+<td>✔️</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#querying-with-dataframes">DataFrame reads</a></td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#inspecting-tables">Metadata table <code>SELECT</code></a></td>
+<td>✔️</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#history">History metadata table</a></td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#snapshots">Snapshots metadata table</a></td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#files">Files metadata table</a></td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td><a href="#manifests">Manifests metadata table</a></td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="querying-with-sql">Querying with SQL<a class="headerlink" href="#querying-with-sql" title="Permanent link">&para;</a></h2>
+<p>In Spark 3, tables use identifiers that include a <a href="../spark-configuration/#using-catalogs">catalog name</a>.</p>
+<pre><code class="language-sql">SELECT * FROM prod.db.table -- catalog: prod, namespace: db, table: table
+</code></pre>
+<p>Metadata tables, like <code>history</code> and <code>snapshots</code>, can use the Iceberg table name as a namespace.</p>
+<p>For example, to read from the <code>files</code> metadata table for <code>prod.db.table</code>, run:</p>
+<pre><code>SELECT * FROM prod.db.table.files
+</code></pre>
+<h2 id="querying-with-dataframes">Querying with DataFrames<a class="headerlink" href="#querying-with-dataframes" title="Permanent link">&para;</a></h2>
+<p>To load a table as a DataFrame, use <code>table</code>:</p>
+<pre><code class="language-scala">val df = spark.table(&quot;prod.db.table&quot;)
+</code></pre>
+<h3 id="catalogs-with-dataframereader">Catalogs with DataFrameReader<a class="headerlink" href="#catalogs-with-dataframereader" title="Permanent link">&para;</a></h3>
+<p>Iceberg 0.11.0 adds multi-catalog support to <code>DataFrameReader</code> in both Spark 3.x and 2.4.</p>
+<p>Paths and table names can be loaded with Spark&rsquo;s <code>DataFrameReader</code> interface. How tables are loaded depends on how
+the identifier is specified. When using <code>spark.read.format("iceberg").path(table)</code> or <code>spark.table(table)</code> the <code>table</code>
+variable can take a number of forms as listed below:</p>
+<ul>
+<li><code>file:/path/to/table</code>: loads a HadoopTable at given path</li>
+<li><code>tablename</code>: loads <code>currentCatalog.currentNamespace.tablename</code></li>
+<li><code>catalog.tablename</code>: loads <code>tablename</code> from the specified catalog.</li>
+<li><code>namespace.tablename</code>: loads <code>namespace.tablename</code> from current catalog</li>
+<li><code>catalog.namespace.tablename</code>: loads <code>namespace.tablename</code> from the specified catalog.</li>
+<li><code>namespace1.namespace2.tablename</code>: loads <code>namespace1.namespace2.tablename</code> from current catalog</li>
+</ul>
+<p>The above list is in order of priority. For example: a matching catalog will take priority over any namespace resolution.</p>
+<h3 id="time-travel">Time travel<a class="headerlink" href="#time-travel" title="Permanent link">&para;</a></h3>
+<p>To select a specific table snapshot or the snapshot at some time, Iceberg supports two Spark read options:</p>
+<ul>
+<li><code>snapshot-id</code> selects a specific table snapshot</li>
+<li><code>as-of-timestamp</code> selects the current snapshot at a timestamp, in milliseconds</li>
+</ul>
+<pre><code class="language-scala">// time travel to October 26, 1986 at 01:21:00
+spark.read
+    .option(&quot;as-of-timestamp&quot;, &quot;499162860000&quot;)
+    .format(&quot;iceberg&quot;)
+    .load(&quot;path/to/table&quot;)
+</code></pre>
+<pre><code class="language-scala">// time travel to snapshot with ID 10963874102873L
+spark.read
+    .option(&quot;snapshot-id&quot;, 10963874102873L)
+    .format(&quot;iceberg&quot;)
+    .load(&quot;path/to/table&quot;)
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Spark does not currently support using <code>option</code> with <code>table</code> in DataFrameReader commands. All options will be silently 
+ignored. Do not use <code>table</code> when attempting to time-travel or use other options. Options will be supported with <code>table</code>
+in <a href="https://issues.apache.org/jira/browse/SPARK-32592">Spark 3.1 - SPARK-32592</a>.</p>
+</div>
+<p>Time travel is not yet supported by Spark&rsquo;s SQL syntax.</p>
+<h3 id="spark-24">Spark 2.4<a class="headerlink" href="#spark-24" title="Permanent link">&para;</a></h3>
+<p>Spark 2.4 requires using the DataFrame reader with <code>iceberg</code> as a format, because 2.4 does not support direct SQL queries:</p>
+<pre><code class="language-scala">// named metastore table
+spark.read.format(&quot;iceberg&quot;).load(&quot;catalog.db.table&quot;)
+// Hadoop path table
+spark.read.format(&quot;iceberg&quot;).load(&quot;hdfs://nn:8020/path/to/table&quot;)
+</code></pre>
+<h4 id="spark-24-with-sql">Spark 2.4 with SQL<a class="headerlink" href="#spark-24-with-sql" title="Permanent link">&para;</a></h4>
+<p>To run SQL <code>SELECT</code> statements on Iceberg tables in 2.4, register the DataFrame as a temporary table:</p>
+<pre><code class="language-scala">val df = spark.read.format(&quot;iceberg&quot;).load(&quot;db.table&quot;)
+df.createOrReplaceTempView(&quot;table&quot;)
+
+spark.sql(&quot;&quot;&quot;select count(1) from table&quot;&quot;&quot;).show()
+</code></pre>
+<h2 id="inspecting-tables">Inspecting tables<a class="headerlink" href="#inspecting-tables" title="Permanent link">&para;</a></h2>
+<p>To inspect a table&rsquo;s history, snapshots, and other metadata, Iceberg supports metadata tables.</p>
+<p>Metadata tables are identified by adding the metadata table name after the original table name. For example, history for <code>db.table</code> is read using <code>db.table.history</code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of Spark 3.0, the format of the table name for inspection (<code>catalog.database.table.metadata</code>) doesn&rsquo;t work with Spark&rsquo;s default catalog (<code>spark_catalog</code>). If you&rsquo;ve replaced the default catalog, you may want to use <code>DataFrameReader</code> API to inspect the table. </p>
+</div>
+<h3 id="history">History<a class="headerlink" href="#history" title="Permanent link">&para;</a></h3>
+<p>To show table history, run:</p>
+<pre><code class="language-sql">SELECT * FROM prod.db.table.history
+</code></pre>
+<pre><code class="language-text">+-------------------------+---------------------+---------------------+---------------------+
+| made_current_at         | snapshot_id         | parent_id           | is_current_ancestor |
++-------------------------+---------------------+---------------------+---------------------+
+| 2019-02-08 03:29:51.215 | 5781947118336215154 | NULL                | true                |
+| 2019-02-08 03:47:55.948 | 5179299526185056830 | 5781947118336215154 | true                |
+| 2019-02-09 16:24:30.13  | 296410040247533544  | 5179299526185056830 | false               |
+| 2019-02-09 16:32:47.336 | 2999875608062437330 | 5179299526185056830 | true                |
+| 2019-02-09 19:42:03.919 | 8924558786060583479 | 2999875608062437330 | true                |
+| 2019-02-09 19:49:16.343 | 6536733823181975045 | 8924558786060583479 | true                |
++-------------------------+---------------------+---------------------+---------------------+
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>This shows a commit that was rolled back.</strong> The example has two snapshots with the same parent, and one is <em>not</em> an ancestor of the current table state.</p>
+</div>
+<h3 id="snapshots">Snapshots<a class="headerlink" href="#snapshots" title="Permanent link">&para;</a></h3>
+<p>To show the valid snapshots for a table, run:</p>
+<pre><code class="language-sql">SELECT * FROM prod.db.table.snapshots
+</code></pre>
+<pre><code class="language-text">+-------------------------+----------------+-----------+-----------+----------------------------------------------------+-------------------------------------------------------+
+| committed_at            | snapshot_id    | parent_id | operation | manifest_list                                      | summary                                               |
++-------------------------+----------------+-----------+-----------+----------------------------------------------------+-------------------------------------------------------+
+| 2019-02-08 03:29:51.215 | 57897183625154 | null      | append    | s3://.../table/metadata/snap-57897183625154-1.avro | { added-records -&gt; 2478404, total-records -&gt; 2478404, |
+|                         |                |           |           |                                                    |   added-data-files -&gt; 438, total-data-files -&gt; 438,   |
+|                         |                |           |           |                                                    |   spark.app.id -&gt; application_1520379288616_155055 }  |
+| ...                     | ...            | ...       | ...       | ...                                                | ...                                                   |
++-------------------------+----------------+-----------+-----------+----------------------------------------------------+-------------------------------------------------------+
+</code></pre>
+<p>You can also join snapshots to table history. For example, this query will show table history, with the application ID that wrote each snapshot:</p>
+<pre><code class="language-sql">select
+    h.made_current_at,
+    s.operation,
+    h.snapshot_id,
+    h.is_current_ancestor,
+    s.summary['spark.app.id']
+from prod.db.table.history h
+join prod.db.table.snapshots s
+  on h.snapshot_id = s.snapshot_id
+order by made_current_at
+</code></pre>
+<pre><code class="language-text">+-------------------------+-----------+----------------+---------------------+----------------------------------+
+| made_current_at         | operation | snapshot_id    | is_current_ancestor | summary[spark.app.id]            |
++-------------------------+-----------+----------------+---------------------+----------------------------------+
+| 2019-02-08 03:29:51.215 | append    | 57897183625154 | true                | application_1520379288616_155055 |
+| 2019-02-09 16:24:30.13  | delete    | 29641004024753 | false               | application_1520379288616_151109 |
+| 2019-02-09 16:32:47.336 | append    | 57897183625154 | true                | application_1520379288616_155055 |
+| 2019-02-08 03:47:55.948 | overwrite | 51792995261850 | true                | application_1520379288616_152431 |
++-------------------------+-----------+----------------+---------------------+----------------------------------+
+</code></pre>
+<h3 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h3>
+<p>To show a table&rsquo;s data files and each file&rsquo;s metadata, run:</p>
+<pre><code class="language-sql">SELECT * FROM prod.db.table.files
+</code></pre>
+<pre><code class="language-text">+-------------------------------------------------------------------------+-------------+--------------+--------------------+--------------------+------------------+-------------------+------------------+-----------------+-----------------+--------------+---------------+
+| file_path                                                               | file_format | record_count | file_size_in_bytes | column_sizes       | value_counts     | null_value_counts | nan_value_counts | lower_bounds    | upper_bounds    | key_metadata | split_offsets |
++-------------------------------------------------------------------------+-------------+--------------+--------------------+--------------------+------------------+-------------------+------------------+-----------------+-----------------+--------------+---------------+
+| s3:/.../table/data/00000-3-8d6d60e8-d427-4809-bcf0-f5d45a4aad96.parquet | PARQUET     | 1            | 597                | [1 -&gt; 90, 2 -&gt; 62] | [1 -&gt; 1, 2 -&gt; 1] | [1 -&gt; 0, 2 -&gt; 0]  | []               | [1 -&gt; , 2 -&gt; c] | [1 -&gt; , 2 -&gt; c] | null         | [4]           |
+| s3:/.../table/data/00001-4-8d6d60e8-d427-4809-bcf0-f5d45a4aad96.parquet | PARQUET     | 1            | 597                | [1 -&gt; 90, 2 -&gt; 62] | [1 -&gt; 1, 2 -&gt; 1] | [1 -&gt; 0, 2 -&gt; 0]  | []               | [1 -&gt; , 2 -&gt; b] | [1 -&gt; , 2 -&gt; b] | null         | [4]           |
+| s3:/.../table/data/00002-5-8d6d60e8-d427-4809-bcf0-f5d45a4aad96.parquet | PARQUET     | 1            | 597                | [1 -&gt; 90, 2 -&gt; 62] | [1 -&gt; 1, 2 -&gt; 1] | [1 -&gt; 0, 2 -&gt; 0]  | []               | [1 -&gt; , 2 -&gt; a] | [1 -&gt; , 2 -&gt; a] | null         | [4]           |
++-------------------------------------------------------------------------+-------------+--------------+--------------------+--------------------+------------------+-------------------+------------------+-----------------+-----------------+--------------+---------------+
+</code></pre>
+<h3 id="manifests">Manifests<a class="headerlink" href="#manifests" title="Permanent link">&para;</a></h3>
+<p>To show a table&rsquo;s file manifests and each file&rsquo;s metadata, run:</p>
+<pre><code class="language-sql">SELECT * FROM prod.db.table.manifests
+</code></pre>
+<pre><code class="language-text">+----------------------------------------------------------------------+--------+-------------------+---------------------+------------------------+---------------------------+--------------------------+--------------------------------------+
+| path                                                                 | length | partition_spec_id | added_snapshot_id   | added_data_files_count | existing_data_files_count | deleted_data_files_count | partition_summaries                  |
++----------------------------------------------------------------------+--------+-------------------+---------------------+------------------------+---------------------------+--------------------------+--------------------------------------+
+| s3://.../table/metadata/45b5290b-ee61-4788-b324-b1e2735c0e10-m0.avro | 4479   | 0                 | 6668963634911763636 | 8                      | 0                         | 0                        | [[false,null,2019-05-13,2019-05-15]] |
++----------------------------------------------------------------------+--------+-------------------+---------------------+------------------------+---------------------------+--------------------------+--------------------------------------+
+</code></pre>
+<p>Note: 
+1. Fields within <code>partition_summaries</code> column of the manifests table correspond to <code>field_summary</code> structs within <a href="../spec/#manifest-lists">manifest list</a>, with the following order: 
+   - <code>contains_null</code>
+   - <code>contains_nan</code>
+   - <code>lower_bound</code>
+   - <code>upper_bound</code>
+2. <code>contains_nan</code> could return null, which indicates that this information is not available from files&rsquo; metadata. 
+   This usually occurs when reading from V1 table, where <code>contains_nan</code> is not populated. </p>
+<h2 id="inspecting-with-dataframes">Inspecting with DataFrames<a class="headerlink" href="#inspecting-with-dataframes" title="Permanent link">&para;</a></h2>
+<p>Metadata tables can be loaded in Spark 2.4 or Spark 3 using the DataFrameReader API:</p>
+<pre><code class="language-scala">// named metastore table
+spark.read.format(&quot;iceberg&quot;).load(&quot;db.table.files&quot;).show(truncate = false)
+// Hadoop path table
+spark.read.format(&quot;iceberg&quot;).load(&quot;hdfs://nn:8020/path/to/table#files&quot;).show(truncate = false)
+</code></pre></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

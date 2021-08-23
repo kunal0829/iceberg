@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/spark-structured-streaming/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
-    <title>Spark Streaming - Apache Iceberg</title>
+    <title>Structured Streaming - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li class="active">
-    <a href="./">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,9 +173,93 @@
 </li>
 
                         
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li class="active">
+    <a href="./">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
                             
 <li >
-    <a href="../spark#time-travel">Time Travel</a>
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -192,26 +269,35 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="../jdbc/">JDBC</a>
 </li>
 
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                         
                             
 <li >
@@ -221,40 +307,37 @@
                         
                             
 <li >
-    <a href="../custom-catalog/">Custom Catalog</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../api/">Java API intro</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../java-api-quickstart/">Java Quickstart</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../custom-catalog/">Java Custom Catalog</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -332,12 +415,12 @@
 
             <ul class="nav navbar-nav navbar-right">
                     <li >
-                        <a rel="prev" href="../spark/">
+                        <a rel="prev" href="../spark-procedures/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../presto/">
+                        <a rel="next" href="../flink/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -354,6 +437,7 @@
         <li class="first-level active"><a href="#spark-structured-streaming">Spark Structured Streaming</a></li>
             <li class="second-level"><a href="#streaming-writes">Streaming Writes</a></li>
                 
+                <li class="third-level"><a href="#writing-against-partitioned-table">Writing against partitioned table</a></li>
             <li class="second-level"><a href="#maintenance-for-streaming-tables">Maintenance for streaming tables</a></li>
                 
                 <li class="third-level"><a href="#tune-the-rate-of-commits">Tune the rate of commits</a></li>
@@ -405,7 +489,7 @@ with different levels of support in Spark versions.</p>
 </table>
 <h2 id="streaming-writes">Streaming Writes<a class="headerlink" href="#streaming-writes" title="Permanent link">&para;</a></h2>
 <p>To write values from streaming query to Iceberg table, use <code>DataStreamWriter</code>:</p>
-<pre><code class="scala">val tableIdentifier: String = ...
+<pre><code class="language-scala">val tableIdentifier: String = ...
 data.writeStream
     .format(&quot;iceberg&quot;)
     .outputMode(&quot;append&quot;)
@@ -414,7 +498,6 @@ data.writeStream
     .option(&quot;checkpointLocation&quot;, checkpointPath)
     .start()
 </code></pre>
-
 <p>The <code>tableIdentifier</code> can be:</p>
 <ul>
 <li>The fully-qualified path to a HDFS table, like <code>hdfs://nn:8020/path/to/table</code></li>
@@ -426,8 +509,26 @@ data.writeStream
 <li><code>append</code>: appends the rows of every micro-batch to the table</li>
 <li><code>complete</code>: replaces the table contents every micro-batch</li>
 </ul>
-<p>The table should be created in prior to start the streaming query. Refer <a href="/spark/#create-table">SQL create table</a>
+<p>The table should be created in prior to start the streaming query. Refer <a href="/spark-ddl/#create-table">SQL create table</a>
 on Spark page to see how to create the Iceberg table.</p>
+<h3 id="writing-against-partitioned-table">Writing against partitioned table<a class="headerlink" href="#writing-against-partitioned-table" title="Permanent link">&para;</a></h3>
+<p>Iceberg requires the data to be sorted according to the partition spec per task (Spark partition) in prior to write
+against partitioned table. For batch queries you&rsquo;re encouraged to do explicit sort to fulfill the requirement
+(see <a href="/spark-writes/#writing-to-partitioned-tables">here</a>), but the approach would bring additional latency as
+repartition and sort are considered as heavy operations for streaming workload. To avoid additional latency, you can
+enable fanout writer to eliminate the requirement.</p>
+<pre><code class="language-scala">val tableIdentifier: String = ...
+data.writeStream
+    .format(&quot;iceberg&quot;)
+    .outputMode(&quot;append&quot;)
+    .trigger(Trigger.ProcessingTime(1, TimeUnit.MINUTES))
+    .option(&quot;path&quot;, tableIdentifier)
+    .option(&quot;fanout-enabled&quot;, &quot;true&quot;)
+    .option(&quot;checkpointLocation&quot;, checkpointPath)
+    .start()
+</code></pre>
+<p>Fanout writer opens the files per partition value and doesn&rsquo;t close these files till write task is finished.
+This functionality is discouraged for batch query, as explicit sort against output rows isn&rsquo;t expensive for batch workload.</p>
 <h2 id="maintenance-for-streaming-tables">Maintenance for streaming tables<a class="headerlink" href="#maintenance-for-streaming-tables" title="Permanent link">&para;</a></h2>
 <p>Streaming queries can create new table versions quickly, which creates lots of table metadata to track those versions.
 Maintaining metadata by tuning the rate of commits, expiring old snapshots, and automatically cleaning up metadata files
@@ -438,31 +539,41 @@ to maintain. We encourage having trigger interval 1 minute at minimum, and incre
 <p>The triggers section in <a href="https://spark.apache.org/docs/latest/structured-streaming-programming-guide.html#triggers">Structured Streaming Programming Guide</a>
 documents how to configure the interval.</p>
 <h3 id="expire-old-snapshots">Expire old snapshots<a class="headerlink" href="#expire-old-snapshots" title="Permanent link">&para;</a></h3>
-<p>Each micro-batch written to a table produces a new snapshot, which are tracked in table metadata until they are expired to remove the metadata and any data files that are no longer needed. Snapshots accumulate quickly with frequent commits, so it is highly recommended that tables written by streaming queries are <a href="../maintenance#expire-snapshots">regularly maintained</a>.</p>
+<p>Each micro-batch written to a table produces a new snapshot, which are tracked in table metadata until they are expired to remove the metadata and any data files that are no longer needed. Snapshots accumulate quickly with frequent commits, so it is highly recommended that tables written by streaming queries are <a href="../maintenance/#expire-snapshots">regularly maintained</a>.</p>
 <h3 id="compacting-data-files">Compacting data files<a class="headerlink" href="#compacting-data-files" title="Permanent link">&para;</a></h3>
-<p>The amount of data written in a micro batch is typically small, which can cause the table metadata to track lots of small files. <a href="../maintenance#compact-data-files">Compacting small files into larger files</a> reduces the metadata needed by the table, and increases query efficiency.</p>
+<p>The amount of data written in a micro batch is typically small, which can cause the table metadata to track lots of small files. <a href="../maintenance/#compact-data-files">Compacting small files into larger files</a> reduces the metadata needed by the table, and increases query efficiency.</p>
 <h3 id="rewrite-manifests">Rewrite manifests<a class="headerlink" href="#rewrite-manifests" title="Permanent link">&para;</a></h3>
 <p>To optimize write latency on streaming workload, Iceberg may write the new snapshot with a &ldquo;fast&rdquo; append that does not automatically compact manifests.
-This could lead lots of small manifest files. Manifests can be <a href="../maintenance#rewrite-manifests">rewritten to optimize queries and to compact</a>.</p></div>
+This could lead lots of small manifest files. Manifests can be <a href="../maintenance/#rewrite-manifests">rewritten to optimize queries and to compact</a>.</p></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

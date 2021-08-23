@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/configuration/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
     <title>Configuration - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li class="active">
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,9 +173,93 @@
 </li>
 
                         
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
                             
 <li >
-    <a href="../spark#time-travel">Time Travel</a>
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -192,26 +269,35 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="../jdbc/">JDBC</a>
 </li>
 
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                         
                             
 <li >
@@ -221,40 +307,37 @@
                         
                             
 <li >
-    <a href="../custom-catalog/">Custom Catalog</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../api/">Java API intro</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../java-api-quickstart/">Java Quickstart</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../custom-catalog/">Java Custom Catalog</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -332,7 +415,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                     <li >
-                        <a rel="prev" href="../maintenance/">
+                        <a rel="prev" href="../getting-started/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -358,13 +441,11 @@
                 <li class="third-level"><a href="#write-properties">Write properties</a></li>
                 <li class="third-level"><a href="#table-behavior-properties">Table behavior properties</a></li>
                 <li class="third-level"><a href="#compatibility-flags">Compatibility flags</a></li>
+            <li class="second-level"><a href="#catalog-properties">Catalog properties</a></li>
+                
+                <li class="third-level"><a href="#lock-catalog-properties">Lock catalog properties</a></li>
             <li class="second-level"><a href="#hadoop-configuration">Hadoop configuration</a></li>
                 
-            <li class="second-level"><a href="#spark-configuration">Spark configuration</a></li>
-                
-                <li class="third-level"><a href="#catalogs">Catalogs</a></li>
-                <li class="third-level"><a href="#read-options">Read options</a></li>
-                <li class="third-level"><a href="#write-options">Write options</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
@@ -434,7 +515,7 @@
 <tr>
 <td>write.format.default</td>
 <td>parquet</td>
-<td>Default file format for the table; parquet or avro</td>
+<td>Default file format for the table; parquet, avro, or orc</td>
 </tr>
 <tr>
 <td>write.parquet.row-group-size-bytes</td>
@@ -467,6 +548,11 @@
 <td>Avro compression codec</td>
 </tr>
 <tr>
+<td>write.location-provider.impl</td>
+<td>null</td>
+<td>Optional custom implemention for LocationProvider</td>
+</tr>
+<tr>
 <td>write.metadata.compression-codec</td>
 <td>none</td>
 <td>Metadata compression codec; none or gzip</td>
@@ -483,13 +569,23 @@
 </tr>
 <tr>
 <td>write.target-file-size-bytes</td>
-<td>Long.MAX_VALUE</td>
+<td>536870912 (512 MB)</td>
 <td>Controls the size of files generated to target about this many bytes</td>
+</tr>
+<tr>
+<td>write.distribution-mode</td>
+<td>none</td>
+<td>Defines distribution of write data: <strong>none</strong>: don&rsquo;t shuffle rows; <strong>hash</strong>: hash distribute by partition key ; <strong>range</strong>: range distribute by partition key or sort key if table has an SortOrder</td>
 </tr>
 <tr>
 <td>write.wap.enabled</td>
 <td>false</td>
 <td>Enables write-audit-publish writes</td>
+</tr>
+<tr>
+<td>write.summary.partition-limit</td>
+<td>0</td>
+<td>Includes partition-level summary stats in snapshot summaries if the changed partition count is less than this limit</td>
 </tr>
 <tr>
 <td>write.metadata.delete-after-commit.enabled</td>
@@ -500,6 +596,11 @@
 <td>write.metadata.previous-versions-max</td>
 <td>100</td>
 <td>The max number of previous version metadata files to keep before deleting after commit</td>
+</tr>
+<tr>
+<td>write.spark.fanout.enabled</td>
+<td>false</td>
+<td>Enables Partitioned-Fanout-Writer writes in Spark</td>
 </tr>
 </tbody>
 </table>
@@ -534,6 +635,26 @@
 <td>Maximum time in milliseconds to wait before retrying a commit</td>
 </tr>
 <tr>
+<td>commit.status-check.num-retries</td>
+<td>3</td>
+<td>Number of times to check whether a commit succeeded after a connection is lost before failing due to an unknown commit state</td>
+</tr>
+<tr>
+<td>commit.status-check.min-wait-ms</td>
+<td>1000 (1s)</td>
+<td>Minimum time in milliseconds to wait before retrying a status-check</td>
+</tr>
+<tr>
+<td>commit.status-check.max-wait-ms</td>
+<td>60000 (1 min)</td>
+<td>Maximum time in milliseconds to wait before retrying a status-check</td>
+</tr>
+<tr>
+<td>commit.status-check.total-timeout-ms</td>
+<td>1800000 (30 min)</td>
+<td>Maximum time in milliseconds to wait before retrying a status-check</td>
+</tr>
+<tr>
 <td>commit.manifest.target-size-bytes</td>
 <td>8388608 (8 MB)</td>
 <td>Target size when merging manifest files</td>
@@ -547,6 +668,16 @@
 <td>commit.manifest-merge.enabled</td>
 <td>true</td>
 <td>Controls whether to automatically merge manifests on writes</td>
+</tr>
+<tr>
+<td>history.expire.max-snapshot-age-ms</td>
+<td>432000000 (5 days)</td>
+<td>Default max age of snapshots to keep while expiring snapshots</td>
+</tr>
+<tr>
+<td>history.expire.min-snapshots-to-keep</td>
+<td>1</td>
+<td>Default min number of snapshots to keep while expiring snapshots</td>
 </tr>
 </tbody>
 </table>
@@ -564,6 +695,92 @@
 <td>compatibility.snapshot-id-inheritance.enabled</td>
 <td>false</td>
 <td>Enables committing snapshots without explicit snapshot IDs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="catalog-properties">Catalog properties<a class="headerlink" href="#catalog-properties" title="Permanent link">&para;</a></h2>
+<p>Iceberg catalogs support using catalog properties to configure catalog behaviors. Here is a list of commonly used catalog properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>catalog-impl</td>
+<td>null</td>
+<td>a custom <code>Catalog</code> implementation to use by an engine</td>
+</tr>
+<tr>
+<td>io-impl</td>
+<td>null</td>
+<td>a custom <code>FileIO</code> implementation to use in a catalog</td>
+</tr>
+<tr>
+<td>warehouse</td>
+<td>null</td>
+<td>the root path of the data warehouse</td>
+</tr>
+<tr>
+<td>uri</td>
+<td>null</td>
+<td>a URI string, such as Hive metastore URI</td>
+</tr>
+<tr>
+<td>clients</td>
+<td>2</td>
+<td>client pool size</td>
+</tr>
+</tbody>
+</table>
+<p><code>HadoopCatalog</code> and <code>HiveCatalog</code> can access the properties in their constructors.
+Any other custom catalog can access the properties by implementing <code>Catalog.initialize(catalogName, catalogProperties)</code>.
+The properties can be manually constructed or passed in from a compute engine like Spark or Flink.
+Spark uses its session properties as catalog properties, see more details in the <a href="../spark-configuration/#catalog-configuration">Spark configuration</a> section.
+Flink passes in catalog properties through <code>CREATE CATALOG</code> statement, see more details in the <a href="../flink/#creating-catalogs-and-using-catalogs">Flink</a> section.</p>
+<h3 id="lock-catalog-properties">Lock catalog properties<a class="headerlink" href="#lock-catalog-properties" title="Permanent link">&para;</a></h3>
+<p>Here are the catalog properties related to locking. They are used by some catalog implementations to control the locking behavior during commits.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lock-impl</td>
+<td>null</td>
+<td>a custom implementation of the lock manager, the actual interface depends on the catalog used</td>
+</tr>
+<tr>
+<td>lock.table</td>
+<td>null</td>
+<td>an auxiliary table for locking, such as in <a href="../aws/#dynamodb-for-commit-locking">AWS DynamoDB lock manager</a></td>
+</tr>
+<tr>
+<td>lock.acquire-interval-ms</td>
+<td>5 seconds</td>
+<td>the interval to wait between each attempt to acquire a lock</td>
+</tr>
+<tr>
+<td>lock.acquire-timeout-ms</td>
+<td>3 minutes</td>
+<td>the maximum time to try acquiring a lock</td>
+</tr>
+<tr>
+<td>lock.heartbeat-interval-ms</td>
+<td>3 seconds</td>
+<td>the interval to wait between each heartbeat after acquiring a lock</td>
+</tr>
+<tr>
+<td>lock.heartbeat-timeout-ms</td>
+<td>15 seconds</td>
+<td>the maximum time without a heartbeat to consider a lock expired</td>
 </tr>
 </tbody>
 </table>
@@ -588,151 +805,50 @@
 <td>180000 (3 min)</td>
 <td>Maximum time in milliseconds to acquire a lock</td>
 </tr>
-</tbody>
-</table>
-<h2 id="spark-configuration">Spark configuration<a class="headerlink" href="#spark-configuration" title="Permanent link">&para;</a></h2>
-<h3 id="catalogs">Catalogs<a class="headerlink" href="#catalogs" title="Permanent link">&para;</a></h3>
-<p><a href="../spark#configuring-catalogs">Spark catalogs</a> are configured using Spark session properties.</p>
-<p>A catalog is created and named by adding a property <code>spark.sql.catalog.(catalog-name)</code> with an implementation class for its value.</p>
-<p>Iceberg supplies two implementations:</p>
-<ul>
-<li><code>org.apache.iceberg.spark.SparkCatalog</code> supports a Hive Metastore or a Hadoop warehouse as a catalog</li>
-<li><code>org.apache.iceberg.spark.SparkSessionCatalog</code> adds support for Iceberg tables to Spark&rsquo;s built-in catalog, and delegates to the built-in catalog for non-Iceberg tables</li>
-</ul>
-<p>Both catalogs are configured using properties nested under the catalog name:</p>
-<table>
-<thead>
 <tr>
-<th>Property</th>
-<th>Values</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>spark.sql.catalog.<em>catalog-name</em>.type</td>
-<td>hive or hadoop</td>
-<td>The underlying Iceberg catalog implementation</td>
+<td>iceberg.hive.lock-check-min-wait-ms</td>
+<td>50</td>
+<td>Minimum time in milliseconds to check back on the status of lock acquisition</td>
 </tr>
 <tr>
-<td>spark.sql.catalog.<em>catalog-name</em>.default-namespace</td>
-<td>default</td>
-<td>The default current namespace for the catalog</td>
-</tr>
-<tr>
-<td>spark.sql.catalog.<em>catalog-name</em>.uri</td>
-<td>thrift://host:port</td>
-<td>URI for the Hive Metastore; default from <code>hive-site.xml</code> (Hive only)</td>
-</tr>
-<tr>
-<td>spark.sql.catalog.<em>catalog-name</em>.warehouse</td>
-<td>hdfs://nn:8020/warehouse/path</td>
-<td>Base path for the warehouse directory (Hadoop only)</td>
+<td>iceberg.hive.lock-check-max-wait-ms</td>
+<td>5000</td>
+<td>Maximum time in milliseconds to check back on the status of lock acquisition</td>
 </tr>
 </tbody>
 </table>
-<h3 id="read-options">Read options<a class="headerlink" href="#read-options" title="Permanent link">&para;</a></h3>
-<p>Spark read options are passed when configuring the DataFrameReader, like this:</p>
-<pre><code class="scala">// time travel
-spark.read
-    .option(&quot;snapshot-id&quot;, 10963874102873L)
-    .table(&quot;catalog.db.table&quot;)
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th>Spark option</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>snapshot-id</td>
-<td>(latest)</td>
-<td>Snapshot ID of the table snapshot to read</td>
-</tr>
-<tr>
-<td>as-of-timestamp</td>
-<td>(latest)</td>
-<td>A timestamp in milliseconds; the snapshot used will be the snapshot current at this time.</td>
-</tr>
-<tr>
-<td>split-size</td>
-<td>As per table property</td>
-<td>Overrides this table&rsquo;s read.split.target-size and read.split.metadata-target-size</td>
-</tr>
-<tr>
-<td>lookback</td>
-<td>As per table property</td>
-<td>Overrides this table&rsquo;s read.split.planning-lookback</td>
-</tr>
-<tr>
-<td>file-open-cost</td>
-<td>As per table property</td>
-<td>Overrides this table&rsquo;s read.split.open-file-cost</td>
-</tr>
-</tbody>
-</table>
-<h3 id="write-options">Write options<a class="headerlink" href="#write-options" title="Permanent link">&para;</a></h3>
-<p>Spark write options are passed when configuring the DataFrameWriter, like this:</p>
-<pre><code class="scala">// write with Avro instead of Parquet
-df.write
-    .option(&quot;write-format&quot;, &quot;avro&quot;)
-    .insertInto(&quot;catalog.db.table&quot;)
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th>Spark option</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>write-format</td>
-<td>Table write.format.default</td>
-<td>File format to use for this write operation; parquet or avro</td>
-</tr>
-<tr>
-<td>target-file-size-bytes</td>
-<td>As per table property</td>
-<td>Overrides this table&rsquo;s write.target-file-size-bytes</td>
-</tr>
-<tr>
-<td>check-nullability</td>
-<td>true</td>
-<td>Sets the nullable check on fields</td>
-</tr>
-<tr>
-<td>snapshot-property.<em>custom-key</em></td>
-<td>null</td>
-<td>Adds an entry with custom-key and corresponding value in the snapshot summary</td>
-</tr>
-</tbody>
-</table></div>
+<p>Note: <code>iceberg.hive.lock-check-max-wait-ms</code> should be less than the <a href="https://cwiki.apache.org/confluence/display/Hive/Configuration+Properties#ConfigurationProperties-hive.txn.timeout">transaction timeout</a> 
+of the Hive Metastore (<code>hive.txn.timeout</code> or <code>metastore.txn.timeout</code> in the newer versions). Otherwise, the heartbeats on the lock (which happens during the lock checks) would end up expiring in the 
+Hive Metastore before the lock is retried from Iceberg.</p></div>
         
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>

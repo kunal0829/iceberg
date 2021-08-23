@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A table format for large, slow-moving tabular data">
+    
+    <link rel="canonical" href="https://iceberg.apache.org/aws/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    
+    <title>AWS - Apache Iceberg</title>
+    
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../css/base.min.css" rel="stylesheet">
+    <link href="../css/cinder.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
+    <link href="../css/extra.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+    
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../community/">Community</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../releases/">Releases</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../trademarks/">Trademarks</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../how-to-release/">How to Release</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../configuration/">Configuration</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../schemas/">Schemas</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../partitioning/">Partitioning</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../evolution/">Table evolution</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../performance/">Performance</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../reliability/">Reliability</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                            
+<li >
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">AWS</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../nessie/">Nessie</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../jdbc/">JDBC</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="/javadoc/">Javadoc</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../api/">Java API intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../java-api-quickstart/">Java Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../custom-catalog/">Java Custom Catalog</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Format <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../terms/">Definitions</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../spec/">Spec</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ASF <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="https://www.apache.org/licenses/">License</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/security/">Security</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/foundation/thanks.html">Sponsors</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/foundation/sponsorship.html">Donate</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://www.apache.org/events/current-event.html">Events</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li >
+                        <a rel="prev" href="../hive/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../nessie/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#iceberg-aws-integrations">Iceberg AWS Integrations</a></li>
+            <li class="second-level"><a href="#enabling-aws-integration">Enabling AWS Integration</a></li>
+                
+                <li class="third-level"><a href="#spark">Spark</a></li>
+                <li class="third-level"><a href="#flink">Flink</a></li>
+                <li class="third-level"><a href="#hive">Hive</a></li>
+            <li class="second-level"><a href="#catalogs">Catalogs</a></li>
+                
+                <li class="third-level"><a href="#glue-catalog">Glue Catalog</a></li>
+                <li class="third-level"><a href="#dynamodb-catalog">DynamoDB Catalog</a></li>
+                <li class="third-level"><a href="#rds-jdbc-catalog">RDS JDBC Catalog</a></li>
+                <li class="third-level"><a href="#which-catalog-to-choose">Which catalog to choose?</a></li>
+            <li class="second-level"><a href="#s3-fileio">S3 FileIO</a></li>
+                
+                <li class="third-level"><a href="#progressive-multipart-upload">Progressive Multipart Upload</a></li>
+                <li class="third-level"><a href="#s3-server-side-encryption">S3 Server Side Encryption</a></li>
+                <li class="third-level"><a href="#s3-access-control-list">S3 Access Control List</a></li>
+                <li class="third-level"><a href="#object-store-file-layout">Object Store File Layout</a></li>
+                <li class="third-level"><a href="#s3-strong-consistency">S3 Strong Consistency</a></li>
+                <li class="third-level"><a href="#hadoop-s3a-filesystem">Hadoop S3A FileSystem</a></li>
+            <li class="second-level"><a href="#aws-client-customization">AWS Client Customization</a></li>
+                
+                <li class="third-level"><a href="#cross-account-and-cross-region-access">Cross-Account and Cross-Region Access</a></li>
+            <li class="second-level"><a href="#run-iceberg-on-aws">Run Iceberg on AWS</a></li>
+                
+                <li class="third-level"><a href="#amazon-emr">Amazon EMR</a></li>
+                <li class="third-level"><a href="#amazon-kinesis">Amazon Kinesis</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<!--
+ - Licensed to the Apache Software Foundation (ASF) under one or more
+ - contributor license agreements.  See the NOTICE file distributed with
+ - this work for additional information regarding copyright ownership.
+ - The ASF licenses this file to You under the Apache License, Version 2.0
+ - (the "License"); you may not use this file except in compliance with
+ - the License.  You may obtain a copy of the License at
+ -
+ -   http://www.apache.org/licenses/LICENSE-2.0
+ -
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+ -->
+
+<h1 id="iceberg-aws-integrations">Iceberg AWS Integrations<a class="headerlink" href="#iceberg-aws-integrations" title="Permanent link">&para;</a></h1>
+<p>Iceberg provides integration with different AWS services through the <code>iceberg-aws</code> module. 
+This section describes how to use Iceberg with AWS.</p>
+<h2 id="enabling-aws-integration">Enabling AWS Integration<a class="headerlink" href="#enabling-aws-integration" title="Permanent link">&para;</a></h2>
+<p>The <code>iceberg-aws</code> module is bundled with Spark and Flink engine runtimes for all versions from <code>0.11.0</code> onwards.
+However, the AWS clients are not bundled so that you can use the same client version as your application.
+You will need to provide the AWS v2 SDK because that is what Iceberg depends on.
+You can choose to use the <a href="https://mvnrepository.com/artifact/software.amazon.awssdk/bundle">AWS SDK bundle</a>, 
+or individual AWS client packages (Glue, S3, DynamoDB, KMS, STS) if you would like to have a minimal dependency footprint.</p>
+<p>All the default AWS clients use the <a href="https://mvnrepository.com/artifact/software.amazon.awssdk/url-connection-client">URL Connection HTTP Client</a>
+for HTTP connection management.
+This dependency is not part of the AWS SDK bundle and needs to be added separately.
+To choose a different HTTP client library such as <a href="https://mvnrepository.com/artifact/software.amazon.awssdk/apache-client">Apache HTTP Client</a>,
+see the section <a href="#aws-client-customization">client customization</a> for more details.</p>
+<p>All the AWS module features can be loaded through custom catalog properties,
+you can go to the documentations of each engine to see how to load a custom catalog.
+Here are some examples.</p>
+<h3 id="spark">Spark<a class="headerlink" href="#spark" title="Permanent link">&para;</a></h3>
+<p>For example, to use AWS features with Spark 3 and AWS clients version 2.15.40, you can start the Spark SQL shell with:</p>
+<pre><code class="language-sh"># add Iceberg dependency
+ICEBERG_VERSION=0.11.1
+DEPENDENCIES=&quot;org.apache.iceberg:iceberg-spark3-runtime:$ICEBERG_VERSION&quot;
+
+# add AWS dependnecy
+AWS_SDK_VERSION=2.15.40
+AWS_MAVEN_GROUP=software.amazon.awssdk
+AWS_PACKAGES=(
+    &quot;bundle&quot;
+    &quot;url-connection-client&quot;
+)
+for pkg in &quot;${AWS_PACKAGES[@]}&quot;; do
+    DEPENDENCIES+=&quot;,$AWS_MAVEN_GROUP:$pkg:$AWS_SDK_VERSION&quot;
+done
+
+# start Spark SQL client shell
+spark-sql --packages $DEPENDENCIES \
+    --conf spark.sql.catalog.my_catalog=org.apache.iceberg.spark.SparkCatalog \
+    --conf spark.sql.catalog.my_catalog.warehouse=s3://my-bucket/my/key/prefix \
+    --conf spark.sql.catalog.my_catalog.catalog-impl=org.apache.iceberg.aws.glue.GlueCatalog \
+    --conf spark.sql.catalog.my_catalog.io-impl=org.apache.iceberg.aws.s3.S3FileIO \
+    --conf spark.sql.catalog.my_catalog.lock-impl=org.apache.iceberg.aws.glue.DynamoLockManager \
+    --conf spark.sql.catalog.my_catalog.lock.table=myGlueLockTable
+</code></pre>
+<p>As you can see, In the shell command, we use <code>--packages</code> to specify the additional AWS bundle and HTTP client dependencies with their version as <code>2.15.40</code>.</p>
+<h3 id="flink">Flink<a class="headerlink" href="#flink" title="Permanent link">&para;</a></h3>
+<p>To use AWS module with Flink, you can download the necessary dependencies and specify them when starting the Flink SQL client:</p>
+<pre><code class="language-sh"># download Iceberg dependency
+ICEBERG_VERSION=0.11.1
+MAVEN_URL=https://repo1.maven.org/maven2
+ICEBERG_MAVEN_URL=$MAVEN_URL/org/apache/iceberg
+wget $ICEBERG_MAVEN_URL/iceberg-flink-runtime/$ICEBERG_VERSION/iceberg-flink-runtime-$ICEBERG_VERSION.jar
+
+# download AWS dependnecy
+AWS_SDK_VERSION=2.15.40
+AWS_MAVEN_URL=$MAVEN_URL/software/amazon/awssdk
+AWS_PACKAGES=(
+    &quot;bundle&quot;
+    &quot;url-connection-client&quot;
+)
+for pkg in &quot;${AWS_PACKAGES[@]}&quot;; do
+    wget $AWS_MAVEN_URL/$pkg/$AWS_SDK_VERSION/$pkg-$AWS_SDK_VERSION.jar
+done
+
+# start Flink SQL client shell
+/path/to/bin/sql-client.sh embedded \
+    -j iceberg-flink-runtime-$ICEBERG_VERSION.jar \
+    -j bundle-$AWS_SDK_VERSION.jar \
+    -j url-connection-client-$AWS_SDK_VERSION.jar \
+    shell
+</code></pre>
+<p>With those dependencies, you can create a Flink catalog like the following:</p>
+<pre><code class="language-sql">CREATE CATALOG my_catalog WITH (
+  'type'='iceberg',
+  'warehouse'='s3://my-bucket/my/key/prefix',
+  'catalog-impl'='org.apache.iceberg.aws.glue.GlueCatalog',
+  'io-impl'='org.apache.iceberg.aws.s3.S3FileIO',
+  'lock-impl'='org.apache.iceberg.aws.glue.DynamoLockManager',
+  'lock.table'='myGlueLockTable'
+);
+</code></pre>
+<p>You can also specify the catalog configurations in <code>sql-client-defaults.yaml</code> to preload it:</p>
+<pre><code class="language-yaml">catalogs: 
+  - name: my_catalog
+    type: iceberg
+    warehouse: s3://my-bucket/my/key/prefix
+    catalog-impl: org.apache.iceberg.aws.glue.GlueCatalog
+    io-impl: org.apache.iceberg.aws.s3.S3FileIO
+    lock-impl: org.apache.iceberg.aws.glue.DynamoLockManager
+    lock.table: myGlueLockTable
+</code></pre>
+<h3 id="hive">Hive<a class="headerlink" href="#hive" title="Permanent link">&para;</a></h3>
+<p>To use AWS module with Hive, you can download the necessary dependencies similar to the Flink example,
+and then add them to the Hive classpath or add the jars at runtime in CLI:</p>
+<pre><code>add jar /my/path/to/iceberg-hive-runtime.jar;
+add jar /my/path/to/aws/bundle.jar;
+add jar /my/path/to/aws/url-connection-client.jar;
+</code></pre>
+<p>With those dependencies, you can register a Glue catalog and create external tables in Hive at runtime in CLI by:</p>
+<pre><code class="language-sql">SET iceberg.engine.hive.enabled=true;
+SET hive.vectorized.execution.enabled=false;
+SET iceberg.catalog.glue.catalog-impl=org.apache.iceberg.aws.glue.GlueCatalog;
+SET iceberg.catalog.glue.warehouse=s3://my-bucket/my/key/prefix;
+SET iceberg.catalog.glue.lock-impl=org.apache.iceberg.aws.glue.DynamoLockManager;
+SET iceberg.catalog.glue.lock.table=myGlueLockTable;
+
+-- suppose you have an Iceberg table database_a.table_a created by GlueCatalog
+CREATE EXTERNAL TABLE database_a.table_a
+STORED BY 'org.apache.iceberg.mr.hive.HiveIcebergStorageHandler'
+TBLPROPERTIES ('iceberg.catalog'='glue');
+</code></pre>
+<p>You can also preload the catalog by setting the configurations above in <code>hive-site.xml</code>.</p>
+<h2 id="catalogs">Catalogs<a class="headerlink" href="#catalogs" title="Permanent link">&para;</a></h2>
+<p>There are multiple different options that users can choose to build an Iceberg catalog with AWS.</p>
+<h3 id="glue-catalog">Glue Catalog<a class="headerlink" href="#glue-catalog" title="Permanent link">&para;</a></h3>
+<p>Iceberg enables the use of <a href="https://aws.amazon.com/glue">AWS Glue</a> as the <code>Catalog</code> implementation.
+When used, an Iceberg namespace is stored as a <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-databases.html">Glue Database</a>, 
+an Iceberg table is stored as a <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-tables.html">Glue Table</a>,
+and every Iceberg table version is stored as a <a href="https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-tables.html#aws-glue-api-catalog-tables-TableVersion">Glue TableVersion</a>. 
+You can start using Glue catalog by specifying the <code>catalog-impl</code> as <code>org.apache.iceberg.aws.glue.GlueCatalog</code>,
+just like what is shown in the <a href="#enabling-aws-integration">enabling AWS integration</a> section above. 
+More details about loading the catalog can be found in individual engine pages, such as <a href="../spark-configuration/#loading-a-custom-catalog">Spark</a> and <a href="../flink/#creating-catalogs-and-using-catalogs">Flink</a>.</p>
+<h4 id="glue-catalog-id">Glue Catalog ID<a class="headerlink" href="#glue-catalog-id" title="Permanent link">&para;</a></h4>
+<p>There is a unique Glue metastore in each AWS account and each AWS region.
+By default, <code>GlueCatalog</code> chooses the Glue metastore to use based on the user&rsquo;s default AWS client credential and region setup.
+You can specify the Glue catalog ID through <code>glue.id</code> catalog property to point to a Glue catalog in a different AWS account.
+The Glue catalog ID is your numeric AWS account ID.
+If the Glue catalog is in a different region, you should configure you AWS client to point to the correct region, 
+see more details in <a href="#aws-client-customization">AWS client customization</a>.</p>
+<h4 id="skip-archive">Skip Archive<a class="headerlink" href="#skip-archive" title="Permanent link">&para;</a></h4>
+<p>By default, Glue stores all the table versions created and user can rollback a table to any historical version if needed.
+However, if you are streaming data to Iceberg, this will easily create a lot of Glue table versions.
+Therefore, it is recommended to turn off the archive feature in Glue by setting <code>glue.skip-archive</code> to <code>true</code>.
+For more details, please read <a href="https://docs.aws.amazon.com/general/latest/gr/glue.html">Glue Quotas</a> and the <a href="https://docs.aws.amazon.com/glue/latest/webapi/API_UpdateTable.html">UpdateTable API</a>.</p>
+<h4 id="dynamodb-for-commit-locking">DynamoDB for Commit Locking<a class="headerlink" href="#dynamodb-for-commit-locking" title="Permanent link">&para;</a></h4>
+<p>Glue does not have a strong guarantee over concurrent updates to a table. 
+Although it throws <code>ConcurrentModificationException</code> when detecting two processes updating a table at the same time,
+there is no guarantee that one update would not clobber the other update.
+Therefore, <a href="https://aws.amazon.com/dynamodb">DynamoDB</a> can be used for Glue, so that for every commit, 
+<code>GlueCatalog</code> first obtains a lock using a helper DynamoDB table and then try to safely modify the Glue table.</p>
+<p>This feature requires the following lock related catalog properties:</p>
+<ol>
+<li>Set <code>lock-impl</code> as <code>org.apache.iceberg.aws.glue.DynamoLockManager</code>.</li>
+<li>Set <code>lock.table</code> as the DynamoDB table name you would like to use. If the lock table with the given name does not exist in DynamoDB, a new table is created with billing mode set as <a href="https://aws.amazon.com/blogs/aws/amazon-dynamodb-on-demand-no-capacity-planning-and-pay-per-request-pricing">pay-per-request</a>.</li>
+</ol>
+<p>Other lock related catalog properties can also be used to adjust locking behaviors such as heartbeat interval.
+For more details, please refer to <a href="../configuration/#lock-catalog-properties">Lock catalog properties</a>. </p>
+<h4 id="warehouse-location">Warehouse Location<a class="headerlink" href="#warehouse-location" title="Permanent link">&para;</a></h4>
+<p>Similar to all other catalog implementations, <code>warehouse</code> is a required catalog property to determine the root path of the data warehouse in storage.
+By default, Glue only allows a warehouse location in S3 because of the use of <code>S3FileIO</code>.
+To store data in a different local or cloud store, Glue catalog can switch to use <code>HadoopFileIO</code> or any custom FileIO by setting the <code>io-impl</code> catalog property.
+Details about this feature can be found in the <a href="../custom-catalog/#custom-file-io-implementation">custom FileIO</a> section.</p>
+<h4 id="table-location">Table Location<a class="headerlink" href="#table-location" title="Permanent link">&para;</a></h4>
+<p>By default, the root location for a table <code>my_table</code> of namespace <code>my_ns</code> is at <code>my-warehouse-location/my-ns.db/my-table</code>.
+This default root location can be changed at both namespace and table level.</p>
+<p>To use a different path prefix for all tables under a namespace, use AWS console or any AWS Glue client SDK you like to update the <code>locationUri</code> attribute of the corresponding Glue database.
+For example, you can update the <code>locationUri</code> of <code>my_ns</code> to <code>s3://my-ns-bucket</code>, 
+then any newly created table will have a default root location under the new prefix.
+For instance, a new table <code>my_table_2</code> will have its root location at <code>s3://my-ns-bucket/my_table_2</code>.</p>
+<p>To use a completely different root path for a specific table, set the <code>location</code> table property to the desired root path value you want.
+For example, in Spark SQL you can do:</p>
+<pre><code class="language-sql">CREATE TABLE my_catalog.my_ns.my_table (
+    id bigint,
+    data string,
+    category string)
+USING iceberg
+OPTIONS ('location'='s3://my-special-table-bucket')
+PARTITIONED BY (category);
+</code></pre>
+<p>For engines like Spark that supports the <code>LOCATION</code> keyword, the above SQL statement is equivalent to:</p>
+<pre><code class="language-sql">CREATE TABLE my_catalog.my_ns.my_table (
+    id bigint,
+    data string,
+    category string)
+USING iceberg
+LOCATION 's3://my-special-table-bucket'
+PARTITIONED BY (category);
+</code></pre>
+<h3 id="dynamodb-catalog">DynamoDB Catalog<a class="headerlink" href="#dynamodb-catalog" title="Permanent link">&para;</a></h3>
+<p>Iceberg supports using a <a href="https://aws.amazon.com/dynamodb">DynamoDB</a> table to record and manage database and table information.</p>
+<h4 id="configurations">Configurations<a class="headerlink" href="#configurations" title="Permanent link">&para;</a></h4>
+<p>The DynamoDB catalog supports the following configurations:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dynamodb.table-name</td>
+<td>iceberg</td>
+<td>name of the DynamoDB table used by DynamoDbCatalog</td>
+</tr>
+</tbody>
+</table>
+<h4 id="internal-table-design">Internal Table Design<a class="headerlink" href="#internal-table-design" title="Permanent link">&para;</a></h4>
+<p>The DynamoDB table is designed with the following columns:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Key</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>identifier</td>
+<td>partition key</td>
+<td>string</td>
+<td>table identifier such as <code>db1.table1</code>, or string <code>NAMESPACE</code> for namespaces</td>
+</tr>
+<tr>
+<td>namespace</td>
+<td>sort key</td>
+<td>string</td>
+<td>namespace name. A <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.html">global secondary index (GSI)</a> is created with namespace as partition key, identifier as sort key, no other projected columns</td>
+</tr>
+<tr>
+<td>v</td>
+<td></td>
+<td>string</td>
+<td>row version, used for optimistic locking</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td></td>
+<td>number</td>
+<td>timestamp (millis) of the last update</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td></td>
+<td>number</td>
+<td>timestamp (millis) of the table creation</td>
+</tr>
+<tr>
+<td>p.&lt;property_key></td>
+<td></td>
+<td>string</td>
+<td>Iceberg-defined table properties including <code>table_type</code>, <code>metadata_location</code> and <code>previous_metadata_location</code> or namespace properties</td>
+</tr>
+</tbody>
+</table>
+<p>This design has the following benefits:</p>
+<ol>
+<li>it avoids potential <a href="https://aws.amazon.com/premiumsupport/knowledge-center/dynamodb-table-throttled/">hot partition issue</a> if there are heavy write traffic to the tables within the same namespace, because the partition key is at the table level</li>
+<li>namespace operations are clustered in a single partition to avoid affecting table commit operations</li>
+<li>a sort key to partition key reverse GSI is used for list table operation, and all other operations are single row ops or single partition query. No full table scan is needed for any operation in the catalog.</li>
+<li>a string UUID version field <code>v</code> is used instead of <code>updated_at</code> to avoid 2 processes committing at the same millisecond</li>
+<li>multi-row transaction is used for <code>catalog.renameTable</code> to ensure idempotency</li>
+<li>properties are flattened as top level columns so that user can add custom GSI on any property field to customize the catalog. For example, users can store owner information as table property <code>owner</code>, and search tables by owner by adding a GSI on the <code>p.owner</code> column.</li>
+</ol>
+<h3 id="rds-jdbc-catalog">RDS JDBC Catalog<a class="headerlink" href="#rds-jdbc-catalog" title="Permanent link">&para;</a></h3>
+<p>Iceberg also supports JDBC catalog which uses a table in a relational database to manage Iceberg tables.
+You can configure to use JDBC catalog with relational database services like <a href="https://aws.amazon.com/rds">AWS RDS</a>.
+Read <a href="../jdbc/#jdbc-catalog">the JDBC integration page</a> for guides and examples about using the JDBC catalog.
+Read <a href="https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Connecting.Java.html">this AWS documentation</a> for more details about configuring JDBC catalog with IAM authentication. </p>
+<h3 id="which-catalog-to-choose">Which catalog to choose?<a class="headerlink" href="#which-catalog-to-choose" title="Permanent link">&para;</a></h3>
+<p>With all the available options, we offer the following guidance when choosing the right catalog to use for your application:</p>
+<ol>
+<li>if your organization has an existing Glue metastore or plans to use the AWS analytics ecosystem including Glue, <a href="https://aws.amazon.com/athena">Athena</a>, <a href="https://aws.amazon.com/emr">EMR</a>, <a href="https://aws.amazon.com/redshift">Redshift</a> and <a href="https://aws.amazon.com/lake-formation">LakeFormation</a>, Glue catalog provides the easiest integration.</li>
+<li>if your application requires frequent updates to table or high read and write throughput (e.g. streaming write), DynamoDB catalog provides the best performance through optimistic locking.</li>
+<li>if you would like to enforce access control for tables in a catalog, Glue tables can be managed as an <a href="https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsglue.html">IAM resource</a>, whereas DynamoDB catalog tables can only be managed through <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/specifying-conditions.html">item-level permission</a> which is much more complicated.</li>
+<li>if you would like to query tables based on table property information without the need to scan the entire catalog, DynamoDB catalog allows you to build secondary indexes for any arbitrary property field and provide efficient query performance.</li>
+<li>if you would like to have the benefit of DynamoDB catalog while also connect to Glue, you can enable <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.Lambda.Tutorial.html">DynamoDB stream with Lambda trigger</a> to asynchronously update your Glue metastore with table information in the DynamoDB catalog. </li>
+<li>if your organization already maintains an existing relational database in RDS or uses <a href="https://aws.amazon.com/rds/aurora/serverless/">serverless Aurora</a> to manage tables, JDBC catalog provides the easiest integration.</li>
+</ol>
+<h2 id="s3-fileio">S3 FileIO<a class="headerlink" href="#s3-fileio" title="Permanent link">&para;</a></h2>
+<p>Iceberg allows users to write data to S3 through <code>S3FileIO</code>.
+<code>GlueCatalog</code> by default uses this <code>FileIO</code>, and other catalogs can load this <code>FileIO</code> using the <code>io-impl</code> catalog property.</p>
+<h3 id="progressive-multipart-upload">Progressive Multipart Upload<a class="headerlink" href="#progressive-multipart-upload" title="Permanent link">&para;</a></h3>
+<p><code>S3FileIO</code> implements a customized progressive multipart upload algorithm to upload data.
+Data files are uploaded by parts in parallel as soon as each part is ready,
+and each file part is deleted as soon as its upload process completes.
+This provides maximized upload speed and minimized local disk usage during uploads.
+Here are the configurations that users can tune related to this feature:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s3.multipart.num-threads</td>
+<td>the available number of processors in the system</td>
+<td>number of threads to use for uploading parts to S3 (shared across all output streams)</td>
+</tr>
+<tr>
+<td>s3.multipart.part-size-bytes</td>
+<td>32MB</td>
+<td>the size of a single part for multipart upload requests</td>
+</tr>
+<tr>
+<td>s3.multipart.threshold</td>
+<td>1.5</td>
+<td>the threshold expressed as a factor times the multipart size at which to switch from uploading using a single put object request to uploading using multipart upload</td>
+</tr>
+<tr>
+<td>s3.staging-dir</td>
+<td><code>java.io.tmpdir</code> property value</td>
+<td>the directory to hold temporary files</td>
+</tr>
+</tbody>
+</table>
+<h3 id="s3-server-side-encryption">S3 Server Side Encryption<a class="headerlink" href="#s3-server-side-encryption" title="Permanent link">&para;</a></h3>
+<p><code>S3FileIO</code> supports all 3 S3 server side encryption modes:</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html">SSE-S3</a>: When you use Server-Side Encryption with Amazon S3-Managed Keys (SSE-S3), each object is encrypted with a unique key. As an additional safeguard, it encrypts the key itself with a master key that it regularly rotates. Amazon S3 server-side encryption uses one of the strongest block ciphers available, 256-bit Advanced Encryption Standard (AES-256), to encrypt your data.</li>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html">SSE-KMS</a>: Server-Side Encryption with Customer Master Keys (CMKs) Stored in AWS Key Management Service (SSE-KMS) is similar to SSE-S3, but with some additional benefits and charges for using this service. There are separate permissions for the use of a CMK that provides added protection against unauthorized access of your objects in Amazon S3. SSE-KMS also provides you with an audit trail that shows when your CMK was used and by whom. Additionally, you can create and manage customer managed CMKs or use AWS managed CMKs that are unique to you, your service, and your Region.</li>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html">SSE-C</a>: With Server-Side Encryption with Customer-Provided Keys (SSE-C), you manage the encryption keys and Amazon S3 manages the encryption, as it writes to disks, and decryption, when you access your objects.</li>
+</ul>
+<p>To enable server side encryption, use the following configuration properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>s3.sse.type</td>
+<td><code>none</code></td>
+<td><code>none</code>, <code>s3</code>, <code>kms</code> or <code>custom</code></td>
+</tr>
+<tr>
+<td>s3.sse.key</td>
+<td><code>aws/s3</code> for <code>kms</code> type, null otherwise</td>
+<td>A KMS Key ID or ARN for <code>kms</code> type, or a custom base-64 AES256 symmetric key for <code>custom</code> type.</td>
+</tr>
+<tr>
+<td>s3.sse.md5</td>
+<td>null</td>
+<td>If SSE type is <code>custom</code>, this value must be set as the base-64 MD5 digest of the symmetric key to ensure integrity.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="s3-access-control-list">S3 Access Control List<a class="headerlink" href="#s3-access-control-list" title="Permanent link">&para;</a></h3>
+<p><code>S3FileIO</code> supports S3 access control list (ACL) for detailed access control. 
+User can choose the ACL level by setting the <code>s3.acl</code> property.
+For more details, please read <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html">S3 ACL Documentation</a>.</p>
+<h3 id="object-store-file-layout">Object Store File Layout<a class="headerlink" href="#object-store-file-layout" title="Permanent link">&para;</a></h3>
+<p>S3 and many other cloud storage services <a href="https://aws.amazon.com/premiumsupport/knowledge-center/s3-request-limit-avoid-throttling/">throttle requests based on object prefix</a>. 
+This means data stored in a traditional Hive storage layout has bad read and write throughput since data files of the same partition are placed under the same prefix.
+Iceberg by default uses the Hive storage layout, but can be switched to use a different <code>ObjectStoreLocationProvider</code>.
+In this mode, a hash string is added to the beginning of each file path, so that files are equally distributed across all prefixes in an S3 bucket.
+This results in minimized throttling and maximized throughput for S3-related IO operations.
+Here is an example Spark SQL command to create a table with this feature enabled:</p>
+<pre><code class="language-sql">CREATE TABLE my_catalog.my_ns.my_table (
+    id bigint,
+    data string,
+    category string)
+USING iceberg
+OPTIONS (
+    'write.object-storage.enabled'=true, 
+    'write.object-storage.path'='s3://my-table-data-bucket')
+PARTITIONED BY (category);
+</code></pre>
+<p>For more details, please refer to the <a href="../custom-catalog/#custom-location-provider-implementation">LocationProvider Configuration</a> section.  </p>
+<h3 id="s3-strong-consistency">S3 Strong Consistency<a class="headerlink" href="#s3-strong-consistency" title="Permanent link">&para;</a></h3>
+<p>In November 2020, S3 announced <a href="https://aws.amazon.com/s3/consistency/">strong consistency</a> for all read operations, and Iceberg is updated to fully leverage this feature.
+There is no redundant consistency wait and check which might negatively impact performance during IO operations.</p>
+<h3 id="hadoop-s3a-filesystem">Hadoop S3A FileSystem<a class="headerlink" href="#hadoop-s3a-filesystem" title="Permanent link">&para;</a></h3>
+<p>Before <code>S3FileIO</code> was introduced, many Iceberg users choose to use <code>HadoopFileIO</code> to write data to S3 through the <a href="https://github.com/apache/hadoop/blob/trunk/hadoop-tools/hadoop-aws/src/main/java/org/apache/hadoop/fs/s3a/S3AFileSystem.java">S3A FileSystem</a>.
+As introduced in the previous sections, <code>S3FileIO</code> adopts latest AWS clients and S3 features for optimized security and performance,
+ and is thus recommend for S3 use cases rather than the S3A FileSystem.</p>
+<p><code>S3FileIO</code> writes data with <code>s3://</code> URI scheme, but it is also compatible with schemes written by the S3A FileSystem.
+This means for any table manifests containing <code>s3a://</code> or <code>s3n://</code> file paths, <code>S3FileIO</code> is still able to read them.
+This feature allows people to easily switch from S3A to <code>S3FileIO</code>.</p>
+<p>If for any reason you have to use S3A, here are the instructions:</p>
+<ol>
+<li>To store data using S3A, specify the <code>warehouse</code> catalog property to be an S3A path, e.g. <code>s3a://my-bucket/my-warehouse</code> </li>
+<li>For <code>HiveCatalog</code>, to also store metadata using S3A, specify the Hadoop config property <code>hive.metastore.warehouse.dir</code> to be an S3A path.</li>
+<li>Add <a href="https://mvnrepository.com/artifact/org.apache.hadoop/hadoop-aws">hadoop-aws</a> as a runtime dependency of your compute engine.</li>
+<li>Configure AWS settings based on <a href="https://hadoop.apache.org/docs/current/hadoop-aws/tools/hadoop-aws/index.html">hadoop-aws documentation</a> (make sure you check the version, S3A configuration varies a lot based on the version you use).   </li>
+</ol>
+<h2 id="aws-client-customization">AWS Client Customization<a class="headerlink" href="#aws-client-customization" title="Permanent link">&para;</a></h2>
+<p>Many organizations have customized their way of configuring AWS clients with their own credential provider, access proxy, retry strategy, etc.
+Iceberg allows users to plug in their own implementation of <code>org.apache.iceberg.aws.AwsClientFactory</code> by setting the <code>client.factory</code> catalog property.</p>
+<h3 id="cross-account-and-cross-region-access">Cross-Account and Cross-Region Access<a class="headerlink" href="#cross-account-and-cross-region-access" title="Permanent link">&para;</a></h3>
+<p>It is a common use case for organizations to have a centralized AWS account for Glue metastore and S3 buckets, and use different AWS accounts and regions for different teams to access those resources.
+In this case, a <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html">cross-account IAM role</a> is needed to access those centralized resources.
+Iceberg provides an AWS client factory <code>AssumeRoleAwsClientFactory</code> to support this common use case.
+This also serves as an example for users who would like to implement their own AWS client factory.</p>
+<p>This client factory has the following configurable catalog properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>client.assume-role.arn</td>
+<td>null, requires user input</td>
+<td>ARN of the role to assume, e.g. arn:aws:iam::123456789:role/myRoleToAssume</td>
+</tr>
+<tr>
+<td>client.assume-role.region</td>
+<td>null, requires user input</td>
+<td>All AWS clients except the STS client will use the given region instead of the default region chain</td>
+</tr>
+<tr>
+<td>client.assume-role.external-id</td>
+<td>null</td>
+<td>An optional <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html">external ID</a></td>
+</tr>
+<tr>
+<td>client.assume-role.timeout-sec</td>
+<td>1 hour</td>
+<td>Timeout of each assume role session. At the end of the timeout, a new set of role session credentials will be fetched through a STS client.</td>
+</tr>
+</tbody>
+</table>
+<p>By using this client factory, an STS client is initialized with the default credential and region to assume the specified role.
+The Glue, S3 and DynamoDB clients are then initialized with the assume-role credential and region to access resources.
+Here is an example to start Spark shell with this client factory:</p>
+<pre><code class="language-shell">spark-sql --packages org.apache.iceberg:iceberg-spark3-runtime:0.11.1,software.amazon.awssdk:bundle:2.15.40 \
+    --conf spark.sql.catalog.my_catalog=org.apache.iceberg.spark.SparkCatalog \
+    --conf spark.sql.catalog.my_catalog.warehouse=s3://my-bucket/my/key/prefix \    
+    --conf spark.sql.catalog.my_catalog.catalog-impl=org.apache.iceberg.aws.glue.GlueCatalog \
+    --conf spark.sql.catalog.my_catalog.client.factory=org.apache.iceberg.aws.AssumeRoleAwsClientFactory \
+    --conf spark.sql.catalog.my_catalog.client.assume-role.arn=arn:aws:iam::123456789:role/myRoleToAssume \
+    --conf spark.sql.catalog.my_catalog.client.assume-role.region=ap-northeast-1
+</code></pre>
+<h2 id="run-iceberg-on-aws">Run Iceberg on AWS<a class="headerlink" href="#run-iceberg-on-aws" title="Permanent link">&para;</a></h2>
+<h3 id="amazon-emr">Amazon EMR<a class="headerlink" href="#amazon-emr" title="Permanent link">&para;</a></h3>
+<p><a href="https://aws.amazon.com/emr/">Amazon EMR</a> can provision clusters with <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-spark.html">Spark</a> (EMR 6 for Spark 3, EMR 5 for Spark 2),
+<a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-hive.html">Hive</a>, <a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-flink.html">Flink</a>,
+<a href="https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-presto.html">Trino</a> that can run Iceberg.</p>
+<p>You can use a <a href="https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-bootstrap.html">bootstrap action</a> similar to the following to pre-install all necessary dependencies:</p>
+<pre><code class="language-sh">#!/bin/bash
+
+AWS_SDK_VERSION=2.15.40
+ICEBERG_VERSION=0.11.1
+MAVEN_URL=https://repo1.maven.org/maven2
+ICEBERG_MAVEN_URL=$MAVEN_URL/org/apache/iceberg
+AWS_MAVEN_URL=$MAVEN_URL/software/amazon/awssdk
+# NOTE: this is just an example shared class path between Spark and Flink,
+#  please choose a proper class path for production.
+LIB_PATH=/usr/share/aws/aws-java-sdk/
+
+AWS_PACKAGES=(
+  &quot;bundle&quot;
+  &quot;url-connection-client&quot;
+)
+
+ICEBERG_PACKAGES=(
+  &quot;iceberg-spark3-runtime&quot;
+  &quot;iceberg-flink-runtime&quot;
+)
+
+install_dependencies () {
+  install_path=$1
+  download_url=$2
+  version=$3
+  shift
+  pkgs=(&quot;$@&quot;)
+  for pkg in &quot;${pkgs[@]}&quot;; do
+    sudo wget -P $install_path $download_url/$pkg/$version/$pkg-$version.jar
+  done
+}
+
+install_dependencies $LIB_PATH $ICEBERG_MAVEN_URL $ICEBERG_VERSION &quot;${ICEBERG_PACKAGES[@]}&quot;
+install_dependencies $LIB_PATH $AWS_MAVEN_URL $AWS_SDK_VERSION &quot;${AWS_PACKAGES[@]}&quot;
+</code></pre>
+<h3 id="amazon-kinesis">Amazon Kinesis<a class="headerlink" href="#amazon-kinesis" title="Permanent link">&para;</a></h3>
+<p><a href="https://aws.amazon.com/about-aws/whats-new/2019/11/you-can-now-run-fully-managed-apache-flink-applications-with-apache-kafka/">Amazon Kinesis Data Analytics</a> provides a platform 
+to run fully managed Apache Flink applications. You can include Iceberg in your application Jar and run it in the platform.</p></div>
+        
+        
+    </div>
+
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
+
+          
+          
+      </footer>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    </body>
+
+</html>

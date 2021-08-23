@@ -7,21 +7,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A table format for large, slow-moving tabular data">
     
-    
-    <link rel="../img/favicon.ico">
+    <link rel="canonical" href="https://iceberg.apache.org/releases/">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
     
     <title>Releases - Apache Iceberg</title>
     
 
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/v4-shims.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//rsms.me/inter/inter.css' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="../css/base.min.css" rel="stylesheet">
     <link href="../css/cinder.min.css" rel="stylesheet">
-    <link href="../css/highlight.min.css" rel="stylesheet">
+
+    
+        
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/styles/github.min.css">
+        
+    
     <link href="../css/extra.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -29,15 +35,6 @@
             <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
         <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
 
     
 
@@ -62,7 +59,9 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
+              <a class="navbar-brand" href="..">Apache Iceberg</a>
+            
         </div>
 
         <!-- Expanded navigation -->
@@ -71,15 +70,15 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li >
-                        <a href="..">About</a>
-                    </li>
-                
-                
-                
                     <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project <b class="caret"></b></a>
                         <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="..">About</a>
+</li>
+
                         
                             
 <li >
@@ -95,6 +94,12 @@
                         
                             
 <li >
+    <a href="../blogs/">Blogs</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../trademarks/">Trademarks</a>
 </li>
 
@@ -105,44 +110,26 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../security/">Security</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
                 
                 
+                    <li >
+                        <a href="../getting-started/">Getting Started</a>
+                    </li>
+                
+                
+                
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User docs <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tables <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../getting-started/">Getting Started</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark/">Spark</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spark-structured-streaming/">Spark Streaming</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../presto/">Presto</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../maintenance/">Maintenance</a>
-</li>
-
                         
                             
 <li >
@@ -170,6 +157,12 @@
                         
                             
 <li >
+    <a href="../maintenance/">Maintenance</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../performance/">Performance</a>
 </li>
 
@@ -180,9 +173,93 @@
 </li>
 
                         
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Engines <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Spark</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../getting-started/">Getting Started</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-configuration/">Configuration</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-ddl/">DDL</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/">Queries</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-writes/">Writes</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-procedures/">Maintenance Procedures</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-structured-streaming/">Structured Streaming</a>
+</li>
+
+        
+            
+<li >
+    <a href="../spark-queries/#time-travel">Time Travel</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
                             
 <li >
-    <a href="../spark#time-travel">Time Travel</a>
+    <a href="../flink/">Flink</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hive/">Hive</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://trino.io/docs/current/connector/iceberg.html">Trino</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="https://prestodb.io/docs/current/connector/iceberg.html">PrestoDB</a>
 </li>
 
                         
@@ -192,26 +269,35 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Integrations <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="https://github.com/apache/iceberg">Git Repo</a>
+    <a href="../aws/">AWS</a>
 </li>
 
                         
                             
 <li >
-    <a href="../java-api-quickstart/">Quickstart</a>
+    <a href="../nessie/">Nessie</a>
 </li>
 
                         
                             
 <li >
-    <a href="../api/">API intro</a>
+    <a href="../jdbc/">JDBC</a>
 </li>
 
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">API <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
                         
                             
 <li >
@@ -221,40 +307,37 @@
                         
                             
 <li >
-    <a href="../custom-catalog/">Custom Catalog</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Python <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="https://github.com/apache/iceberg/tree/master/python">Git Repo</a>
+    <a href="../api/">Java API intro</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-quickstart/">Quickstart</a>
+    <a href="../java-api-quickstart/">Java Quickstart</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-api-intro/">API Intro</a>
+    <a href="../custom-catalog/">Java Custom Catalog</a>
 </li>
 
                         
                             
 <li >
-    <a href="../python-feature-support/">Feature Support</a>
+    <a href="../python-quickstart/">Python Quickstart</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-api-intro/">Python API Intro</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../python-feature-support/">Python Feature Support</a>
 </li>
 
                         
@@ -285,7 +368,7 @@
                 
                 
                     <li >
-                        <a href="https://github.com/apache/iceberg">Iceberg on GitHub</a>
+                        <a href="https://github.com/apache/iceberg">GitHub</a>
                     </li>
                 
                 
@@ -337,7 +420,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="next" href="../trademarks/">
+                        <a rel="next" href="../blogs/">
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -356,7 +439,13 @@
                 
             <li class="second-level"><a href="#maven">Maven</a></li>
                 
+        <li class="first-level "><a href="#0111-release-notes">0.11.1 release notes</a></li>
+        <li class="first-level "><a href="#0110-release-notes">0.11.0 release notes</a></li>
         <li class="first-level "><a href="#past-releases">Past releases</a></li>
+            <li class="second-level"><a href="#0100">0.10.0</a></li>
+                
+            <li class="second-level"><a href="#091">0.9.1</a></li>
+                
             <li class="second-level"><a href="#090">0.9.0</a></li>
                 
             <li class="second-level"><a href="#080">0.8.0</a></li>
@@ -367,21 +456,40 @@
 </div></div>
         <div class="col-md-9" role="main">
 
+<!--
+ - Licensed to the Apache Software Foundation (ASF) under one or more
+ - contributor license agreements.  See the NOTICE file distributed with
+ - this work for additional information regarding copyright ownership.
+ - The ASF licenses this file to You under the Apache License, Version 2.0
+ - (the "License"); you may not use this file except in compliance with
+ - the License.  You may obtain a copy of the License at
+ -
+ -   http://www.apache.org/licenses/LICENSE-2.0
+ -
+ - Unless required by applicable law or agreed to in writing, software
+ - distributed under the License is distributed on an "AS IS" BASIS,
+ - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ - See the License for the specific language governing permissions and
+ - limitations under the License.
+ -->
+
 <h2 id="downloads">Downloads<a class="headerlink" href="#downloads" title="Permanent link">&para;</a></h2>
-<p>The latest version of Iceberg is <a href="https://github.com/apache/iceberg/releases/tag/apache-iceberg-0.9.1">0.9.1</a>.</p>
+<p>The latest version of Iceberg is <a href="https://github.com/apache/iceberg/releases/tag/apache-iceberg-0.11.1">0.11.1</a>.</p>
 <ul>
-<li><a href="https://www.apache.org/dyn/closer.cgi/iceberg/apache-iceberg-0.9.1/apache-iceberg-0.9.1.tar.gz">0.9.1 source tar.gz</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.9.1/apache-iceberg-0.9.1.tar.gz.asc">signature</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.9.1/apache-iceberg-0.9.1.tar.gz.sha512">sha512</a></li>
-<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark3-runtime/0.9.1/iceberg-spark3-runtime-0.9.1.jar">0.9.1 Spark 3.0 runtime Jar</a></li>
-<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark-runtime/0.9.1/iceberg-spark-runtime-0.9.1.jar">0.9.1 Spark 2.4 runtime Jar</a></li>
+<li><a href="https://www.apache.org/dyn/closer.cgi/iceberg/apache-iceberg-0.11.1/apache-iceberg-0.11.1.tar.gz">0.11.1 source tar.gz</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.11.1/apache-iceberg-0.11.1.tar.gz.asc">signature</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.11.1/apache-iceberg-0.11.1.tar.gz.sha512">sha512</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark3-runtime/0.11.1/iceberg-spark3-runtime-0.11.1.jar">0.11.1 Spark 3.0 runtime Jar</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark-runtime/0.11.1/iceberg-spark-runtime-0.11.1.jar">0.11.1 Spark 2.4 runtime Jar</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-flink-runtime/0.11.1/iceberg-flink-runtime-0.11.1.jar">0.11.1 Flink runtime Jar</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-hive-runtime/0.11.1/iceberg-hive-runtime-0.11.1.jar">0.11.1 Hive runtime Jar</a></li>
 </ul>
 <p>To use Iceberg in Spark, download the runtime Jar and add it to the jars folder of your Spark install. Use iceberg-spark3-runtime for Spark 3, and iceberg-spark-runtime for Spark 2.4.</p>
+<p>To use Iceberg in Hive, download the iceberg-hive-runtime Jar and add it to Hive using <code>ADD JAR</code>.</p>
 <h3 id="gradle">Gradle<a class="headerlink" href="#gradle" title="Permanent link">&para;</a></h3>
 <p>To add a dependency on Iceberg in Gradle, add the following to <code>build.gradle</code>:</p>
 <pre><code>dependencies {
-  compile 'org.apache.iceberg:iceberg-core:0.9.1'
+  compile 'org.apache.iceberg:iceberg-core:0.11.1'
 }
 </code></pre>
-
 <p>You may also want to include <code>iceberg-parquet</code> for Parquet file support.</p>
 <h3 id="maven">Maven<a class="headerlink" href="#maven" title="Permanent link">&para;</a></h3>
 <p>To add a dependency on Iceberg in Maven, add the following to your <code>pom.xml</code>:</p>
@@ -390,13 +498,107 @@
   &lt;dependency&gt;
     &lt;groupId&gt;org.apache.iceberg&lt;/groupId&gt;
     &lt;artifactId&gt;iceberg-core&lt;/artifactId&gt;
-    &lt;version&gt;0.9.1&lt;/version&gt;
+    &lt;version&gt;0.11.1&lt;/version&gt;
   &lt;/dependency&gt;
   ...
 &lt;/dependencies&gt;
 </code></pre>
-
+<h2 id="0111-release-notes">0.11.1 release notes<a class="headerlink" href="#0111-release-notes" title="Permanent link">&para;</a></h2>
+<p>Important bug fixes:</p>
+<ul>
+<li><a href="https://github.com/apache/iceberg/pull/2367">#2367</a> prohibits deleting data files when tables are dropped if GC is disabled.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2196">#2196</a> fixes data loss after compaction when large files are split into multiple parts and only some parts are combined with other files.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2232">#2232</a> fixes row group filters with promoted types in Parquet.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2267">#2267</a> avoids listing non-Iceberg tables in Glue.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2254">#2254</a> fixes predicate pushdown for Date in Hive.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2126">#2126</a> fixes writing of Date, Decimal, Time, UUID types in Hive.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2241">#2241</a> fixes vectorized ORC reads with metadata columns in Spark.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2154">#2154</a> refreshes the relation cache in DELETE and MERGE operations in Spark.</li>
+</ul>
+<h2 id="0110-release-notes">0.11.0 release notes<a class="headerlink" href="#0110-release-notes" title="Permanent link">&para;</a></h2>
+<p>High-level features:</p>
+<ul>
+<li><strong>Core API</strong> now supports partition spec and sort order evolution</li>
+<li><strong>Spark 3</strong> now supports the following SQL extensions:<ul>
+<li>MERGE INTO (experimental)</li>
+<li>DELETE FROM (experimental)</li>
+<li>ALTER TABLE &hellip; ADD/DROP PARTITION</li>
+<li>ALTER TABLE &hellip; WRITE ORDERED BY</li>
+<li>Invoke stored procedures using CALL</li>
+</ul>
+</li>
+<li><strong>Flink</strong> now supports streaming reads, CDC writes (experimental), and filter pushdown</li>
+<li><strong>AWS module</strong> is added to support better integration with AWS, with <a href="https://aws.amazon.com/glue/">AWS Glue catalog</a> support and dedicated S3 FileIO implementation</li>
+<li><strong>Nessie module</strong> is added to support integration with <a href="https://projectnessie.org/">project Nessie</a></li>
+</ul>
+<p>Important bug fixes:</p>
+<ul>
+<li><a href="https://github.com/apache/iceberg/pull/1981">#1981</a> fixes bug that date and timestamp transforms were producing incorrect values for dates and times before 1970. Before the fix, negative values were incorrectly transformed by date and timestamp transforms to 1 larger than the correct value. For example, <code>day(1969-12-31 10:00:00)</code> produced 0 instead of -1. The fix is backwards compatible, which means predicate projection can still work with the incorrectly transformed partitions written using older versions.</li>
+<li><a href="https://github.com/apache/iceberg/pull/2091">#2091</a> fixes <code>ClassCastException</code> for type promotion <code>int</code> to <code>long</code> and <code>float</code> to <code>double</code> during Parquet vectorized read. Now Arrow vector is created by looking at Parquet file schema instead of Iceberg schema for <code>int</code> and <code>float</code> fields.</li>
+<li><a href="https://github.com/apache/iceberg/pull/1998">#1998</a> fixes bug in <code>HiveTableOperation</code> that <code>unlock</code> is not called if new metadata cannot be deleted. Now it is guaranteed that <code>unlock</code> is always called for Hive catalog users.</li>
+<li><a href="https://github.com/apache/iceberg/pull/1979">#1979</a> fixes table listing failure in Hadoop catalog when user does not have permission to some tables. Now the tables with no permission are ignored in listing.</li>
+<li><a href="https://github.com/apache/iceberg/pull/1798">#1798</a> fixes scan task failure when encountering duplicate entries of data files. Spark and Flink readers can now ignore duplicated entries in data files for each scan task.</li>
+<li><a href="https://github.com/apache/iceberg/pull/1785">#1785</a> fixes invalidation of metadata tables in <code>CachingCatalog</code>. When a table is dropped, all the metadata tables associated with it are also invalidated in the cache.</li>
+<li><a href="https://github.com/apache/iceberg/pull/1960">#1960</a> fixes bug that ORC writer does not read metrics config and always use the default. Now customized metrics config is respected.</li>
+</ul>
+<p>Other notable changes:</p>
+<ul>
+<li>NaN counts are now supported in metadata</li>
+<li>Shared catalog properties are added in core library to standardize catalog level configurations</li>
+<li>Spark and Flink now support dynamically loading customized <code>Catalog</code> and <code>FileIO</code> implementations</li>
+<li>Spark 2 now supports loading tables from other catalogs, like Spark 3</li>
+<li>Spark 3 now supports catalog names in DataFrameReader when using Iceberg as a format</li>
+<li>Flink now uses the number of Iceberg read splits as its job parallelism to improve performance and save resource.</li>
+<li>Hive (experimental) now supports INSERT INTO, case insensitive query, projection pushdown, create DDL with schema and auto type conversion</li>
+<li>ORC now supports reading tinyint, smallint, char, varchar types</li>
+<li>Avro to Iceberg schema conversion now preserves field docs</li>
+</ul>
 <h2 id="past-releases">Past releases<a class="headerlink" href="#past-releases" title="Permanent link">&para;</a></h2>
+<h3 id="0100">0.10.0<a class="headerlink" href="#0100" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Git tag: <a href="https://github.com/apache/iceberg/releases/tag/apache-iceberg-0.10.0">0.10.0</a></li>
+<li><a href="https://www.apache.org/dyn/closer.cgi/iceberg/apache-iceberg-0.10.0/apache-iceberg-0.10.0.tar.gz">0.10.0 source tar.gz</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.10.0/apache-iceberg-0.10.0.tar.gz.asc">signature</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.10.0/apache-iceberg-0.10.0.tar.gz.sha512">sha512</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark3-runtime/0.10.0/iceberg-spark3-runtime-0.10.0.jar">0.10.0 Spark 3.0 runtime Jar</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark-runtime/0.10.0/iceberg-spark-runtime-0.10.0.jar">0.10.0 Spark 2.4 runtime Jar</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-flink-runtime/0.10.0/iceberg-flink-runtime-0.10.0.jar">0.10.0 Flink runtime Jar</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-hive-runtime/0.10.0/iceberg-hive-runtime-0.10.0.jar">0.10.0 Hive runtime Jar</a></li>
+</ul>
+<p>High-level features:</p>
+<ul>
+<li><strong>Format v2 support</strong> for building row-level operations (<code>MERGE INTO</code>) in processing engines<ul>
+<li>Note: format v2 is not yet finalized and does not have a forward-compatibility guarantee</li>
+</ul>
+</li>
+<li><strong>Flink integration</strong> for writing to Iceberg tables and reading from Iceberg tables (reading supports batch mode only)</li>
+<li><strong>Hive integration</strong> for reading from Iceberg tables, with filter pushdown (experimental; configuration may change)</li>
+</ul>
+<p>Important bug fixes:</p>
+<ul>
+<li><a href="https://github.com/apache/iceberg/pull/1706">#1706</a> fixes non-vectorized ORC reads in Spark that incorrectly skipped rows</li>
+<li><a href="https://github.com/apache/iceberg/pull/1536">#1536</a> fixes ORC conversion of <code>notIn</code> and <code>notEqual</code> to match null values</li>
+<li><a href="https://github.com/apache/iceberg/pull/1722">#1722</a> fixes <code>Expressions.notNull</code> returning an <code>isNull</code> predicate; API only, method was not used by processing engines</li>
+<li><a href="https://github.com/apache/iceberg/pull/1736">#1736</a> fixes <code>IllegalArgumentException</code> in vectorized Spark reads with negative decimal values</li>
+<li><a href="https://github.com/apache/iceberg/pull/1666">#1666</a> fixes file lengths returned by the ORC writer, using compressed size rather than uncompressed size</li>
+<li><a href="https://github.com/apache/iceberg/pull/1674">#1674</a> removes catalog expiration in HiveCatalogs</li>
+<li><a href="https://github.com/apache/iceberg/pull/1545">#1545</a> automatically refreshes tables in Spark when not caching table instances</li>
+</ul>
+<p>Other notable changes:</p>
+<ul>
+<li>The <code>iceberg-hive</code> module has been renamed to <code>iceberg-hive-metastore</code> to avoid confusion</li>
+<li>Spark 3 is based on 3.0.1 that includes the fix for <a href="https://issues.apache.org/jira/browse/SPARK-32168">SPARK-32168</a></li>
+<li>Hadoop tables will recover from version hint corruption</li>
+<li>Tables can be configured with a required sort order</li>
+<li>Data file locations can be customized with a dynamically loaded <code>LocationProvider</code></li>
+<li>ORC file imports can apply a name mapping for stats</li>
+</ul>
+<p>A more exhaustive list of changes is available under the <a href="https://github.com/apache/iceberg/milestone/10?closed=1">0.10.0 release milestone</a>.</p>
+<h3 id="091">0.9.1<a class="headerlink" href="#091" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Git tag: <a href="https://github.com/apache/iceberg/releases/tag/apache-iceberg-0.9.1">0.9.1</a></li>
+<li><a href="https://www.apache.org/dyn/closer.cgi/iceberg/apache-iceberg-0.9.1/apache-iceberg-0.9.1.tar.gz">0.9.1 source tar.gz</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.9.1/apache-iceberg-0.9.1.tar.gz.asc">signature</a> &ndash; <a href="https://downloads.apache.org/iceberg/apache-iceberg-0.9.1/apache-iceberg-0.9.1.tar.gz.sha512">sha512</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark3-runtime/0.9.1/iceberg-spark3-runtime-0.9.1.jar">0.9.1 Spark 3.0 runtime Jar</a></li>
+<li><a href="https://search.maven.org/remotecontent?filepath=org/apache/iceberg/iceberg-spark-runtime/0.9.1/iceberg-spark-runtime-0.9.1.jar">0.9.1 Spark 2.4 runtime Jar</a></li>
+</ul>
 <h3 id="090">0.9.0<a class="headerlink" href="#090" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Git tag: <a href="https://github.com/apache/iceberg/releases/tag/apache-iceberg-0.9.0">0.9.0</a></li>
@@ -420,21 +622,31 @@
         
     </div>
 
-    <footer class="col-md-12 text-center">
-        
-        <hr>
-        <p>
-        <small>Copyright 2018-2020 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.<br></small>
-        
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+    
+      <footer class="col-md-12 text-center">
+          
+          
+            <hr>
+            <p>
+            <small>Copyright 2018-2021 <a href='https://www.apache.org/'>The Apache Software Foundation</a><br />Apache Iceberg, Iceberg, Apache, the Apache feather logo, and the Apache Iceberg project logo are either registered<br />trademarks or trademarks of The Apache Software Foundation in the United States and other countries.</small><br>
+            
+            <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</small>
+            </p>
+          
 
-        
-        
-    </footer>
+          
+          
+      </footer>
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.0/build/highlight.min.js"></script>
+        
     <script>hljs.initHighlightingOnLoad();</script>
+    
+
     <script>var base_url = ".."</script>
     
     <script src="../js/base.js"></script>
