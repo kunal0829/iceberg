@@ -32,10 +32,12 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.client.builder.SdkClientBuilder;
 import software.amazon.awssdk.http.SdkHttpClient;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
+import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.sns.SnsClient;
 
 public class AwsClientFactories {
 
@@ -109,6 +111,9 @@ public class AwsClientFactories {
     public DynamoDbClient dynamo() {
       return DynamoDbClient.builder().httpClient(HTTP_CLIENT_DEFAULT).build();
     }
+
+    @Override
+    public SnsClient sns() { return SnsClient.builder().httpClient(HTTP_CLIENT_DEFAULT).build(); }
 
     @Override
     public void initialize(Map<String, String> properties) {

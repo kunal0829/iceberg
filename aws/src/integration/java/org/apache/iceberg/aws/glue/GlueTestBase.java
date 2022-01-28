@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.sns.SnsClient;
 
 @SuppressWarnings({"VisibilityModifier", "HideUtilityClassConstructor"})
 public class GlueTestBase {
@@ -56,6 +57,7 @@ public class GlueTestBase {
   static final AwsClientFactory clientFactory = AwsClientFactories.defaultFactory();
   static final GlueClient glue = clientFactory.glue();
   static final S3Client s3 = clientFactory.s3();
+  static final SnsClient sns = clientFactory.sns();
 
   // iceberg
   static GlueCatalog glueCatalog;

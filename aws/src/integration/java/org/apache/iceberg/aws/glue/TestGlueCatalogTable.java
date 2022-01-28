@@ -31,8 +31,11 @@ import org.apache.iceberg.Schema;
 import org.apache.iceberg.Table;
 import org.apache.iceberg.TableMetadata;
 import org.apache.iceberg.TableOperations;
+import org.apache.iceberg.aws.sns.SNSListener;
 import org.apache.iceberg.catalog.Namespace;
 import org.apache.iceberg.catalog.TableIdentifier;
+import org.apache.iceberg.events.CreateSnapshotEvent;
+import org.apache.iceberg.events.Listeners;
 import org.apache.iceberg.exceptions.AlreadyExistsException;
 import org.apache.iceberg.exceptions.NoSuchTableException;
 import org.apache.iceberg.exceptions.ValidationException;
@@ -122,6 +125,10 @@ public class TestGlueCatalogTable extends GlueTestBase {
 
   @Test
   public void testUpdateTable() {
+    String testARN = "arn:aws:sns:us-east-1:420609218074:IcebergKunal";
+    Listeners.register(new SNSListener(testARN, sns), CreateSnapshotEvent.class);
+//    String namespace = "default1";
+//    String tableName = "kunal_test1";
     String namespace = createNamespace();
     String tableName = getRandomName();
     // current should be null
