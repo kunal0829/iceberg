@@ -33,9 +33,9 @@ public class SNSListener implements Listener {
   public void notify(Object event) {
     String msg = EventParser.toJson(event);
     PublishRequest request = PublishRequest.builder()
-                                              .message(msg)
-                                              .topicArn(topicArn)
-                                              .build();
+        .message(msg)
+        .topicArn(topicArn)
+        .build();
     sns.publish(request);
   }
 }
