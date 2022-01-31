@@ -16,9 +16,10 @@ package org.apache.iceberg.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.UncheckedIOException;
 import java.util.Map;
 import org.apache.iceberg.SchemaParser;
-import org.apache.iceberg.TableMetadataParser;
 import org.apache.iceberg.events.ScanEvent;
 import org.apache.iceberg.events.CreateSnapshotEvent;
 import org.apache.iceberg.events.IncrementalScanEvent;
@@ -36,13 +37,22 @@ public class EventParser {
   private EventParser() {
   }
 
-  public static void toJson(Object event, JsonGenerator generator) throws IOException {
-    if (event instanceof ScanEvent) {
-      toJson((ScanEvent) event, generator);
-    } else if (event instanceof CreateSnapshotEvent) {
-      toJson((CreateSnapshotEvent) event, generator);
-    } else if (event instanceof IncrementalScanEvent) {
-      toJson((IncrementalScanEvent) event, generator);
+  public static String toJson(Object event) {
+    try {
+      StringWriter writer = new StringWriter();
+      JsonGenerator generator = JsonUtil.factory().createGenerator(writer);
+      if (event instanceof ScanEvent) {
+        toJson((ScanEvent) event, generator);
+      } else if (event instanceof CreateSnapshotEvent) {
+        toJson((CreateSnapshotEvent) event, generator);
+      } else if (event instanceof IncrementalScanEvent) {
+        toJson((IncrementalScanEvent) event, generator);
+      }
+      generator.flush();
+      return writer.toString();
+
+    } catch (IOException e) {
+      throw new UncheckedIOException(String.format("Failed to write json"), e);
     }
   }
 

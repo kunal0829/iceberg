@@ -14,20 +14,10 @@
 
 package org.apache.iceberg.aws.sns;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UncheckedIOException;
-
-import org.apache.iceberg.events.CreateSnapshotEvent;
-import org.apache.iceberg.events.IncrementalScanEvent;
 import org.apache.iceberg.events.Listener;
-import org.apache.iceberg.events.ScanEvent;
 import org.apache.iceberg.util.EventParser;
-import org.apache.iceberg.util.JsonUtil;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
-import software.amazon.awssdk.services.sns.model.PublishResponse;
 
 public class SNSListener implements Listener {
   private String topicArn;
@@ -41,16 +31,8 @@ public class SNSListener implements Listener {
 
   @Override
   public void notify(Object event) {
-    StringWriter writer = new StringWriter();
-    try {
-      JsonGenerator generator = JsonUtil.factory().createGenerator(writer);
-      EventParser.toJson(event, generator);
-      generator.flush();
-    } catch (IOException e) {
-      throw new UncheckedIOException(String.format("Failed to write json"), e);
-    }
-
-    PublishRequest request = PublishRequest.builder().message(writer.toString()).topicArn(topicArn).build();
+    String msg = EventParser.toJson(event);
+    PublishRequest request = PublishRequest.builder().message(msg).topicArn(topicArn).build();
     sns.publish(request);
 
     sns.close();
