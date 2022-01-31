@@ -44,28 +44,15 @@ public class SNSListener implements Listener {
     StringWriter writer = new StringWriter();
     try {
       JsonGenerator generator = JsonUtil.factory().createGenerator(writer);
-      if (event instanceof ScanEvent) {
-        System.out.println("Notify Scan");
-        EventParser.toJson((ScanEvent) event, generator);
-      } else if (event instanceof CreateSnapshotEvent) {
-        System.out.println("Notify Create Snapshot");
-        EventParser.toJson((CreateSnapshotEvent) event, generator);
-      } else if (event instanceof IncrementalScanEvent) {
-        System.out.println("Notify Incremental Scan");
-        EventParser.toJson((IncrementalScanEvent) event, generator);
-      }
-
+      EventParser.toJson(event, generator);
       generator.flush();
     } catch (IOException e) {
       throw new UncheckedIOException(String.format("Failed to write json"), e);
     }
 
-    publishTopic(sns, writer.toString());
-    sns.close();
-  }
-
-  public void publishTopic(SnsClient sns, String msg) {
-    PublishRequest request = PublishRequest.builder().message(msg).topicArn(topicArn).build();
+    PublishRequest request = PublishRequest.builder().message(writer.toString()).topicArn(topicArn).build();
     sns.publish(request);
+
+    sns.close();
   }
 }

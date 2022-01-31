@@ -36,6 +36,16 @@ public class EventParser {
   private EventParser() {
   }
 
+  public static void toJson(Object event, JsonGenerator generator) throws IOException {
+    if (event instanceof ScanEvent) {
+      toJson((ScanEvent) event, generator);
+    } else if (event instanceof CreateSnapshotEvent) {
+      toJson((CreateSnapshotEvent) event, generator);
+    } else if (event instanceof IncrementalScanEvent) {
+      toJson((IncrementalScanEvent) event, generator);
+    }
+  }
+
   public static void toJson(ScanEvent event, JsonGenerator generator) throws IOException {
     generator.writeStartObject();
     generator.writeFieldName(TABLE_NAME);
