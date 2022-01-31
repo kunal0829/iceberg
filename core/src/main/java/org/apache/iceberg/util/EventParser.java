@@ -16,59 +16,66 @@ package org.apache.iceberg.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
+import java.util.Map;
+import org.apache.iceberg.SchemaParser;
+import org.apache.iceberg.TableMetadataParser;
 import org.apache.iceberg.events.ScanEvent;
 import org.apache.iceberg.events.CreateSnapshotEvent;
 import org.apache.iceberg.events.IncrementalScanEvent;
 
 public class EventParser {
-    private static final String TABLE_NAME = "table-name";
-    private static final String SNAPSHOT_ID = "snapshot-id";
-    private static final String PROJECTION = "projection";
-    private static final String OPERATION = "operation";
-    private static final String SEQUENCE_NUMBER = "sequence-number";
-    private static final String SUMMARY = "summary";
-    private static final String FROM_SNAPSHOT_ID = "from-snapshot-id";
-    private static final String TO_SNAPSHOT_ID = "to-snapshot-id";
+  private static final String TABLE_NAME = "table-name";
+  private static final String SNAPSHOT_ID = "snapshot-id";
+  private static final String PROJECTION = "projection";
+  private static final String OPERATION = "operation";
+  private static final String SEQUENCE_NUMBER = "sequence-number";
+  private static final String SUMMARY = "summary";
+  private static final String FROM_SNAPSHOT_ID = "from-snapshot-id";
+  private static final String TO_SNAPSHOT_ID = "to-snapshot-id";
 
-    private EventParser() {
-    }
+  private EventParser() {
+  }
 
-    public static void toJson(ScanEvent scan, JsonGenerator generator) throws IOException {
-        generator.writeStartObject();
-        generator.writeFieldName(TABLE_NAME);
-        generator.writeString(scan.tableName());
-        generator.writeFieldName(SNAPSHOT_ID);
-        generator.writeNumber(scan.snapshotId());
-        generator.writeFieldName(PROJECTION);
-        generator.writeString(scan.projection().toString());
-        generator.writeEndObject();
-    }
+  public static void toJson(ScanEvent event, JsonGenerator generator) throws IOException {
+    generator.writeStartObject();
+    generator.writeFieldName(TABLE_NAME);
+    generator.writeString(event.tableName());
+    generator.writeFieldName(SNAPSHOT_ID);
+    generator.writeNumber(event.snapshotId());
+    generator.writeFieldName(PROJECTION);
+    SchemaParser.toJson(event.projection(), generator);
+    generator.writeEndObject();
+  }
 
-    public static void toJson(CreateSnapshotEvent snapshot, JsonGenerator generator) throws IOException {
-        generator.writeStartObject();
-        generator.writeFieldName(TABLE_NAME);
-        generator.writeString(snapshot.tableName());
-        generator.writeFieldName(OPERATION);
-        generator.writeString(snapshot.operation());
-        generator.writeFieldName(SNAPSHOT_ID);
-        generator.writeNumber(snapshot.snapshotId());
-        generator.writeFieldName(SEQUENCE_NUMBER);
-        generator.writeNumber(snapshot.sequenceNumber());
-        generator.writeFieldName(SUMMARY);
-        generator.writeString(snapshot.summary().toString());
-        generator.writeEndObject();
+  public static void toJson(CreateSnapshotEvent event, JsonGenerator generator) throws IOException {
+    generator.writeStartObject();
+    generator.writeFieldName(TABLE_NAME);
+    generator.writeString(event.tableName());
+    generator.writeFieldName(OPERATION);
+    generator.writeString(event.operation());
+    generator.writeFieldName(SNAPSHOT_ID);
+    generator.writeNumber(event.snapshotId());
+    generator.writeFieldName(SEQUENCE_NUMBER);
+    generator.writeNumber(event.sequenceNumber());
+    generator.writeObjectFieldStart(SUMMARY);
+    for (Map.Entry<String, String> keyValue : event.summary().entrySet()) {
+      generator.writeStringField(keyValue.getKey(), keyValue.getValue());
     }
+    generator.writeEndObject();
 
-    public static void toJson(IncrementalScanEvent incrementalScan, JsonGenerator generator) throws IOException {
-        generator.writeStartObject();
-        generator.writeFieldName(TABLE_NAME);
-        generator.writeString(incrementalScan.tableName());
-        generator.writeFieldName(FROM_SNAPSHOT_ID);
-        generator.writeNumber(incrementalScan.fromSnapshotId());
-        generator.writeFieldName(TO_SNAPSHOT_ID);
-        generator.writeNumber(incrementalScan.toSnapshotId());
-        generator.writeFieldName(PROJECTION);
-        generator.writeString(incrementalScan.projection().toString());
-        generator.writeEndObject();
-    }
+    generator.writeEndObject();
+  }
+
+  public static void toJson(IncrementalScanEvent event, JsonGenerator generator) throws IOException {
+    generator.writeStartObject();
+    generator.writeFieldName(TABLE_NAME);
+    generator.writeString(event.tableName());
+    generator.writeFieldName(FROM_SNAPSHOT_ID);
+    generator.writeNumber(event.fromSnapshotId());
+    generator.writeFieldName(TO_SNAPSHOT_ID);
+    generator.writeNumber(event.toSnapshotId());
+    generator.writeFieldName(PROJECTION);
+    SchemaParser.toJson(event.projection(), generator);
+    generator.writeEndObject();
+  }
 }

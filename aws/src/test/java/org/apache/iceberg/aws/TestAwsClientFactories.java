@@ -110,7 +110,9 @@ public class TestAwsClientFactories {
     }
 
     @Override
-    public SnsClient sns() {return null;}
+    public SnsClient sns() {
+        return null;
+    }
 
     @Override
     public void initialize(Map<String, String> properties) {

@@ -113,7 +113,9 @@ public class AwsClientFactories {
     }
 
     @Override
-    public SnsClient sns() { return SnsClient.builder().httpClient(HTTP_CLIENT_DEFAULT).build(); }
+    public SnsClient sns() {
+      return SnsClient.builder().httpClient(HTTP_CLIENT_DEFAULT).build();
+    }
 
     @Override
     public void initialize(Map<String, String> properties) {

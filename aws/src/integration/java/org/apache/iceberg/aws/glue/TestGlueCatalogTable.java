@@ -125,10 +125,6 @@ public class TestGlueCatalogTable extends GlueTestBase {
 
   @Test
   public void testUpdateTable() {
-    String testARN = "arn:aws:sns:us-east-1:420609218074:IcebergKunal";
-    Listeners.register(new SNSListener(testARN, sns), CreateSnapshotEvent.class);
-//    String namespace = "default1";
-//    String tableName = "kunal_test1";
     String namespace = createNamespace();
     String tableName = getRandomName();
     // current should be null
