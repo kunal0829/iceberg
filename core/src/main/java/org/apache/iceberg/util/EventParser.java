@@ -48,9 +48,9 @@ public class EventParser {
       } else if (event instanceof IncrementalScanEvent) {
         toJson((IncrementalScanEvent) event, generator);
       }
+
       generator.flush();
       return writer.toString();
-
     } catch (IOException e) {
       throw new UncheckedIOException(String.format("Failed to write json"), e);
     }
@@ -81,8 +81,8 @@ public class EventParser {
     for (Map.Entry<String, String> keyValue : event.summary().entrySet()) {
       generator.writeStringField(keyValue.getKey(), keyValue.getValue());
     }
-    generator.writeEndObject();
 
+    generator.writeEndObject();
     generator.writeEndObject();
   }
 

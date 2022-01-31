@@ -38,7 +38,6 @@ public class TestGlueCatalogNotification extends GlueTestBase{
     Table table = glueCatalog.loadTable(TableIdentifier.of(namespace, tableName));
 
     table.newAppend().appendFile(testDataFile).commit();
-    table = glueCatalog.loadTable(TableIdentifier.of(namespace, tableName));
   }
 
   @Test
@@ -51,7 +50,7 @@ public class TestGlueCatalogNotification extends GlueTestBase{
     Table table = glueCatalog.loadTable(TableIdentifier.of(namespace, tableName));
 
     table.newAppend().appendFile(testDataFile).commit();
-    table = glueCatalog.loadTable(TableIdentifier.of(namespace, tableName));
+    table.refresh();
 
     table.newScan().planFiles();
   }
@@ -67,7 +66,7 @@ public class TestGlueCatalogNotification extends GlueTestBase{
 
     table.newAppend().appendFile(testDataFile).commit();
     table.newAppend().appendFile(testDataFile).commit();
-    table = glueCatalog.loadTable(TableIdentifier.of(namespace, tableName));
+    table.refresh();
 
     Iterable<Snapshot> snapshots = table.snapshots();
     table.newScan().appendsBetween(Iterables.get(snapshots, 0).snapshotId(), Iterables.get(snapshots, 1).snapshotId()).planFiles();
@@ -75,9 +74,10 @@ public class TestGlueCatalogNotification extends GlueTestBase{
 
   @Test
   public void testNotifyOnAllEvents() {
-    Listeners.register(new SNSListener(testARN, sns), CreateSnapshotEvent.class);
-    Listeners.register(new SNSListener(testARN, sns), ScanEvent.class);
-    Listeners.register(new SNSListener(testARN, sns), IncrementalScanEvent.class);
+    SNSListener snsListener = new SNSListener(testARN, sns);
+    Listeners.register(snsListener, CreateSnapshotEvent.class);
+    Listeners.register(snsListener, ScanEvent.class);
+    Listeners.register(snsListener, IncrementalScanEvent.class);
 
     String namespace = createNamespace();
     String tableName = getRandomName();
@@ -88,7 +88,7 @@ public class TestGlueCatalogNotification extends GlueTestBase{
     table.newScan().planFiles();
 
     table.newAppend().appendFile(testDataFile).commit();
-    table = glueCatalog.loadTable(TableIdentifier.of(namespace, tableName));
+    table.refresh();
 
     Iterable<Snapshot> snapshots = table.snapshots();
     table.newScan().appendsBetween(Iterables.get(snapshots, 0).snapshotId(), Iterables.get(snapshots, 1).snapshotId()).planFiles();

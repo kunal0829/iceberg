@@ -24,17 +24,18 @@ public class SNSListener implements Listener {
   // private AwsClientFactory awsClientFactory; // to be used later
   private SnsClient sns;
 
-  public SNSListener(String inputARN, SnsClient snsInput) {
-    sns = snsInput;
-    topicArn = inputARN;
+  public SNSListener(String topicArn, SnsClient sns) {
+    this.sns = sns;
+    this.topicArn = topicArn;
   }
 
   @Override
   public void notify(Object event) {
     String msg = EventParser.toJson(event);
-    PublishRequest request = PublishRequest.builder().message(msg).topicArn(topicArn).build();
+    PublishRequest request = PublishRequest.builder()
+                                              .message(msg)
+                                              .topicArn(topicArn)
+                                              .build();
     sns.publish(request);
-
-    sns.close();
   }
 }
