@@ -47,11 +47,14 @@ public class ExpressionParser {
   private static final String FALSE = "false";
   private static final String UNBOUNDED_PREDICATE = "unbounded-predicate";
   private static final String BOUNDED_LITERAL_PREDICATE = "bounded-literal-predicate";
-  private static final String BOUNDED_SET_PREDICATE = "bounded-literal-predicate";
+  private static final String BOUNDED_SET_PREDICATE = "bounded-set-predicate";
   private static final String BOUNDED_UNARY_PREDICATE = "bounded-unary-predicate";
 
-  private static final String NAMED = "named";
-  private static final String BOUND = "bound";
+  private static final String NAMED_REFERENCE = "named-reference";
+  private static final String BOUND_REFERENCE = "bound-reference";
+
+  private static final String ABOVE_MAX = "above-max";
+  private static final String BELOW_MIN = "below-min";
 
   private static final Set<Expression.Operation> oneInputs = ImmutableSet.of(
           Expression.Operation.IS_NULL,
@@ -147,7 +150,7 @@ public class ExpressionParser {
     } else if (predicate instanceof BoundUnaryPredicate) {
       toJson((BoundUnaryPredicate) predicate, generator);
     } else {
-      throw new IllegalArgumentException("Invalid Predicate Type");
+      throw new IllegalArgumentException("Cannot find valid Predicate Type for " + predicate + ".");
     }
   }
 
@@ -165,19 +168,19 @@ public class ExpressionParser {
     generator.writeEndObject();
   }
 
-  // TODO: Implement BoundLiteralPredicate
-  public static void toJson(BoundLiteralPredicate predicate, JsonGenerator generator) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Not Yet Supported");
+  public static void toJson(BoundLiteralPredicate predicate, JsonGenerator generator) {
+    throw new UnsupportedOperationException(
+            "Serialization of Predicate type BoundLiteralPredicate is not currently supported.");
   }
 
-  // TODO: Implement BoundSetPredicate
-  public static void toJson(BoundSetPredicate predicate, JsonGenerator generator) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Not Yet Supported");
+  public static void toJson(BoundSetPredicate predicate, JsonGenerator generator) {
+    throw new UnsupportedOperationException(
+            "Serialization of Predicate type BoundSetPredicate is not currently supported.");
   }
 
-  // TODO: Implement BoundUnaryPredicate
-  public static void toJson(BoundUnaryPredicate predicate, JsonGenerator generator) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Not Yet Supported");
+  public static void toJson(BoundUnaryPredicate predicate, JsonGenerator generator) {
+    throw new UnsupportedOperationException(
+            "Serialization of Predicate type BoundUnaryPredicate is not currently supported.");
   }
 
   public static void toJson(Term term, JsonGenerator generator) throws IOException {
@@ -186,20 +189,19 @@ public class ExpressionParser {
     } else if (term instanceof BoundReference) {
       toJson((BoundReference) term, generator); // Need to Implement
     } else {
-      throw new IllegalArgumentException("Invalid Term Type");
+      throw new IllegalArgumentException("Cannot find valid Term Type for " + term + ".");
     }
   }
 
   public static void toJson(NamedReference term, JsonGenerator generator) throws IOException {
     generator.writeStartObject();
-    generator.writeStringField(TYPE, NAMED);
+    generator.writeStringField(TYPE, NAMED_REFERENCE);
     generator.writeStringField(VALUE, term.name());
     generator.writeEndObject();
   }
 
-  // TODO: Implement BoundReference
-  public static void toJson(BoundReference term, JsonGenerator generator) throws IllegalArgumentException {
-    throw new IllegalArgumentException("Not Yet Supported");
+  public static void toJson(BoundReference term, JsonGenerator generator) {
+    throw new UnsupportedOperationException("Serialization of Term type BoundReference is not currently supported");
   }
 
   public static void toJson(List<Literal> literals, JsonGenerator generator) throws IOException {
@@ -212,8 +214,12 @@ public class ExpressionParser {
 
   public static void toJson(Literal literal, JsonGenerator generator) throws IOException {
     generator.writeStartObject();
-    generator.writeStringField(TYPE, ((Literals.BaseLiteral) literal).typeId().toString().toLowerCase());
-    if (!(literal instanceof Literals.AboveMax || literal instanceof Literals.BelowMin)) {
+    if (literal instanceof Literals.AboveMax) {
+      generator.writeStringField(TYPE, ABOVE_MAX);
+    } else if (literal instanceof Literals.BelowMin) {
+      generator.writeStringField(TYPE, BELOW_MIN);
+    } else {
+      generator.writeStringField(TYPE, ((Literals.BaseLiteral) literal).typeId().toString().toLowerCase());
       generator.writeStringField(VALUE, StandardCharsets.UTF_8.decode(literal.toByteBuffer()).toString());
     }
 

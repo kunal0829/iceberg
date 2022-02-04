@@ -171,7 +171,7 @@ class Literals {
   static class AboveMax<T> implements Literal<T> {
     private static final AboveMax INSTANCE = new AboveMax();
 
-    private AboveMax() {
+    protected AboveMax() {
     }
 
     @Override
@@ -198,7 +198,7 @@ class Literals {
   static class BelowMin<T> implements Literal<T> {
     private static final BelowMin INSTANCE = new BelowMin();
 
-    private BelowMin() {
+    protected BelowMin() {
     }
 
     @Override
