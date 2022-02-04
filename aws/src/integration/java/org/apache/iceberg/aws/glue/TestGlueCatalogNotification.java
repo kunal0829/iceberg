@@ -21,12 +21,19 @@ package org.apache.iceberg.aws.glue;
 
 import org.apache.iceberg.Snapshot;
 import org.apache.iceberg.Table;
+import org.apache.iceberg.TableScan;
 import org.apache.iceberg.aws.sns.SNSListener;
 import org.apache.iceberg.catalog.TableIdentifier;
 import org.apache.iceberg.events.CreateSnapshotEvent;
 import org.apache.iceberg.events.IncrementalScanEvent;
 import org.apache.iceberg.events.Listeners;
 import org.apache.iceberg.events.ScanEvent;
+import org.apache.iceberg.expressions.And;
+import org.apache.iceberg.expressions.Expression;
+import org.apache.iceberg.expressions.Expressions;
+import org.apache.iceberg.expressions.Literal;
+import org.apache.iceberg.expressions.NamedReference;
+import org.apache.iceberg.expressions.UnboundPredicate;
 import org.apache.iceberg.relocated.com.google.common.collect.Iterables;
 import org.junit.Test;
 
@@ -55,7 +62,11 @@ public class TestGlueCatalogNotification extends GlueTestBase {
     table.newAppend().appendFile(testDataFile).commit();
     table.refresh();
 
-    table.newScan().planFiles();
+    Expression andExpression = Expressions.and(Expressions.equal("c1", "First"), Expressions.equal("c1", "Second"));
+    TableScan scan = table.newScan().filter(andExpression);
+    scan.filter(andExpression);
+
+    scan.planFiles();
   }
 
   @Test

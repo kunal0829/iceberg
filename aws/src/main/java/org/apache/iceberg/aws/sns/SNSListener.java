@@ -21,10 +21,14 @@ package org.apache.iceberg.aws.sns;
 
 import org.apache.iceberg.events.Listener;
 import org.apache.iceberg.util.EventParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 
 public class SNSListener implements Listener {
+  private static final Logger logger = LoggerFactory.getLogger(SNSListener.class);
+
   private String topicArn;
   // private AwsClientFactory awsClientFactory; // to be used later
   private SnsClient sns;
@@ -36,11 +40,16 @@ public class SNSListener implements Listener {
 
   @Override
   public void notify(Object event) {
-    String msg = EventParser.toJson(event);
-    PublishRequest request = PublishRequest.builder()
-        .message(msg)
-        .topicArn(topicArn)
-        .build();
-    sns.publish(request);
+    try {
+      String msg = EventParser.toJson(event);
+      PublishRequest request = PublishRequest.builder()
+              .message(msg)
+              .topicArn(topicArn)
+              .build();
+      sns.publish(request);
+    } catch (RuntimeException e) {
+      logger.error("Could Not Notify Subscriber", e);
+    }
   }
 }
+
