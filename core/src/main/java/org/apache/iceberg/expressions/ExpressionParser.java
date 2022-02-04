@@ -23,17 +23,18 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Set;
 import org.apache.iceberg.relocated.com.google.common.collect.ImmutableSet;
 import org.apache.iceberg.util.JsonUtil;
-
 
 public class ExpressionParser {
 
   private static final String TYPE = "type";
   private static final String VALUE = "value";
   private static final String OPERATION = "operation";
+  private static final String LITERALS = "literals";
   private static final String TERM = "term";
   private static final String LEFT_OPERAND = "left-operand";
   private static final String RIGHT_OPERAND = "right-operand";
@@ -47,7 +48,7 @@ public class ExpressionParser {
   private static final String UNBOUNDED_PREDICATE = "unbounded-predicate";
   private static final String BOUNDED_LITERAL_PREDICATE = "bounded-literal-predicate";
   private static final String BOUNDED_SET_PREDICATE = "bounded-literal-predicate";
-  private static final String BOUNDED_UNARY_PREDICATE = "bounded-unart-predicate";
+  private static final String BOUNDED_UNARY_PREDICATE = "bounded-unary-predicate";
 
   private static final String NAMED = "named";
   private static final String BOUND = "bound";
@@ -91,6 +92,8 @@ public class ExpressionParser {
       toJson((False) expression, generator);
     } else if (expression instanceof Predicate) {
       toJson((Predicate) expression, generator);
+    } else {
+      throw new IllegalArgumentException("Invalid Operation Type");
     }
   }
 
@@ -138,47 +141,43 @@ public class ExpressionParser {
     if (predicate instanceof UnboundPredicate) {
       toJson((UnboundPredicate) predicate, generator);
     } else if (predicate instanceof BoundLiteralPredicate) {
-      toJson((BoundLiteralPredicate) predicate, generator); // Need to Implement
+      toJson((BoundLiteralPredicate) predicate, generator);
     } else if (predicate instanceof BoundSetPredicate) {
-      toJson((BoundSetPredicate) predicate, generator); // Need to Implement
+      toJson((BoundSetPredicate) predicate, generator);
     } else if (predicate instanceof BoundUnaryPredicate) {
-      toJson((BoundUnaryPredicate) predicate, generator); // Need to Implement
+      toJson((BoundUnaryPredicate) predicate, generator);
+    } else {
+      throw new IllegalArgumentException("Invalid Predicate Type");
     }
   }
 
   public static void toJson(UnboundPredicate predicate, JsonGenerator generator) throws IOException {
     generator.writeStartObject();
     generator.writeStringField(TYPE, UNBOUNDED_PREDICATE);
-    generator.writeStringField(OPERATION, predicate.op().toString().toLowerCase());
+    generator.writeStringField(OPERATION, predicate.op().name().toLowerCase());
     generator.writeFieldName(TERM);
     toJson(predicate.term(), generator);
     if (!(oneInputs.contains(predicate.op()))) {
-      generator.writeFieldName(VALUE);
+      generator.writeFieldName(LITERALS);
       toJson(predicate.literals(), generator);
     }
 
     generator.writeEndObject();
   }
 
-  public static void toJson(BoundLiteralPredicate predicate, JsonGenerator generator) throws IOException {
-    generator.writeStartObject();
-    generator.writeStringField(TYPE, BOUNDED_LITERAL_PREDICATE);
-    // Leaving This For Now
-    generator.writeEndObject();
+  // TODO: Implement BoundLiteralPredicate
+  public static void toJson(BoundLiteralPredicate predicate, JsonGenerator generator) throws IllegalArgumentException {
+    throw new IllegalArgumentException("Not Yet Supported");
   }
 
-  public static void toJson(BoundSetPredicate predicate, JsonGenerator generator) throws IOException {
-    generator.writeStartObject();
-    generator.writeStringField(TYPE, BOUNDED_SET_PREDICATE);
-    // Leaving This For Now
-    generator.writeEndObject();
+  // TODO: Implement BoundSetPredicate
+  public static void toJson(BoundSetPredicate predicate, JsonGenerator generator) throws IllegalArgumentException {
+    throw new IllegalArgumentException("Not Yet Supported");
   }
 
-  public static void toJson(BoundUnaryPredicate predicate, JsonGenerator generator) throws IOException {
-    generator.writeStartObject();
-    generator.writeStringField(TYPE, BOUNDED_UNARY_PREDICATE);
-    // Leaving This For Now
-    generator.writeEndObject();
+  // TODO: Implement BoundUnaryPredicate
+  public static void toJson(BoundUnaryPredicate predicate, JsonGenerator generator) throws IllegalArgumentException {
+    throw new IllegalArgumentException("Not Yet Supported");
   }
 
   public static void toJson(Term term, JsonGenerator generator) throws IOException {
@@ -186,6 +185,8 @@ public class ExpressionParser {
       toJson((NamedReference) term, generator);
     } else if (term instanceof BoundReference) {
       toJson((BoundReference) term, generator); // Need to Implement
+    } else {
+      throw new IllegalArgumentException("Invalid Term Type");
     }
   }
 
@@ -196,62 +197,26 @@ public class ExpressionParser {
     generator.writeEndObject();
   }
 
-  public static void toJson(BoundReference term, JsonGenerator generator) throws IOException {
-    // Leaving This For Now
+  // TODO: Implement BoundReference
+  public static void toJson(BoundReference term, JsonGenerator generator) throws IllegalArgumentException {
+    throw new IllegalArgumentException("Not Yet Supported");
   }
 
   public static void toJson(List<Literal> literals, JsonGenerator generator) throws IOException {
-    generator.writeStartObject();
-    generator.writeFieldName(TYPE);
     generator.writeStartArray();
     for (int i = 0; i < literals.size(); i++) {
-      generator.writeString(toJsonType(literals.get(i)));
+      toJson(literals.get(i), generator);
     }
-
     generator.writeEndArray();
-    generator.writeFieldName(VALUE);
-    generator.writeStartArray();
-    for (int i = 0; i < literals.size(); i++) {
-      generator.writeString(literals.get(i).value().toString());
-    }
-
-    generator.writeEndArray();
-    generator.writeEndObject();
   }
 
-  @SuppressWarnings("checkstyle:CyclomaticComplexity")
-  public static String toJsonType(Literal literal) throws IOException {
-    if (literal instanceof Literals.AboveMax) {
-      return "above-max";
-    } else if (literal instanceof Literals.BelowMin) {
-      return "below-min";
-    } else if (literal instanceof Literals.BooleanLiteral) {
-      return "boolean";
-    } else if (literal instanceof Literals.IntegerLiteral) {
-      return "integer";
-    } else if (literal instanceof Literals.LongLiteral) {
-      return "long";
-    } else if (literal instanceof Literals.FloatLiteral) {
-      return "float";
-    } else if (literal instanceof Literals.DoubleLiteral) {
-      return "double";
-    } else if (literal instanceof Literals.DateLiteral) {
-      return "date";
-    } else if (literal instanceof Literals.TimeLiteral) {
-      return "time";
-    } else if (literal instanceof Literals.TimestampLiteral) {
-      return "timestamp";
-    } else if (literal instanceof Literals.DecimalLiteral) {
-      return "decimal";
-    } else if (literal instanceof Literals.StringLiteral) {
-      return "string";
-    } else if (literal instanceof Literals.UUIDLiteral) {
-      return "uuid";
-    } else if (literal instanceof Literals.FixedLiteral) {
-      return "fixed";
-    } else if (literal instanceof Literals.BinaryLiteral) {
-      return "binary";
+  public static void toJson(Literal literal, JsonGenerator generator) throws IOException {
+    generator.writeStartObject();
+    generator.writeStringField(TYPE, ((Literals.BaseLiteral) literal).typeId().toString().toLowerCase());
+    if (!(literal instanceof Literals.AboveMax || literal instanceof Literals.BelowMin)) {
+      generator.writeStringField(VALUE, StandardCharsets.UTF_8.decode(literal.toByteBuffer()).toString());
     }
-    return "na";
+
+    generator.writeEndObject();
   }
 }

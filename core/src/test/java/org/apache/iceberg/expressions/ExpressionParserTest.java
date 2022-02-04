@@ -23,26 +23,80 @@ import org.junit.Test;
 
 public class ExpressionParserTest {
   @Test
-  public void parserTest() {
+  public void predicateTest() {
+    UnboundPredicate expression = new UnboundPredicate(
+            Expression.Operation.IN,
+            new NamedReference("Column-Name"),
+            Literal.of(50));
+
+    System.out.println(ExpressionParser.toJson(expression, true));
+  }
+  @Test
+  public void andTest() {
+    UnboundPredicate operandOne = new UnboundPredicate(
+            Expression.Operation.GT_EQ,
+            new NamedReference("Column1-Name"),
+            Literal.of(50));
+
+    UnboundPredicate operandTwo = new UnboundPredicate(
+            Expression.Operation.IN,
+            new NamedReference("Column2-Name"),
+            Literal.of(50));
+
+    And expression = new And(operandOne, operandTwo);
+    System.out.println(ExpressionParser.toJson(expression, true));
+  }
+
+  @Test
+  public void orTest() {
+    UnboundPredicate operandOne = new UnboundPredicate(
+            Expression.Operation.LT,
+            new NamedReference("Column1-Name"),
+            Literal.of(50));
+
+    UnboundPredicate operandTwo = new UnboundPredicate(
+            Expression.Operation.NOT_NULL,
+            new NamedReference("Column2-Name"));
+
+    Or expression = new Or(operandOne, operandTwo);
+    System.out.println(ExpressionParser.toJson(expression, true));
+  }
+
+  @Test
+  public void notTest() {
+    UnboundPredicate operandOne = new UnboundPredicate(
+            Expression.Operation.LT,
+            new NamedReference("Column1-Name"),
+            Literal.of(50));
+
+    Not expression = new Not(operandOne);
+    System.out.println(ExpressionParser.toJson(expression, true));
+  }
+
+  @Test
+  public void nestedExpressionTest() {
     UnboundPredicate test1 = new UnboundPredicate(
             Expression.Operation.IN,
-            new NamedReference("Test"),
-            Literal.of(34));
+            new NamedReference("Column1-Name"),
+            Literal.of(50));
 
     UnboundPredicate test2 = new UnboundPredicate(
             Expression.Operation.EQ,
-            new NamedReference("Test2"),
+            new NamedReference("Column2-Name"),
             Literal.of("Test"));
 
     UnboundPredicate test3 = new UnboundPredicate(
             Expression.Operation.LT,
-            new NamedReference("Test3"),
+            new NamedReference("Column3-Name"),
             Literal.of(80));
+
+    UnboundPredicate test4 = new UnboundPredicate(
+            Expression.Operation.IS_NAN,
+            new NamedReference("Column4-Name"));
 
     And expression1 = new And(test1, test2);
     Or expression2 = new Or(expression1, test3);
-    And expression3 = new And(expression1, expression2);
-
+    And expression3 = new And(expression2, test4);
     System.out.println(ExpressionParser.toJson(expression3, true));
   }
 }
