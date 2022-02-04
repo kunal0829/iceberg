@@ -28,12 +28,8 @@ import org.apache.iceberg.events.CreateSnapshotEvent;
 import org.apache.iceberg.events.IncrementalScanEvent;
 import org.apache.iceberg.events.Listeners;
 import org.apache.iceberg.events.ScanEvent;
-import org.apache.iceberg.expressions.And;
 import org.apache.iceberg.expressions.Expression;
 import org.apache.iceberg.expressions.Expressions;
-import org.apache.iceberg.expressions.Literal;
-import org.apache.iceberg.expressions.NamedReference;
-import org.apache.iceberg.expressions.UnboundPredicate;
 import org.apache.iceberg.relocated.com.google.common.collect.Iterables;
 import org.junit.Test;
 
