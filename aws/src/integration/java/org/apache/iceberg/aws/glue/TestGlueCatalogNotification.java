@@ -21,7 +21,6 @@ package org.apache.iceberg.aws.glue;
 
 import org.apache.iceberg.Snapshot;
 import org.apache.iceberg.Table;
-import org.apache.iceberg.TableScan;
 import org.apache.iceberg.aws.sns.SNSListener;
 import org.apache.iceberg.catalog.TableIdentifier;
 import org.apache.iceberg.events.CreateSnapshotEvent;
