@@ -48,7 +48,7 @@ public class SNSListener implements Listener {
               .build();
       sns.publish(request);
     } catch (RuntimeException e) {
-      logger.error("Could Not Notify Subscriber", e);
+      logger.error("Failed to send notification event to SNS topic {}", topicArn, e);
     }
   }
 }

@@ -59,10 +59,7 @@ public class TestGlueCatalogNotification extends GlueTestBase {
     table.refresh();
 
     Expression andExpression = Expressions.and(Expressions.equal("c1", "First"), Expressions.equal("c1", "Second"));
-    TableScan scan = table.newScan().filter(andExpression);
-    scan.filter(andExpression);
-
-    scan.planFiles();
+    table.newScan().filter(andExpression).planFiles();
   }
 
   @Test
