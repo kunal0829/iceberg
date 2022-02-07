@@ -25,9 +25,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.SnsException;
 
 public class SNSListener implements Listener {
-  private static final Logger logger = LoggerFactory.getLogger(SNSListener.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SNSListener.class);
 
   private String topicArn;
   // private AwsClientFactory awsClientFactory; // to be used later
@@ -47,8 +48,10 @@ public class SNSListener implements Listener {
               .topicArn(topicArn)
               .build();
       sns.publish(request);
+    } catch (SnsException e) {
+      LOG.error("Failed to send notification event to SNS topic", e);
     } catch (RuntimeException e) {
-      logger.error("Failed to send notification event to SNS topic {}", topicArn, e);
+      LOG.error("Failed to notify subscriber", e);
     }
   }
 }
