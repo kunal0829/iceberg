@@ -27,12 +27,12 @@ import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.SnsException;
 
-public class SNSListener implements Listener {
+public class SNSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SNSListener.class);
 
-  private String topicArn;
+  private final String topicArn;
   // private AwsClientFactory awsClientFactory; // to be used later
-  private SnsClient sns;
+  private final SnsClient sns;
 
   public SNSListener(String topicArn, SnsClient sns) {
     this.sns = sns;

@@ -27,12 +27,12 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
 
-public class SQSListener implements Listener {
+public class SQSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SQSListener.class);
 
-  private String queueURL;
+  private final String queueURL;
   // private AwsClientFactory awsClientFactory; // to be used later
-  private SqsClient sqs;
+  private final SqsClient sqs;
 
   public SQSListener(String queueURL, SqsClient sqs) {
     this.sqs = sqs;
@@ -44,14 +44,14 @@ public class SQSListener implements Listener {
     try {
       String msg = EventParser.toJson(event);
       SendMessageRequest request = SendMessageRequest.builder()
-              .messageBody(msg)
               .queueUrl(queueURL)
+              .messageBody(msg)
               .build();
       sqs.sendMessage(request);
     } catch (SqsException e) {
       LOG.error("Failed to send notification event to SQS", e);
     } catch (RuntimeException e) {
-      LOG.error("Failed to notify subscriber", e);
+      LOG.error("Failed to add to queue", e);
     }
   }
 }
