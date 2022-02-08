@@ -64,8 +64,10 @@ public class GlueTestBase {
   static final SqsClient sqs = clientFactory.sqs();
 
   static final String testARN = "arn:aws:sns:us-east-1:420609218074:IcebergKunal";
-  static final String testSQS = "testQueue";
-
+  static final String testScanQueue = "https://sqs.us-east-1.amazonaws.com/420609218074/testScanQueue";
+  static final String testCreateSnapshotQueue = "https://sqs.us-east-1.amazonaws.com/420609218074/testCreateSnapshotQueue";
+  static final String testIncrementalScanQueue = "https://sqs.us-east-1.amazonaws.com/420609218074/testIncrementalScanQueue";
+  static final String testAllEventQueue = "https://sqs.us-east-1.amazonaws.com/420609218074/testAllEvent";
 
   // iceberg
   static GlueCatalog glueCatalog;
