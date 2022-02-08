@@ -250,7 +250,7 @@ public class TestGlueCatalogNotification extends GlueTestBase {
     for (String message : actualBodyNodesMessages) {
       expectedBodyNodesMessages.remove(message);
     }
-    
+
     Assert.assertEquals(0, expectedBodyNodesMessages.size());
   }
 
