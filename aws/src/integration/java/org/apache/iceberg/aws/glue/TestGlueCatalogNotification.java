@@ -19,6 +19,7 @@
 
 package org.apache.iceberg.aws.glue;
 
+import java.util.List;
 import org.apache.iceberg.Snapshot;
 import org.apache.iceberg.Table;
 import org.apache.iceberg.aws.sns.SNSListener;
@@ -30,9 +31,25 @@ import org.apache.iceberg.events.ScanEvent;
 import org.apache.iceberg.expressions.Expression;
 import org.apache.iceberg.expressions.Expressions;
 import org.apache.iceberg.relocated.com.google.common.collect.Iterables;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
+import software.amazon.awssdk.services.sqs.model.DeleteMessageRequest;
+import software.amazon.awssdk.services.sqs.model.ListQueuesRequest;
+import software.amazon.awssdk.services.sqs.model.ListQueuesResponse;
+import software.amazon.awssdk.services.sqs.model.Message;
+import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
+
 
 public class TestGlueCatalogNotification extends GlueTestBase {
+
+  @BeforeClass
+  public static void before() {
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+  }
+
   @Test
   public void testNotifyOnCreateSnapshotEvent() {
     Listeners.register(new SNSListener(testARN, sns), CreateSnapshotEvent.class);
@@ -43,6 +60,10 @@ public class TestGlueCatalogNotification extends GlueTestBase {
     Table table = glueCatalog.loadTable(TableIdentifier.of(namespace, tableName));
 
     table.newAppend().appendFile(testDataFile).commit();
+
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+    Assert.assertTrue(messages.size() > 0);
   }
 
   @Test
@@ -59,6 +80,10 @@ public class TestGlueCatalogNotification extends GlueTestBase {
 
     Expression andExpression = Expressions.and(Expressions.equal("c1", "First"), Expressions.equal("c1", "Second"));
     table.newScan().filter(andExpression).planFiles();
+
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+    Assert.assertTrue(messages.size() > 0);
   }
 
   @Test
@@ -79,6 +104,10 @@ public class TestGlueCatalogNotification extends GlueTestBase {
             Iterables.get(snapshots, 0).snapshotId(),
             Iterables.get(snapshots, 1).snapshotId())
             .planFiles();
+
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+    Assert.assertTrue(messages.size() > 0);
   }
 
   @Test
@@ -104,5 +133,41 @@ public class TestGlueCatalogNotification extends GlueTestBase {
             Iterables.get(snapshots, 0).snapshotId(),
             Iterables.get(snapshots, 1).snapshotId())
             .planFiles();
+
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+    Assert.assertTrue(messages.size() > 1);
   }
+
+  public static String getURL() {
+    ListQueuesRequest listQueuesRequest = ListQueuesRequest.builder().build();
+    ListQueuesResponse listQueuesResponse = sqs.listQueues(listQueuesRequest);
+    return listQueuesResponse.queueUrls().get(0);
+  }
+
+  public static void clearQueue(List<Message> messages) {
+    for (Message m : messages) {
+      DeleteMessageRequest req = DeleteMessageRequest.builder()
+              .queueUrl(getURL())
+              .receiptHandle(m.receiptHandle())
+              .build();
+      sqs.deleteMessage(req);
+    }
+  }
+
+  public static List<Message> getMessages() {
+    ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
+            .queueUrl(getURL())
+            .maxNumberOfMessages(10)
+            .build();
+    List<Message> messages = sqs.receiveMessage(receiveMessageRequest).messages();
+    return messages;
+  }
+
+  @AfterClass
+  public static void after() {
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+  }
+
 }
