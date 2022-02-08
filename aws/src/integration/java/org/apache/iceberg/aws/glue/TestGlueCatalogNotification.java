@@ -19,7 +19,11 @@
 
 package org.apache.iceberg.aws.glue;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import org.apache.iceberg.Snapshot;
 import org.apache.iceberg.Table;
 import org.apache.iceberg.aws.sns.SNSListener;
@@ -31,6 +35,8 @@ import org.apache.iceberg.events.ScanEvent;
 import org.apache.iceberg.expressions.Expression;
 import org.apache.iceberg.expressions.Expressions;
 import org.apache.iceberg.relocated.com.google.common.collect.Iterables;
+import org.apache.iceberg.relocated.com.google.common.collect.Lists;
+import org.apache.iceberg.relocated.com.google.common.collect.Sets;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -41,7 +47,6 @@ import software.amazon.awssdk.services.sqs.model.ListQueuesResponse;
 import software.amazon.awssdk.services.sqs.model.Message;
 import software.amazon.awssdk.services.sqs.model.ReceiveMessageRequest;
 
-
 public class TestGlueCatalogNotification extends GlueTestBase {
 
   @BeforeClass
@@ -51,7 +56,12 @@ public class TestGlueCatalogNotification extends GlueTestBase {
   }
 
   @Test
-  public void testNotifyOnCreateSnapshotEvent() {
+  public void testNotifyOnCreateSnapshotEvent() throws IOException {
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+    messages = getMessages();
+    Assert.assertEquals(0, messages.size());
+
     Listeners.register(new SNSListener(testARN, sns), CreateSnapshotEvent.class);
 
     String namespace = createNamespace();
@@ -61,13 +71,33 @@ public class TestGlueCatalogNotification extends GlueTestBase {
 
     table.newAppend().appendFile(testDataFile).commit();
 
-    List<Message> messages = getMessages();
+    messages = getMessages();
     clearQueue(messages);
-    Assert.assertTrue(messages.size() > 0);
+    Assert.assertEquals(1, messages.size());
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode bodyNode = objectMapper.readTree(messages.get(0).body());
+    JsonNode messageNode = objectMapper.readTree(bodyNode.get("Message").asText());
+
+    String expectedMessage = "{\"table-name\":\"" + "glue." + namespace + "." + tableName + "\"," +
+            "\"operation\":\"append\",\"snapshot-id\":" + table.currentSnapshot().snapshotId() + "," +
+            "\"sequence-number\":0,\"summary\":{\"added-data-files\":\"1\"," +
+            "\"added-records\":\"1\",\"added-files-size\":\"10\"," +
+            "\"changed-partition-count\":\"1\",\"total-records\":\"1\"," +
+            "\"total-files-size\":\"10\",\"total-data-files\":\"1\"," +
+            "\"total-delete-files\":\"0\",\"total-position-deletes\":\"0\"," +
+            "\"total-equality-deletes\":\"0\"}}";
+
+    Assert.assertEquals(expectedMessage, messageNode.toString());
   }
 
   @Test
-  public void testNotifyOnScanEvent() {
+  public void testNotifyOnScanEvent() throws IOException {
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+    messages = getMessages();
+    Assert.assertEquals(0, messages.size());
+
     Listeners.register(new SNSListener(testARN, sns), ScanEvent.class);
 
     String namespace = createNamespace();
@@ -81,13 +111,36 @@ public class TestGlueCatalogNotification extends GlueTestBase {
     Expression andExpression = Expressions.and(Expressions.equal("c1", "First"), Expressions.equal("c1", "Second"));
     table.newScan().filter(andExpression).planFiles();
 
-    List<Message> messages = getMessages();
+    messages = getMessages();
     clearQueue(messages);
-    Assert.assertTrue(messages.size() > 0);
+    Assert.assertEquals(1, messages.size());
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode bodyNode = objectMapper.readTree(messages.get(0).body());
+    JsonNode messageNode = objectMapper.readTree(bodyNode.get("Message").asText());
+
+    String expectedMessage = "{\"table-name\":\"" + "glue." + namespace + "." + tableName + "\"," +
+            "\"snapshot-id\":" + table.currentSnapshot().snapshotId() + "," +
+            "\"expression\":{\"type\":\"and\"," +
+            "\"left-operand\":{\"type\":\"unbounded-predicate\"," +
+            "\"operation\":\"eq\",\"term\":{\"type\":\"named-reference\",\"value\":\"c1\"}," +
+            "\"literals\":[{\"type\":\"string\",\"value\":\"First\"}]}," +
+            "\"right-operand\":{\"type\":\"unbounded-predicate\"," +
+            "\"operation\":\"eq\",\"term\":{\"type\":\"named-reference\",\"value\":\"c1\"}," +
+            "\"literals\":[{\"type\":\"string\",\"value\":\"Second\"}]}}," +
+            "\"projection\":{\"type\":\"struct\",\"schema-id\":0,\"fields\":[{\"id\":1,\"name\":\"c1\"," +
+            "\"required\":true,\"type\":\"string\",\"doc\":\"c1\"}]}}";
+
+    Assert.assertEquals(expectedMessage, messageNode.toString());
   }
 
   @Test
-  public void testNotifyOnIncrementalScan() {
+  public void testNotifyOnIncrementalScan() throws IOException {
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+    messages = getMessages();
+    Assert.assertEquals(0, messages.size());
+
     Listeners.register(new SNSListener(testARN, sns), IncrementalScanEvent.class);
 
     String namespace = createNamespace();
@@ -105,13 +158,33 @@ public class TestGlueCatalogNotification extends GlueTestBase {
             Iterables.get(snapshots, 1).snapshotId())
             .planFiles();
 
-    List<Message> messages = getMessages();
+    messages = getMessages();
     clearQueue(messages);
-    Assert.assertTrue(messages.size() > 0);
+    Assert.assertEquals(1, messages.size());
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    JsonNode bodyNode = objectMapper.readTree(messages.get(0).body());
+    JsonNode messageNode = objectMapper.readTree(bodyNode.get("Message").asText());
+
+    String expectedMessage = "{\"table-name\":\"" + "glue." + namespace + "." + tableName + "\"," +
+            "\"from-snapshot-id\":" + Iterables.get(snapshots, 0).snapshotId() + "," +
+            "\"to-snapshot-id\":" + Iterables.get(snapshots, 1).snapshotId() + "," +
+            "\"expression\":{\"type\":\"true\"}," +
+            "\"projection\":{\"type\":\"struct\"," +
+            "\"schema-id\":0,\"fields\":[{\"id\":1,\"name\":\"c1\"," +
+            "\"required\":true,\"type\":\"string\",\"doc\":\"c1\"}]}}";
+
+    Assert.assertEquals(expectedMessage, messageNode.toString());
   }
 
   @Test
-  public void testNotifyOnAllEvents() {
+  public void testNotifyOnAllEvents() throws IOException {
+    List<Message> messages = getMessages();
+    clearQueue(messages);
+
+    messages = getMessages();
+    Assert.assertEquals(0, messages.size());
+
     SNSListener snsListener = new SNSListener(testARN, sns);
     Listeners.register(snsListener, CreateSnapshotEvent.class);
     Listeners.register(snsListener, ScanEvent.class);
@@ -134,9 +207,51 @@ public class TestGlueCatalogNotification extends GlueTestBase {
             Iterables.get(snapshots, 1).snapshotId())
             .planFiles();
 
-    List<Message> messages = getMessages();
+    messages = getMessages();
     clearQueue(messages);
-    Assert.assertTrue(messages.size() > 1);
+    Assert.assertEquals(4, messages.size());
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    List<String> actualBodyNodesMessages = Lists.newArrayList();
+
+    for (int i = 0; i < 4; i++) {
+      actualBodyNodesMessages.add(
+              objectMapper.readTree(objectMapper.readTree(messages.get(i).body())
+                      .get("Message").asText())
+                      .toString());
+    }
+
+    Set<String> expectedBodyNodesMessages = Sets.newHashSet();
+    expectedBodyNodesMessages.add("{\"table-name\":\"" + "glue." + namespace + "." + tableName + "\"," +
+            "\"snapshot-id\":" + Iterables.get(snapshots, 0).snapshotId() + "," +
+            "\"expression\":{\"type\":\"true\"},\"projection\":{\"type\":\"struct\"," +
+            "\"schema-id\":0,\"fields\":[{\"id\":1,\"name\":\"c1\"," +
+            "\"required\":true,\"type\":\"string\",\"doc\":\"c1\"}]}}");
+    expectedBodyNodesMessages.add("{\"table-name\":\"" + "glue." + namespace + "." + tableName + "\"," +
+            "\"operation\":\"append\",\"snapshot-id\":" + Iterables.get(snapshots, 1).snapshotId() + "," +
+            "\"sequence-number\":0,\"summary\":{\"added-data-files\":\"1\",\"added-records\":\"1\"," +
+            "\"added-files-size\":\"10\",\"changed-partition-count\":\"1\",\"total-records\":\"2\"," +
+            "\"total-files-size\":\"20\",\"total-data-files\":\"2\",\"total-delete-files\":\"0\"," +
+            "\"total-position-deletes\":\"0\",\"total-equality-deletes\":\"0\"}}");
+    expectedBodyNodesMessages.add("{\"table-name\":\"" + "glue." + namespace + "." + tableName + "\"," +
+            "\"from-snapshot-id\":" + Iterables.get(snapshots, 0).snapshotId() + "," +
+            "\"to-snapshot-id\":" + Iterables.get(snapshots, 1).snapshotId() + "," +
+            "\"expression\":{\"type\":\"true\"},\"projection\":{\"type\":\"struct\"," +
+            "\"schema-id\":0,\"fields\":[{\"id\":1,\"name\":\"c1\"," +
+            "\"required\":true,\"type\":\"string\",\"doc\":\"c1\"}]}}");
+    expectedBodyNodesMessages.add("{\"table-name\":\"" + "glue." + namespace + "." + tableName + "\"," +
+            "\"operation\":\"append\",\"snapshot-id\":" + Iterables.get(snapshots, 0).snapshotId() + "," +
+            "\"sequence-number\":0,\"summary\":{\"added-data-files\":\"1\",\"added-records\":\"1\"," +
+            "\"added-files-size\":\"10\",\"changed-partition-count\":\"1\",\"total-records\":\"1\"," +
+            "\"total-files-size\":\"10\",\"total-data-files\":\"1\",\"total-delete-files\":\"0\"," +
+            "\"total-position-deletes\":\"0\",\"total-equality-deletes\":\"0\"}}");
+
+    Assert.assertEquals(4, expectedBodyNodesMessages.size());
+    for (String message : actualBodyNodesMessages) {
+      expectedBodyNodesMessages.remove(message);
+    }
+    
+    Assert.assertEquals(0, expectedBodyNodesMessages.size());
   }
 
   public static String getURL() {
@@ -158,9 +273,19 @@ public class TestGlueCatalogNotification extends GlueTestBase {
   public static List<Message> getMessages() {
     ReceiveMessageRequest receiveMessageRequest = ReceiveMessageRequest.builder()
             .queueUrl(getURL())
+            .visibilityTimeout(100)
+            .waitTimeSeconds(2)
             .maxNumberOfMessages(10)
             .build();
-    List<Message> messages = sqs.receiveMessage(receiveMessageRequest).messages();
+
+    List<Message> messages = Lists.newArrayList();
+    messages.addAll(sqs.receiveMessage(receiveMessageRequest).messages());
+    int prevCounter = -1;
+    while (prevCounter != messages.size()) {
+      prevCounter = messages.size();
+      messages.addAll(sqs.receiveMessage(receiveMessageRequest).messages());
+    }
+
     return messages;
   }
 
@@ -169,5 +294,4 @@ public class TestGlueCatalogNotification extends GlueTestBase {
     List<Message> messages = getMessages();
     clearQueue(messages);
   }
-
 }
