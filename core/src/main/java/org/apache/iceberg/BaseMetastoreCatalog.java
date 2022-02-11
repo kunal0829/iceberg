@@ -19,7 +19,6 @@
 
 package org.apache.iceberg;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 import org.apache.iceberg.catalog.Catalog;
@@ -73,9 +72,10 @@ public abstract class BaseMetastoreCatalog implements Catalog {
   }
 
   public void initialize(String listenerName, Map<String, String> properties) {
-    for (String key: properties.keySet()) {
+    for (String key : properties.keySet()) {
       if (LISTENER_MATCH.matcher(key).matches()) {
-        CatalogUtil.loadListener(properties.get(key), listenerName, properties); // send only the relevant ones (type and url/arn and events)
+        // TO DO: send only the relevant ones (type and url/arn and events)
+        CatalogUtil.loadListener(properties.get(key), listenerName, properties);
       }
     }
 
