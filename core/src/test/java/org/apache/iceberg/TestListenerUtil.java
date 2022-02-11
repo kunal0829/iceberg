@@ -37,9 +37,10 @@ public class TestListenerUtil {
     Assertions.assertThat(listener).isInstanceOf(TestListener.class);
     Assert.assertEquals("Test", ((TestListener) listener).client);
     Assert.assertEquals("Random", ((TestListener) listener).info);
+    Assert.assertEquals("ListenerName", ((TestListener) listener).name);
   }
 
-  public class TestListener<T> implements Listener<T> {
+  public static class TestListener<T> implements Listener<T> {
     private String client;
     private String info;
     private String name;
