@@ -37,8 +37,8 @@ public class TestListenerUtil {
   @Test
   public void testDummyListener() {
     Map<String, String> properties = Maps.newHashMap();
-    properties.put("client", "Test");
-    properties.put("info", "Random");
+    properties.put("listeners.ListenerName.test.client", "Test");
+    properties.put("listeners.ListenerName.test.info", "Random");
     String name = "ListenerName";
     Listener listener = CatalogUtil.loadListener(TestListener.class.getName(), name, properties);
     Assertions.assertThat(listener).isInstanceOf(TestListener.class);
@@ -66,10 +66,6 @@ public class TestListenerUtil {
 
     Catalog catalog = CatalogUtil.loadCatalog(TestListenerCatalog.class.getName(), name, properties, hadoopConf);
 
-//    Listener listener = CatalogUtil.loadListener(TestListener.class.getName(), name, properties);
-//    Assertions.assertThat(listener).isInstanceOf(TestListener.class);
-//    Assert.assertEquals("Test", ((TestListener) listener).client);
-//    Assert.assertEquals("Random", ((TestListener) listener).info);
   }
 
   public static class TestListener<T> implements Listener<T> {

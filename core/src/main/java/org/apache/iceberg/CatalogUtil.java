@@ -300,15 +300,14 @@ public class CatalogUtil {
     }
 
     listener.initialize(listenerName, properties);
-
     String registerEvents = properties.get("listeners."  + listenerName + ".event-types");
-    Set<String> events = new HashSet<String>(Arrays.asList(registerEvents.split(", ")));
 
-    if (events.contains("null")) {
+    if (registerEvents == null) {
       Listeners.register(listener, CreateSnapshotEvent.class);
       Listeners.register(listener, ScanEvent.class);
       Listeners.register(listener, IncrementalScanEvent.class);
     } else {
+      Set<String> events = new HashSet<String>(Arrays.asList(registerEvents.split(", ")));
       if (events.contains("scan")) {
         Listeners.register(listener, CreateSnapshotEvent.class);
       }
