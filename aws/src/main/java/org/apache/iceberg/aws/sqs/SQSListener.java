@@ -74,9 +74,19 @@ public class SQSListener<T> implements Listener<T> {
   public void initialize(String listenerName, Map<String, String> properties) {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sqs = factory.sqs();
-    this.queueUrl = properties.get("listeners." + listenerName + ".sqs.url");
-    this.retry = 3;
-    this.retryIntervalMs = 1000;
+    this.queueUrl = properties.get("listeners." + listenerName + ".sqs.queue-url");
+
+    if (properties.containsKey("listeners." + listenerName + ".sqs.retry")) {
+      this.retry = Integer.parseInt(properties.get("listeners." + listenerName + ".sqs.retry"));
+    } else {
+      this.retry = 3;
+    }
+
+    if (properties.containsKey("listeners." + listenerName + ".sqs.retryIntervalMs")) {
+      this.retryIntervalMs = Integer.parseInt(properties.get("listeners." + listenerName + ".sqs.retry-interval-ms"));
+    } else {
+      this.retryIntervalMs = 1000;
+    }
   }
 }
 

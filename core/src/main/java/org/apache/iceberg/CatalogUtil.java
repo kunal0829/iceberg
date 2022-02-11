@@ -20,6 +20,8 @@
 package org.apache.iceberg;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -299,9 +301,24 @@ public class CatalogUtil {
 
     listener.initialize(listenerName, properties);
 
-    Listeners.register(listener, CreateSnapshotEvent.class);
-    Listeners.register(listener, ScanEvent.class);
-    Listeners.register(listener, IncrementalScanEvent.class);
+    String registerEvents = properties.get("listeners."  + listenerName + ".event-types");
+    Set<String> events = new HashSet<String>(Arrays.asList(registerEvents.split(", ")));
+
+    if (events.contains("null")) {
+      Listeners.register(listener, CreateSnapshotEvent.class);
+      Listeners.register(listener, ScanEvent.class);
+      Listeners.register(listener, IncrementalScanEvent.class);
+    } else {
+      if (events.contains("scan")) {
+        Listeners.register(listener, CreateSnapshotEvent.class);
+      }
+      if (events.contains("create-snapshot")) {
+        Listeners.register(listener, ScanEvent.class);
+      }
+      if (events.contains("incremental-scan")) {
+        Listeners.register(listener, IncrementalScanEvent.class);
+      }
+    }
 
     return listener;
   }

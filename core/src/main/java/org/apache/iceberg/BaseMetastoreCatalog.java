@@ -19,23 +19,30 @@
 
 package org.apache.iceberg;
 
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.iceberg.catalog.Catalog;
 import org.apache.iceberg.catalog.TableIdentifier;
+import org.apache.iceberg.events.Listener;
 import org.apache.iceberg.exceptions.AlreadyExistsException;
 import org.apache.iceberg.exceptions.CommitFailedException;
 import org.apache.iceberg.exceptions.NoSuchTableException;
 import org.apache.iceberg.relocated.com.google.common.base.MoreObjects;
 import org.apache.iceberg.relocated.com.google.common.base.Preconditions;
 import org.apache.iceberg.relocated.com.google.common.collect.ImmutableMap;
+import org.apache.iceberg.relocated.com.google.common.collect.Lists;
+import org.apache.iceberg.relocated.com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class BaseMetastoreCatalog implements Catalog {
   private static final Logger LOG = LoggerFactory.getLogger(BaseMetastoreCatalog.class);
-  private static final Pattern LISTENER_MATCH = Pattern.compile("listeners.*.impl");
-
+  private static final Pattern LISTENER_MATCH = Pattern.compile("^listeners[.](?<listenerName>.+)[.]impl$");
+  private static final String LISTENER_NAME = "listenerName";
+  private static final String LISTENER_PROPERTY_PREFIX = "listeners.";
+  private static final String LISTENER_PROPERTY_SUFFIX = ".impl";
 
   @Override
   public Table loadTable(TableIdentifier identifier) {
@@ -71,14 +78,30 @@ public abstract class BaseMetastoreCatalog implements Catalog {
     return new BaseMetastoreCatalogTableBuilder(identifier, schema);
   }
 
-  public void initialize(String listenerName, Map<String, String> properties) {
+  @Override
+  public void initialize(String name, Map<String, String> properties) {
+    List<String> listenerNames = Lists.newArrayList();
+    Matcher match;
     for (String key : properties.keySet()) {
-      if (LISTENER_MATCH.matcher(key).matches()) {
-        // TO DO: send only the relevant ones (type and url/arn and events)
-        CatalogUtil.loadListener(properties.get(key), listenerName, properties);
+      match = LISTENER_MATCH.matcher(key);
+      if (match.matches()) {
+        listenerNames.add(match.group(LISTENER_NAME));
       }
     }
 
+    Map<String, String> listenerProperties = Maps.newHashMap();
+    for (String listenerName : listenerNames) {
+      listenerProperties.clear();
+      for (String key : properties.keySet()) {
+        if (key.contains(LISTENER_PROPERTY_PREFIX + listenerName)) {
+          listenerProperties.put(key, properties.get(key));
+        }
+      }
+      Listener listener = CatalogUtil.loadListener(
+              properties.get(LISTENER_PROPERTY_PREFIX + listenerName + LISTENER_PROPERTY_SUFFIX),
+              listenerName,
+              listenerProperties);
+    }
   }
 
   private Table loadMetadataTable(TableIdentifier identifier) {
