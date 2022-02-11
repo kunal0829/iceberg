@@ -19,7 +19,9 @@
 
 package org.apache.iceberg;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 import org.apache.iceberg.catalog.Catalog;
 import org.apache.iceberg.catalog.TableIdentifier;
 import org.apache.iceberg.exceptions.AlreadyExistsException;
@@ -33,6 +35,8 @@ import org.slf4j.LoggerFactory;
 
 public abstract class BaseMetastoreCatalog implements Catalog {
   private static final Logger LOG = LoggerFactory.getLogger(BaseMetastoreCatalog.class);
+  private static final Pattern LISTENER_MATCH = Pattern.compile("listeners.*.impl");
+
 
   @Override
   public Table loadTable(TableIdentifier identifier) {
@@ -66,6 +70,15 @@ public abstract class BaseMetastoreCatalog implements Catalog {
   @Override
   public TableBuilder buildTable(TableIdentifier identifier, Schema schema) {
     return new BaseMetastoreCatalogTableBuilder(identifier, schema);
+  }
+
+  public void initialize(String listenerName, Map<String, String> properties) {
+    for (String key: properties.keySet()) {
+      if (LISTENER_MATCH.matcher(key).matches()) {
+        CatalogUtil.loadListener(properties.get(key), listenerName, properties); // send only the relevant ones (type and url/arn and events)
+      }
+    }
+
   }
 
   private Table loadMetadataTable(TableIdentifier identifier) {
