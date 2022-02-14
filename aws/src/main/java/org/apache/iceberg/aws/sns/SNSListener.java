@@ -34,11 +34,9 @@ import software.amazon.awssdk.services.sns.model.NotFoundException;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.SnsException;
 
-import static org.apache.iceberg.aws.AwsProperties.SNS_TOPIC_ARN;
-import static org.apache.iceberg.CatalogProperties.LISTENERS;
-
 public class SNSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SNSListener.class);
+  public static final String SNS_TOPIC_ARN = "sns.topic-arn";
 
   private String topicArn;
   private SnsClient sns;

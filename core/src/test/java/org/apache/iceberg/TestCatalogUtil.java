@@ -188,8 +188,8 @@ public class TestCatalogUtil {
     Map<String, String> properties = Maps.newHashMap();
     String listenerName = "ListenerName";
     properties.put("listeners.ListenerName.impl", TestListener.class.getName());
-    properties.put("listeners.ListenerName.test.client", "Information");
-    properties.put("listeners.ListenerName.test.info", "Client-Info");
+    properties.put("listeners.ListenerName.test.client", "Client-Info");
+    properties.put("listeners.ListenerName.test.info", "Information");
     Listener listener = CatalogUtil.loadListener(TestListener.class.getName(), listenerName, properties);
     Assertions.assertThat(listener).isInstanceOf(TestListener.class);
     Assert.assertEquals("Client-Info", ((TestListener) listener).client);
@@ -460,7 +460,6 @@ public class TestCatalogUtil {
 
     @Override
     public void notify(Object event) {
-      System.out.println("Notify");
     }
 
     @Override
@@ -471,7 +470,7 @@ public class TestCatalogUtil {
     }
   }
 
-  public static class TestListenerBadConstructor <T> implements Listener<T> {
+  public static class TestListenerBadConstructor<T> implements Listener<T> {
     private String arg;
 
     public TestListenerBadConstructor(String arg) {
@@ -480,7 +479,6 @@ public class TestCatalogUtil {
 
     @Override
     public void notify(Object event) {
-      System.out.println("Notify");
     }
 
     @Override

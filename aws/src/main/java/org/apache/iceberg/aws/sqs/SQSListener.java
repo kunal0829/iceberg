@@ -34,10 +34,9 @@ import software.amazon.awssdk.services.sqs.model.QueueDoesNotExistException;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
 
-import static org.apache.iceberg.aws.AwsProperties.SQS_QUEUE_URL;
-
 public class SQSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SQSListener.class);
+  public static final String SQS_QUEUE_URL = "sqs.queue-url";
 
   private String queueUrl;
   private SqsClient sqs;
