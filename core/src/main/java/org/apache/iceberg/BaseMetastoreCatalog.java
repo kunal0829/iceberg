@@ -83,7 +83,7 @@ public abstract class BaseMetastoreCatalog implements Catalog {
       Matcher match = LISTENER_MATCH.matcher(key);
       if (match.matches() && listenerProperties.containsKey(match.group(LISTENER_NAME))) {
         listenerProperties.get(match.group(LISTENER_NAME)).put(key, properties.get(key));
-      } else {
+      } else if (listenerProperties.containsKey(match.group(LISTENER_NAME))) {
         Map<String, String> toadd = Maps.newHashMap();
         toadd.put(key, properties.get(key));
         listenerProperties.put(match.group(LISTENER_NAME), toadd);
