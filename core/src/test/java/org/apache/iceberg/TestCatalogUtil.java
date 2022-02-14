@@ -175,12 +175,12 @@ public class TestCatalogUtil {
 
   @Test
   public void testSingleRegEx() {
-    Pattern pattern = Pattern.compile("^listeners[.](?<listenerName>.+)[.]impl$");
+    Pattern pattern = Pattern.compile("^listeners[.](?<name>.+)[.]impl$");
     Matcher matchTrue = pattern.matcher("listeners.prod.impl");
     Matcher matchFalse = pattern.matcher("listeners.prod.iampl");
     Assert.assertTrue(matchTrue.matches());
     Assert.assertFalse(matchFalse.matches());
-    Assert.assertEquals("prod", matchTrue.group("listenerName"));
+    Assert.assertEquals("prod", matchTrue.group("name"));
   }
 
   @Test
@@ -227,6 +227,7 @@ public class TestCatalogUtil {
 
     @Override
     public void initialize(String name, Map<String, String> properties) {
+      super.initialize(name, properties);
       this.catalogName = name;
       this.flinkOptions = properties;
     }

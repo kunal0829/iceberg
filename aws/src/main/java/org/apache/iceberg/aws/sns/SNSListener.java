@@ -37,6 +37,10 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 public class SNSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SNSListener.class);
   public static final String SNS_TOPIC_ARN = "sns.topic-arn";
+  public static final String SNS_RETRY = "sns.retry";
+  public static final String SNS_RETRY_INTERVAL_MS =  "sns.retryIntervalMs";
+  public static final Integer SNS_RETRY_DEFAULT = 3;
+  public static final Integer SNS_RETRY_INTERVAL_MS_DEFAULT =  1000;
 
   private String topicArn;
   private SnsClient sns;
@@ -77,12 +81,18 @@ public class SNSListener<T> implements Listener<T> {
   public void initialize(String listenerName, Map<String, String> properties) {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sns = factory.sns();
-    this.topicArn = properties.get(CatalogProperties.listenerProperty(listenerName, SNS_TOPIC_ARN));
-    this.retry = PropertyUtil.propertyAsInt(
-            properties, CatalogProperties.listenerProperty(listenerName, "sns.retry"), 3);
+    if (listenerName != null) {
+      if (properties.get(CatalogProperties.listenerProperty(listenerName, SNS_TOPIC_ARN)) != null) {
+        this.topicArn = properties.get(CatalogProperties.listenerProperty(listenerName, SNS_TOPIC_ARN));
+      }
 
-    this.retryIntervalMs = PropertyUtil.propertyAsInt(
-            properties, CatalogProperties.listenerProperty(listenerName, "sns.retryIntervalMs"), 1000);
+      this.retry = PropertyUtil.propertyAsInt(
+              properties, CatalogProperties.listenerProperty(listenerName, SNS_RETRY), SNS_RETRY_DEFAULT);
+
+      this.retryIntervalMs = PropertyUtil.propertyAsInt(
+              properties, CatalogProperties.listenerProperty(
+                      listenerName, SNS_RETRY_INTERVAL_MS), SNS_RETRY_INTERVAL_MS_DEFAULT);
+    }
   }
 }
 

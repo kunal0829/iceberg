@@ -37,6 +37,11 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
 public class SQSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SQSListener.class);
   public static final String SQS_QUEUE_URL = "sqs.queue-url";
+  public static final String SQS_RETRY = "sqs.retry";
+  public static final String SQS_RETRY_INTERVAL_MS =  "sqs.retryIntervalMs";
+  public static final Integer SQS_RETRY_DEFAULT = 3;
+  public static final Integer SQS_RETRY_INTERVAL_MS_DEFAULT =  1000;
+
 
   private String queueUrl;
   private SqsClient sqs;
@@ -77,11 +82,17 @@ public class SQSListener<T> implements Listener<T> {
   public void initialize(String listenerName, Map<String, String> properties) {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sqs = factory.sqs();
-    this.queueUrl = properties.get(CatalogProperties.listenerProperty(listenerName, SQS_QUEUE_URL));
-    this.retry = PropertyUtil.propertyAsInt(
-            properties, CatalogProperties.listenerProperty(listenerName, "sqs.retry"), 3);
-    this.retryIntervalMs = PropertyUtil.propertyAsInt(
-            properties, CatalogProperties.listenerProperty(listenerName, "sqs.retryIntervalMs"), 1000);
+    if (listenerName != null) {
+      if (properties.get(CatalogProperties.listenerProperty(listenerName, SQS_QUEUE_URL)) != null) {
+        this.queueUrl = properties.get(CatalogProperties.listenerProperty(listenerName, SQS_QUEUE_URL));
+      }
+
+      this.retry = PropertyUtil.propertyAsInt(
+              properties, CatalogProperties.listenerProperty(listenerName, SQS_RETRY), SQS_RETRY_DEFAULT);
+      this.retryIntervalMs = PropertyUtil.propertyAsInt(
+              properties, CatalogProperties.listenerProperty(
+                      listenerName, SQS_RETRY_INTERVAL_MS), SQS_RETRY_INTERVAL_MS_DEFAULT);
+    }
   }
 }
 

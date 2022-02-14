@@ -19,7 +19,6 @@
 
 package org.apache.iceberg;
 
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,14 +31,14 @@ import org.apache.iceberg.exceptions.NoSuchTableException;
 import org.apache.iceberg.relocated.com.google.common.base.MoreObjects;
 import org.apache.iceberg.relocated.com.google.common.base.Preconditions;
 import org.apache.iceberg.relocated.com.google.common.collect.ImmutableMap;
-import org.apache.iceberg.relocated.com.google.common.collect.Lists;
 import org.apache.iceberg.relocated.com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class BaseMetastoreCatalog implements Catalog {
   private static final Logger LOG = LoggerFactory.getLogger(BaseMetastoreCatalog.class);
-  private static final Pattern LISTENER_MATCH = Pattern.compile("^listeners[.](?<name>.+)[.]impl$");
+  private static final Pattern LISTENER_MATCH = Pattern.compile("^listeners[.](?<name>[^[.]]+)[.](?<config>.+)$");
+  private static final Pattern LISTENER_MATCH_IMPL = Pattern.compile("^listeners[.](?<name>.+)[.]impl$");
   private static final String LISTENER_NAME = "name";
 
   @Override
@@ -78,27 +77,24 @@ public abstract class BaseMetastoreCatalog implements Catalog {
 
   @Override
   public void initialize(String name, Map<String, String> properties) {
-    List<String> listenerNames = Lists.newArrayList();
-    Matcher match;
+    Map<String, Map<String, String>> listenerProperties = Maps.newHashMap();
+
     for (String key : properties.keySet()) {
-      match = LISTENER_MATCH.matcher(key);
-      if (match.matches()) {
-        listenerNames.add(match.group(LISTENER_NAME));
+      Matcher match = LISTENER_MATCH.matcher(key);
+      if (match.matches() && listenerProperties.containsKey(match.group(LISTENER_NAME))) {
+        listenerProperties.get(match.group(LISTENER_NAME)).put(key, properties.get(key));
+      } else {
+        Map<String, String> toadd = Maps.newHashMap();
+        toadd.put(key, properties.get(key));
+        listenerProperties.put(match.group(LISTENER_NAME), toadd);
       }
     }
 
-    Map<String, String> listenerProperties = Maps.newHashMap();
-    for (String listenerName : listenerNames) {
-      listenerProperties.clear();
-      for (String key : properties.keySet()) {
-        if (key.contains(CatalogProperties.listenerProperty(listenerName, ""))) {
-          listenerProperties.put(key, properties.get(key));
-        }
-      }
+    for (String listenerName : listenerProperties.keySet()) {
       Listener listener = CatalogUtil.loadListener(
-              properties.get(CatalogProperties.listenerProperty(listenerName, "impl")),
+              listenerProperties.get(listenerName).get(CatalogProperties.listenerProperty(listenerName, "impl")),
               listenerName,
-              listenerProperties);
+              listenerProperties.get(listenerName));
     }
   }
 

@@ -308,10 +308,10 @@ public class CatalogUtil {
     } else {
       Set<String> events = Sets.newHashSet(Arrays.asList(registerEvents.split(", ")));
       if (events.contains("scan")) {
-        Listeners.register(listener, CreateSnapshotEvent.class);
+        Listeners.register(listener, ScanEvent.class);
       }
       if (events.contains("create-snapshot")) {
-        Listeners.register(listener, ScanEvent.class);
+        Listeners.register(listener, CreateSnapshotEvent.class);
       }
       if (events.contains("incremental-scan")) {
         Listeners.register(listener, IncrementalScanEvent.class);
