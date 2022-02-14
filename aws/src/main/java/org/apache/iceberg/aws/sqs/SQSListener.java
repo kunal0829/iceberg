@@ -20,10 +20,12 @@
 package org.apache.iceberg.aws.sqs;
 
 import java.util.Map;
+import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
 import org.apache.iceberg.events.Listener;
 import org.apache.iceberg.util.EventParser;
+import org.apache.iceberg.util.PropertyUtil;
 import org.apache.iceberg.util.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,8 @@ import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.QueueDoesNotExistException;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
 import software.amazon.awssdk.services.sqs.model.SqsException;
+
+import static org.apache.iceberg.aws.AwsProperties.SQS_QUEUE_URL;
 
 public class SQSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SQSListener.class);
@@ -74,19 +78,11 @@ public class SQSListener<T> implements Listener<T> {
   public void initialize(String listenerName, Map<String, String> properties) {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sqs = factory.sqs();
-    this.queueUrl = properties.get("listeners." + listenerName + ".sqs.queue-url");
-
-    if (properties.containsKey("listeners." + listenerName + ".sqs.retry")) {
-      this.retry = Integer.parseInt(properties.get("listeners." + listenerName + ".sqs.retry"));
-    } else {
-      this.retry = 3;
-    }
-
-    if (properties.containsKey("listeners." + listenerName + ".sqs.retryIntervalMs")) {
-      this.retryIntervalMs = Integer.parseInt(properties.get("listeners." + listenerName + ".sqs.retry-interval-ms"));
-    } else {
-      this.retryIntervalMs = 1000;
-    }
+    this.queueUrl = properties.get(CatalogProperties.listenerProperty(listenerName, SQS_QUEUE_URL));
+    this.retry = PropertyUtil.propertyAsInt(
+            properties, CatalogProperties.listenerProperty(listenerName, "sqs.retry"), 3);
+    this.retryIntervalMs = PropertyUtil.propertyAsInt(
+            properties, CatalogProperties.listenerProperty(listenerName, "sqs.retryIntervalMs"), 1000);
   }
 }
 

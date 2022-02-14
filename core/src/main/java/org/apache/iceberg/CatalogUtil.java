@@ -307,7 +307,7 @@ public class CatalogUtil {
       Listeners.register(listener, ScanEvent.class);
       Listeners.register(listener, IncrementalScanEvent.class);
     } else {
-      Set<String> events = new HashSet<String>(Arrays.asList(registerEvents.split(", ")));
+      Set<String> events = Sets.newHashSet(Arrays.asList(registerEvents.split(", ")));
       if (events.contains("scan")) {
         Listeners.register(listener, CreateSnapshotEvent.class);
       }

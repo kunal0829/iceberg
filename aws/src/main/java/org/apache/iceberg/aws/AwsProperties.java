@@ -215,6 +215,11 @@ public class AwsProperties implements Serializable {
   public static final String S3_CHECKSUM_ENABLED = "s3.checksum-enabled";
   public static final boolean CLIENT_ENABLE_ETAG_CHECK_DEFAULT = false;
 
+  public static final String SNS_TOPIC_ARN = "sns.topic-arn";
+  public static final String SQS_QUEUE_URL = "sqs.queue-url";
+
+
+
   private String s3FileIoSseType;
   private String s3FileIoSseKey;
   private String s3FileIoSseMd5;

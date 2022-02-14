@@ -20,10 +20,12 @@
 package org.apache.iceberg.aws.sns;
 
 import java.util.Map;
+import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
 import org.apache.iceberg.events.Listener;
 import org.apache.iceberg.util.EventParser;
+import org.apache.iceberg.util.PropertyUtil;
 import org.apache.iceberg.util.Tasks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +33,9 @@ import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.NotFoundException;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.SnsException;
+
+import static org.apache.iceberg.aws.AwsProperties.SNS_TOPIC_ARN;
+import static org.apache.iceberg.CatalogProperties.LISTENERS;
 
 public class SNSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SNSListener.class);
@@ -74,19 +79,12 @@ public class SNSListener<T> implements Listener<T> {
   public void initialize(String listenerName, Map<String, String> properties) {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sns = factory.sns();
-    this.topicArn = properties.get("listeners." + listenerName + ".sns.topic-arn");
+    this.topicArn = properties.get(CatalogProperties.listenerProperty(listenerName, SNS_TOPIC_ARN));
+    this.retry = PropertyUtil.propertyAsInt(
+            properties, CatalogProperties.listenerProperty(listenerName, "sns.retry"), 3);
 
-    if (properties.containsKey("listeners." + listenerName + ".sqs.retry")) {
-      this.retry = Integer.parseInt(properties.get("listeners." + listenerName + ".sqs.retry"));
-    } else {
-      this.retry = 3;
-    }
-
-    if (properties.containsKey("listeners." + listenerName + ".sqs.retryIntervalMs")) {
-      this.retryIntervalMs = Integer.parseInt(properties.get("listeners." + listenerName + ".sqs.retry-interval-ms"));
-    } else {
-      this.retryIntervalMs = 1000;
-    }
+    this.retryIntervalMs = PropertyUtil.propertyAsInt(
+            properties, CatalogProperties.listenerProperty(listenerName, "sns.retryIntervalMs"), 1000);
   }
 }
 

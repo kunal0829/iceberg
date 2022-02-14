@@ -39,10 +39,8 @@ import org.slf4j.LoggerFactory;
 
 public abstract class BaseMetastoreCatalog implements Catalog {
   private static final Logger LOG = LoggerFactory.getLogger(BaseMetastoreCatalog.class);
-  private static final Pattern LISTENER_MATCH = Pattern.compile("^listeners[.](?<listenerName>.+)[.]impl$");
-  private static final String LISTENER_NAME = "listenerName";
-  private static final String LISTENER_PROPERTY_PREFIX = "listeners.";
-  private static final String LISTENER_PROPERTY_SUFFIX = ".impl";
+  private static final Pattern LISTENER_MATCH = Pattern.compile("^listeners[.](?<name>.+)[.]impl$");
+  private static final String LISTENER_NAME = "name";
 
   @Override
   public Table loadTable(TableIdentifier identifier) {
@@ -93,12 +91,12 @@ public abstract class BaseMetastoreCatalog implements Catalog {
     for (String listenerName : listenerNames) {
       listenerProperties.clear();
       for (String key : properties.keySet()) {
-        if (key.contains(LISTENER_PROPERTY_PREFIX + listenerName)) {
+        if (key.contains(CatalogProperties.listenerProperty(listenerName, ""))) {
           listenerProperties.put(key, properties.get(key));
         }
       }
       Listener listener = CatalogUtil.loadListener(
-              properties.get(LISTENER_PROPERTY_PREFIX + listenerName + LISTENER_PROPERTY_SUFFIX),
+              properties.get(CatalogProperties.listenerProperty(listenerName, "impl")),
               listenerName,
               listenerProperties);
     }

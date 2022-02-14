@@ -21,11 +21,14 @@ package org.apache.iceberg;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.apache.hadoop.conf.Configurable;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.iceberg.catalog.Catalog;
 import org.apache.iceberg.catalog.Namespace;
 import org.apache.iceberg.catalog.TableIdentifier;
+import org.apache.iceberg.events.Listener;
 import org.apache.iceberg.hadoop.HadoopFileIO;
 import org.apache.iceberg.io.FileIO;
 import org.apache.iceberg.io.InputFile;
@@ -168,6 +171,50 @@ public class TestCatalogUtil {
 
     AssertHelpers.assertThrows("Should complain about both configs being set", IllegalArgumentException.class,
         "both type and catalog-impl are set", () -> CatalogUtil.buildIcebergCatalog(name, options, hadoopConf));
+  }
+
+  @Test
+  public void testSingleRegEx() {
+    Pattern pattern = Pattern.compile("^listeners[.](?<listenerName>.+)[.]impl$");
+    Matcher matchTrue = pattern.matcher("listeners.prod.impl");
+    Matcher matchFalse = pattern.matcher("listeners.prod.iampl");
+    Assert.assertTrue(matchTrue.matches());
+    Assert.assertFalse(matchFalse.matches());
+    Assert.assertEquals("prod", matchTrue.group("listenerName"));
+  }
+
+  @Test
+  public void testLoadListener() {
+    Map<String, String> properties = Maps.newHashMap();
+    String listenerName = "ListenerName";
+    properties.put("listeners.ListenerName.impl", TestListener.class.getName());
+    properties.put("listeners.ListenerName.test.client", "Information");
+    properties.put("listeners.ListenerName.test.info", "Client-Info");
+    Listener listener = CatalogUtil.loadListener(TestListener.class.getName(), listenerName, properties);
+    Assertions.assertThat(listener).isInstanceOf(TestListener.class);
+    Assert.assertEquals("Client-Info", ((TestListener) listener).client);
+    Assert.assertEquals("Information", ((TestListener) listener).info);
+  }
+
+  @Test
+  public void loadBadListenerClass() {
+    Map<String, String> properties = Maps.newHashMap();
+    properties.put("key", "val");
+    String name = "custom";
+    String impl = "ListenerDoesNotExist";
+    AssertHelpers.assertThrows("Listener must exist",
+            IllegalArgumentException.class,
+            "Cannot initialize Listener",
+            () -> CatalogUtil.loadListener(impl, name, properties));
+  }
+
+  @Test
+  public void loadBadListenerConstructor() {
+    String name = "custom";
+    AssertHelpers.assertThrows("cannot find constructor",
+            IllegalArgumentException.class,
+            "missing no-arg constructor",
+            () -> CatalogUtil.loadListener(TestListenerBadConstructor.class.getName(), name, Maps.newHashMap()));
   }
 
   public static class TestCatalog extends BaseMetastoreCatalog {
@@ -400,6 +447,45 @@ public class TestCatalogUtil {
 
   public static class TestFileIONotImpl {
     public TestFileIONotImpl() {
+    }
+  }
+
+  public static class TestListener<T> implements Listener<T> {
+    private String client;
+    private String info;
+    private String name;
+
+    public TestListener() {
+    }
+
+    @Override
+    public void notify(Object event) {
+      System.out.println("Notify");
+    }
+
+    @Override
+    public void initialize(String listenerName, Map<String, String> properties) {
+      this.name = listenerName;
+      this.info = properties.get("listeners." + listenerName + ".test.info");
+      this.client = properties.get("listeners." + listenerName + ".test.client");
+    }
+  }
+
+  public static class TestListenerBadConstructor <T> implements Listener<T> {
+    private String arg;
+
+    public TestListenerBadConstructor(String arg) {
+      this.arg = arg;
+    }
+
+    @Override
+    public void notify(Object event) {
+      System.out.println("Notify");
+    }
+
+    @Override
+    public void initialize(String listenerName, Map<String, String> properties) {
+      this.arg = listenerName;
     }
   }
 }
