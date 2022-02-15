@@ -96,8 +96,7 @@ public abstract class BaseMetastoreCatalog implements Catalog {
       Matcher match = LISTENER_REGEX.matcher(key);
       if (match.matches()) {
         if (!listenerProperties.containsKey(match.group(LISTENER_PROPERTY_REGEX_GROUP_NAME))) {
-          Map<String, String> newListenerGroup = Maps.newHashMap();
-          listenerProperties.put(match.group(LISTENER_PROPERTY_REGEX_GROUP_NAME), newListenerGroup);
+          listenerProperties.put(match.group(LISTENER_PROPERTY_REGEX_GROUP_NAME), Maps.newHashMap());
         }
         listenerProperties.get(match.group(LISTENER_PROPERTY_REGEX_GROUP_NAME))
                 .put(match.group(LISTENER_PROPERTY_REGEX_GROUP_CONFIG), properties.get(key));
