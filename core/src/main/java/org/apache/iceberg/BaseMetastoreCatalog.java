@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 public abstract class BaseMetastoreCatalog implements Catalog {
   private static final Logger LOG = LoggerFactory.getLogger(BaseMetastoreCatalog.class);
   private static final Pattern LISTENER_MATCH = Pattern.compile("^listeners[.](?<name>[^[.]]+)[.](?<config>.+)$");
-  private static final Pattern LISTENER_MATCH_IMPL = Pattern.compile("^listeners[.](?<name>.+)[.]impl$");
   private static final String LISTENER_NAME = "name";
+  private static final String LISTENER_CONFIG = "config";
 
   @Override
   public Table loadTable(TableIdentifier identifier) {
@@ -83,10 +83,10 @@ public abstract class BaseMetastoreCatalog implements Catalog {
       Matcher match = LISTENER_MATCH.matcher(key);
       if (match.matches()) {
         if (listenerProperties.containsKey(match.group(LISTENER_NAME))) {
-          listenerProperties.get(match.group(LISTENER_NAME)).put(key, properties.get(key));
+          listenerProperties.get(match.group(LISTENER_NAME)).put(match.group(LISTENER_CONFIG), properties.get(key));
         } else {
           Map<String, String> toadd = Maps.newHashMap();
-          toadd.put(key, properties.get(key));
+          toadd.put(match.group(LISTENER_CONFIG), properties.get(key));
           listenerProperties.put(match.group(LISTENER_NAME), toadd);
         }
       }
@@ -94,7 +94,7 @@ public abstract class BaseMetastoreCatalog implements Catalog {
 
     for (String listenerName : listenerProperties.keySet()) {
       Listener listener = CatalogUtil.loadListener(
-              listenerProperties.get(listenerName).get(CatalogProperties.listenerProperty(listenerName, "impl")),
+              listenerProperties.get(listenerName).get("impl"),
               listenerName,
               listenerProperties.get(listenerName));
     }

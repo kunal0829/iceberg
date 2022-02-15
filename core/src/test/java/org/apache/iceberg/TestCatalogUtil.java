@@ -187,9 +187,28 @@ public class TestCatalogUtil {
   public void testLoadListener() {
     Map<String, String> properties = Maps.newHashMap();
     String listenerName = "ListenerName";
-    properties.put("listeners.ListenerName.impl", TestListener.class.getName());
-    properties.put("listeners.ListenerName.test.client", "Client-Info");
-    properties.put("listeners.ListenerName.test.info", "Information");
+    properties.put("impl", TestListener.class.getName());
+    properties.put("test.client", "Client-Info");
+    properties.put("test.info", "Information");
+    Pattern listenerMatch = Pattern.compile("^listeners[.](?<name>[^[.]]+)[.](?<config>.+)$");
+    String listenerNameField = "name";
+    String listenerConfigField = "config";
+
+    Map<String, Map<String, String>> listenerProperties = Maps.newHashMap();
+    for (String key : properties.keySet()) {
+      Matcher match = listenerMatch.matcher(key);
+      if (match.matches()) {
+        if (listenerProperties.containsKey(match.group(listenerNameField))) {
+          listenerProperties.get(match.group(listenerNameField))
+                          .put(match.group(listenerConfigField), properties.get(key));
+        } else {
+          Map<String, String> toadd = Maps.newHashMap();
+          toadd.put(match.group(listenerConfigField), properties.get(key));
+          listenerProperties.put(match.group(listenerNameField), toadd);
+        }
+      }
+    }
+
     Listener listener = CatalogUtil.loadListener(TestListener.class.getName(), listenerName, properties);
     Assertions.assertThat(listener).isInstanceOf(TestListener.class);
     Assert.assertEquals("Client-Info", ((TestListener) listener).client);
@@ -466,8 +485,8 @@ public class TestCatalogUtil {
     @Override
     public void initialize(String listenerName, Map<String, String> properties) {
       this.name = listenerName;
-      this.info = properties.get("listeners." + listenerName + ".test.info");
-      this.client = properties.get("listeners." + listenerName + ".test.client");
+      this.info = properties.get("test.info");
+      this.client = properties.get("test.client");
     }
   }
 

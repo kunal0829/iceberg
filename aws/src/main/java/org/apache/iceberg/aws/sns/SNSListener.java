@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
+import org.apache.iceberg.aws.AwsProperties;
 import org.apache.iceberg.events.Listener;
 import org.apache.iceberg.util.EventParser;
 import org.apache.iceberg.util.PropertyUtil;
@@ -36,11 +37,6 @@ import software.amazon.awssdk.services.sns.model.SnsException;
 
 public class SNSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SNSListener.class);
-  public static final String SNS_TOPIC_ARN = "sns.topic-arn";
-  public static final String SNS_RETRY = "sns.retry";
-  public static final String SNS_RETRY_INTERVAL_MS =  "sns.retryIntervalMs";
-  public static final Integer SNS_RETRY_DEFAULT = 3;
-  public static final Integer SNS_RETRY_INTERVAL_MS_DEFAULT =  1000;
 
   private String topicArn;
   private SnsClient sns;
@@ -82,16 +78,15 @@ public class SNSListener<T> implements Listener<T> {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sns = factory.sns();
     if (listenerName != null) {
-      if (properties.get(CatalogProperties.listenerProperty(listenerName, SNS_TOPIC_ARN)) != null) {
-        this.topicArn = properties.get(CatalogProperties.listenerProperty(listenerName, SNS_TOPIC_ARN));
+      if (properties.get(AwsProperties.SNS_TOPIC_ARN) != null) {
+        this.topicArn = properties.get(CatalogProperties.listenerProperty(listenerName, AwsProperties.SNS_TOPIC_ARN));
       }
 
       this.retry = PropertyUtil.propertyAsInt(
-              properties, CatalogProperties.listenerProperty(listenerName, SNS_RETRY), SNS_RETRY_DEFAULT);
+              properties, AwsProperties.SNS_RETRY, AwsProperties.SNS_RETRY_DEFAULT);
 
       this.retryIntervalMs = PropertyUtil.propertyAsInt(
-              properties, CatalogProperties.listenerProperty(
-                      listenerName, SNS_RETRY_INTERVAL_MS), SNS_RETRY_INTERVAL_MS_DEFAULT);
+              properties, AwsProperties.SNS_RETRY_INTERVAL_MS, AwsProperties.SNS_RETRY_INTERVAL_MS_DEFAULT);
     }
   }
 }

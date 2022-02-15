@@ -23,6 +23,7 @@ import java.util.Map;
 import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
+import org.apache.iceberg.aws.AwsProperties;
 import org.apache.iceberg.events.Listener;
 import org.apache.iceberg.util.EventParser;
 import org.apache.iceberg.util.PropertyUtil;
@@ -36,12 +37,6 @@ import software.amazon.awssdk.services.sqs.model.SqsException;
 
 public class SQSListener<T> implements Listener<T> {
   private static final Logger LOG = LoggerFactory.getLogger(SQSListener.class);
-  public static final String SQS_QUEUE_URL = "sqs.queue-url";
-  public static final String SQS_RETRY = "sqs.retry";
-  public static final String SQS_RETRY_INTERVAL_MS =  "sqs.retryIntervalMs";
-  public static final Integer SQS_RETRY_DEFAULT = 3;
-  public static final Integer SQS_RETRY_INTERVAL_MS_DEFAULT =  1000;
-
 
   private String queueUrl;
   private SqsClient sqs;
@@ -83,15 +78,15 @@ public class SQSListener<T> implements Listener<T> {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sqs = factory.sqs();
     if (listenerName != null) {
-      if (properties.get(CatalogProperties.listenerProperty(listenerName, SQS_QUEUE_URL)) != null) {
-        this.queueUrl = properties.get(CatalogProperties.listenerProperty(listenerName, SQS_QUEUE_URL));
+      if (properties.get(CatalogProperties.listenerProperty(listenerName, AwsProperties.SQS_QUEUE_URL)) != null) {
+        this.queueUrl = properties.get(AwsProperties.SQS_QUEUE_URL);
       }
 
       this.retry = PropertyUtil.propertyAsInt(
-              properties, CatalogProperties.listenerProperty(listenerName, SQS_RETRY), SQS_RETRY_DEFAULT);
+              properties, AwsProperties.SQS_RETRY, AwsProperties.SQS_RETRY_DEFAULT);
+
       this.retryIntervalMs = PropertyUtil.propertyAsInt(
-              properties, CatalogProperties.listenerProperty(
-                      listenerName, SQS_RETRY_INTERVAL_MS), SQS_RETRY_INTERVAL_MS_DEFAULT);
+              properties, AwsProperties.SQS_RETRY_INTERVAL_MS, AwsProperties.SQS_RETRY_INTERVAL_MS_DEFAULT);
     }
   }
 }

@@ -299,7 +299,7 @@ public class CatalogUtil {
     }
 
     listener.initialize(listenerName, properties);
-    String registerEvents = properties.get("listeners."  + listenerName + ".event-types");
+    String registerEvents = properties.get("event-types");
 
     if (registerEvents == null) {
       Listeners.register(listener, CreateSnapshotEvent.class);
