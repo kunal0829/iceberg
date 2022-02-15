@@ -21,6 +21,7 @@ package org.apache.iceberg;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.hadoop.conf.Configurable;
@@ -190,9 +191,6 @@ public class TestCatalogUtil {
     properties.put("impl", TestListener.class.getName());
     properties.put("test.client", "Client-Info");
     properties.put("test.info", "Information");
-    Pattern listenerMatch = Pattern.compile("^listeners[.](?<name>[^[.]]+)[.](?<config>.+)$");
-    String listenerNameField = "name";
-    String listenerConfigField = "config";
 
     Listener listener = CatalogUtil.loadListener(TestListener.class.getName(), listenerName, properties);
     Assertions.assertThat(listener).isInstanceOf(TestListener.class);
@@ -473,12 +471,14 @@ public class TestCatalogUtil {
     private String client;
     private String info;
     private String name;
+    public static final AtomicInteger NOTIFY_TIMES = new AtomicInteger();
 
     public TestListener() {
     }
 
     @Override
     public void notify(Object event) {
+      NOTIFY_TIMES.incrementAndGet();
     }
 
     @Override

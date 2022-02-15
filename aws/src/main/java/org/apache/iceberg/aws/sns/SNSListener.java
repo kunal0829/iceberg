@@ -20,7 +20,6 @@
 package org.apache.iceberg.aws.sns;
 
 import java.util.Map;
-import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
 import org.apache.iceberg.aws.AwsProperties;
@@ -77,17 +76,22 @@ public class SNSListener<T> implements Listener<T> {
   public void initialize(String listenerName, Map<String, String> properties) {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sns = factory.sns();
-    if (listenerName != null) {
-      if (properties.get(AwsProperties.SNS_TOPIC_ARN) != null) {
-        this.topicArn = properties.get(CatalogProperties.listenerProperty(listenerName, AwsProperties.SNS_TOPIC_ARN));
-      }
 
-      this.retry = PropertyUtil.propertyAsInt(
-              properties, AwsProperties.SNS_RETRY, AwsProperties.SNS_RETRY_DEFAULT);
-
-      this.retryIntervalMs = PropertyUtil.propertyAsInt(
-              properties, AwsProperties.SNS_RETRY_INTERVAL_MS, AwsProperties.SNS_RETRY_INTERVAL_MS_DEFAULT);
+    if (listenerName == null) {
+      throw new NullPointerException("Listener Name cannot be null");
     }
+
+    if (properties.get(AwsProperties.SNS_TOPIC_ARN) == null) {
+      throw new NullPointerException("SNS queue url cannot be null");
+    }
+
+    this.topicArn = properties.get(AwsProperties.SNS_TOPIC_ARN);
+
+    this.retry = PropertyUtil.propertyAsInt(
+            properties, AwsProperties.SNS_RETRY, AwsProperties.SNS_RETRY_DEFAULT);
+
+    this.retryIntervalMs = PropertyUtil.propertyAsInt(
+            properties, AwsProperties.SNS_RETRY_INTERVAL_MS, AwsProperties.SNS_RETRY_INTERVAL_MS_DEFAULT);
   }
 }
 

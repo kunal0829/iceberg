@@ -82,9 +82,4 @@ public class CatalogProperties {
   public static final String USER = "user";
 
   public static final String LISTENERS = "listeners";
-
-  public static String listenerProperty(String listenerName, String propertyKey) {
-    return LISTENERS + "." + listenerName + "." + propertyKey;
-  }
-
 }

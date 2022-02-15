@@ -20,7 +20,6 @@
 package org.apache.iceberg.aws.sqs;
 
 import java.util.Map;
-import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
 import org.apache.iceberg.aws.AwsProperties;
@@ -77,17 +76,22 @@ public class SQSListener<T> implements Listener<T> {
   public void initialize(String listenerName, Map<String, String> properties) {
     AwsClientFactory factory = AwsClientFactories.from(properties);
     this.sqs = factory.sqs();
-    if (listenerName != null) {
-      if (properties.get(CatalogProperties.listenerProperty(listenerName, AwsProperties.SQS_QUEUE_URL)) != null) {
-        this.queueUrl = properties.get(AwsProperties.SQS_QUEUE_URL);
-      }
 
-      this.retry = PropertyUtil.propertyAsInt(
-              properties, AwsProperties.SQS_RETRY, AwsProperties.SQS_RETRY_DEFAULT);
-
-      this.retryIntervalMs = PropertyUtil.propertyAsInt(
-              properties, AwsProperties.SQS_RETRY_INTERVAL_MS, AwsProperties.SQS_RETRY_INTERVAL_MS_DEFAULT);
+    if (listenerName == null) {
+      throw new NullPointerException("Listener Name cannot be null");
     }
+
+    if (properties.get(AwsProperties.SQS_QUEUE_URL) == null) {
+      throw new NullPointerException("SNS queue url cannot be null");
+    }
+
+    this.queueUrl = properties.get(AwsProperties.SQS_QUEUE_URL);
+
+    this.retry = PropertyUtil.propertyAsInt(
+            properties, AwsProperties.SQS_RETRY, AwsProperties.SQS_RETRY_DEFAULT);
+
+    this.retryIntervalMs = PropertyUtil.propertyAsInt(
+            properties, AwsProperties.SQS_RETRY_INTERVAL_MS, AwsProperties.SQS_RETRY_INTERVAL_MS_DEFAULT);
   }
 }
 
