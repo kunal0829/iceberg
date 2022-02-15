@@ -77,6 +77,17 @@ public abstract class BaseMetastoreCatalog implements Catalog {
 
   @Override
   public void initialize(String name, Map<String, String> properties) {
+    Map<String, Map<String, String>> listenerProperties = createListenerProperties(properties);
+
+    for (String listenerName : listenerProperties.keySet()) {
+      Listener listener = CatalogUtil.loadListener(
+              listenerProperties.get(listenerName).get("impl"),
+              listenerName,
+              listenerProperties.get(listenerName));
+    }
+  }
+
+  public static Map<String, Map<String, String>> createListenerProperties(Map<String, String> properties) {
     Map<String, Map<String, String>> listenerProperties = Maps.newHashMap();
 
     for (String key : properties.keySet()) {
@@ -92,12 +103,7 @@ public abstract class BaseMetastoreCatalog implements Catalog {
       }
     }
 
-    for (String listenerName : listenerProperties.keySet()) {
-      Listener listener = CatalogUtil.loadListener(
-              listenerProperties.get(listenerName).get("impl"),
-              listenerName,
-              listenerProperties.get(listenerName));
-    }
+    return listenerProperties;
   }
 
   private Table loadMetadataTable(TableIdentifier identifier) {

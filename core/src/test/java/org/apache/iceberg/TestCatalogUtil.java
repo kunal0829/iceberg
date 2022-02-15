@@ -194,25 +194,24 @@ public class TestCatalogUtil {
     String listenerNameField = "name";
     String listenerConfigField = "config";
 
-    Map<String, Map<String, String>> listenerProperties = Maps.newHashMap();
-    for (String key : properties.keySet()) {
-      Matcher match = listenerMatch.matcher(key);
-      if (match.matches()) {
-        if (listenerProperties.containsKey(match.group(listenerNameField))) {
-          listenerProperties.get(match.group(listenerNameField))
-                          .put(match.group(listenerConfigField), properties.get(key));
-        } else {
-          Map<String, String> toadd = Maps.newHashMap();
-          toadd.put(match.group(listenerConfigField), properties.get(key));
-          listenerProperties.put(match.group(listenerNameField), toadd);
-        }
-      }
-    }
-
     Listener listener = CatalogUtil.loadListener(TestListener.class.getName(), listenerName, properties);
     Assertions.assertThat(listener).isInstanceOf(TestListener.class);
     Assert.assertEquals("Client-Info", ((TestListener) listener).client);
     Assert.assertEquals("Information", ((TestListener) listener).info);
+  }
+
+  @Test
+  public void testListenerProperties() {
+    Map<String, String> properties = Maps.newHashMap();
+    properties.put("listeners.listenerOne.impl", TestListener.class.getName());
+    properties.put("listeners.listenerOne.test.info", "Information");
+    properties.put("listeners.listenerOne.test.client", "Client-Info");
+    properties.put("listeners.listenerTwo.impl", TestListener.class.getName());
+    properties.put("listeners.listenerTwo.test.info", "Information");
+    properties.put("listeners.listenerTwo.test.client", "Client-Info");
+    Map<String, Map<String, String>> listenerProperties = BaseMetastoreCatalog.createListenerProperties(properties);
+    Assert.assertEquals(listenerProperties.get("listenerOne").get("test.client"), "Client-Info");
+    Assert.assertEquals(listenerProperties.get("listenerTwo").get("test.info"), "Information");
   }
 
   @Test
