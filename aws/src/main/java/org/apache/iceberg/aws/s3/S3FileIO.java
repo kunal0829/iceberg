@@ -43,7 +43,7 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
  */
 public class S3FileIO implements FileIO {
   private static final Logger LOG = LoggerFactory.getLogger(S3FileIO.class);
-  private static final String DEFAULT_METRICS_IMPL = "org.apache.iceberg.hadoop.HadoopMetricsContext";
+  private static final String DEFAULT_METRICS_IMPL = "org.apache.iceberg.aws.cloudwatch.CloudWatchMetricsContext";
 
   private SerializableSupplier<S3Client> s3;
   private AwsProperties awsProperties;
@@ -119,7 +119,7 @@ public class S3FileIO implements FileIO {
     // Report Hadoop metrics if Hadoop is available
     try {
       DynConstructors.Ctor<MetricsContext> ctor =
-          DynConstructors.builder(MetricsContext.class).hiddenImpl(DEFAULT_METRICS_IMPL, String.class).buildChecked();
+          DynConstructors.builder(MetricsContext.class).impl(DEFAULT_METRICS_IMPL).buildChecked();
       this.metrics = ctor.newInstance("s3");
 
       metrics.initialize(properties);

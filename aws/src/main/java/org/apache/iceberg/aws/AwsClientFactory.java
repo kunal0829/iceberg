@@ -21,6 +21,7 @@ package org.apache.iceberg.aws;
 
 import java.io.Serializable;
 import java.util.Map;
+import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.kms.KmsClient;
@@ -55,6 +56,12 @@ public interface AwsClientFactory extends Serializable {
    * @return dynamoDB client
    */
   DynamoDbClient dynamo();
+
+  /**
+   * Create a Amazon CloudWatch client
+   * @return dynamoDB client
+   */
+  CloudWatchClient cloudWatch();
 
   /**
    * Initialize AWS client factory from catalog properties.

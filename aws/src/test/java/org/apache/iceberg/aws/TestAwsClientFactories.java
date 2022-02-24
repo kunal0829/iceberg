@@ -29,6 +29,7 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
+import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.kms.KmsClient;
@@ -105,6 +106,11 @@ public class TestAwsClientFactories {
 
     @Override
     public DynamoDbClient dynamo() {
+      return null;
+    }
+
+    @Override
+    public CloudWatchClient cloudWatch() {
       return null;
     }
 

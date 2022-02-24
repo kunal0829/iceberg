@@ -32,6 +32,7 @@ import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.client.builder.SdkClientBuilder;
 import software.amazon.awssdk.http.SdkHttpClient;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
+import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.kms.KmsClient;
@@ -108,6 +109,11 @@ public class AwsClientFactories {
     @Override
     public DynamoDbClient dynamo() {
       return DynamoDbClient.builder().httpClient(HTTP_CLIENT_DEFAULT).build();
+    }
+
+    @Override
+    public CloudWatchClient cloudWatch() {
+      return CloudWatchClient.builder().httpClient(HTTP_CLIENT_DEFAULT).build();
     }
 
     @Override

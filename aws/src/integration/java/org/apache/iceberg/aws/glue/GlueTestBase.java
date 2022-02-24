@@ -37,6 +37,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.s3.S3Client;
 
@@ -56,6 +57,7 @@ public class GlueTestBase {
   static final AwsClientFactory clientFactory = AwsClientFactories.defaultFactory();
   static final GlueClient glue = clientFactory.glue();
   static final S3Client s3 = clientFactory.s3();
+  static final CloudWatchClient cloudWatch = clientFactory.cloudWatch();
 
   // iceberg
   static GlueCatalog glueCatalog;
