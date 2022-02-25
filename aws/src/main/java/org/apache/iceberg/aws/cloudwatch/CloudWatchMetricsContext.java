@@ -20,6 +20,8 @@
 package org.apache.iceberg.aws.cloudwatch;
 
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
 import org.apache.iceberg.exceptions.ValidationException;
@@ -30,6 +32,8 @@ import software.amazon.awssdk.services.cloudwatch.model.MetricDatum;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataRequest;
 
 public class CloudWatchMetricsContext implements FileIOMetricsContext {
+  public static final String NAMESPACE = "cloudwatch.namespace";
+
   private SerializableSupplier<CloudWatchClient>  cloudWatch;
   private transient CloudWatchClient client;
   private String namespace;
@@ -56,25 +60,6 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
   public CloudWatchMetricsContext(CloudWatchClient cloudWatch, String namespace) {
     this.client = cloudWatch;
     this.namespace = namespace;
-
-    MetricDatum readBytes = MetricDatum.builder().value(0.0).unit("Bytes").metricName("ReadBytes").build();
-    MetricDatum readOperations = MetricDatum.builder().value(0.0).unit("Count").metricName("ReadOperations").build();
-    MetricDatum writeBytes = MetricDatum.builder().value(0.0).unit("Bytes").metricName("WriteBytes").build();
-    MetricDatum writeOperations = MetricDatum.builder().value(0.0).unit("Count").metricName("WriteOperations").build();
-
-    PutMetricDataRequest readBytesRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(readBytes).build();
-    PutMetricDataRequest readOperationsRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(readOperations).build();
-    PutMetricDataRequest writeBytesRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(writeBytes).build();
-    PutMetricDataRequest writeOperationsRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(writeOperations).build();
-
-    this.client.putMetricData(readBytesRequest);
-    this.client.putMetricData(readOperationsRequest);
-    this.client.putMetricData(writeBytesRequest);
-    this.client.putMetricData(writeOperationsRequest);
   }
 
   @Override
@@ -84,26 +69,7 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
     if (cloudWatch == null) {
       this.cloudWatch = AwsClientFactories.from(properties)::cloudWatch;
     }
-    this.namespace = "IcebergS3";
-
-    MetricDatum readBytes = MetricDatum.builder().value(0.0).unit("Bytes").metricName("ReadBytes").build();
-    MetricDatum readOperations = MetricDatum.builder().value(0.0).unit("Count").metricName("ReadOperations").build();
-    MetricDatum writeBytes = MetricDatum.builder().value(0.0).unit("Bytes").metricName("WriteBytes").build();
-    MetricDatum writeOperations = MetricDatum.builder().value(0.0).unit("Count").metricName("WriteOperations").build();
-
-    PutMetricDataRequest readBytesRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(readBytes).build();
-    PutMetricDataRequest readOperationsRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(readOperations).build();
-    PutMetricDataRequest writeBytesRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(writeBytes).build();
-    PutMetricDataRequest writeOperationsRequest =
-            PutMetricDataRequest.builder().namespace(namespace).metricData(writeOperations).build();
-
-    client().putMetricData(readBytesRequest);
-    client().putMetricData(readOperationsRequest);
-    client().putMetricData(writeBytesRequest);
-    client().putMetricData(writeOperationsRequest);
+    this.namespace = properties.getOrDefault(NAMESPACE, "Iceberg/S3");
   }
 
   @Override
@@ -128,12 +94,22 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
   }
 
   private static class CloudWatchCounter implements Counter {
-    private CloudWatchClient cloudWatch;
+    private static CloudWatchClient cloudWatch;
     private String namespace;
     private String metric;
     private String unit;
 
+    private static final int QUEUE_CAPACITY = 100;
+    private static final int NUMBER_WORKERS = 2;
+    private BlockingQueue<PutMetricDataRequest> metricsQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+
     CloudWatchCounter(String metric, CloudWatchClient cloudWatch, String namespace, String unit) {
+      Worker[] workers = new Worker[NUMBER_WORKERS];
+      for (int i = 0; i < NUMBER_WORKERS; i++) {
+        workers[i] = new Worker(metricsQueue);
+        workers[i].start();
+      }
+
       this.cloudWatch = cloudWatch;
       this.namespace = namespace;
       this.metric = metric;
@@ -150,7 +126,30 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
       MetricDatum metricData = MetricDatum.builder().value(amount.doubleValue()).unit(unit).metricName(metric).build();
       PutMetricDataRequest dataRequest =
               PutMetricDataRequest.builder().namespace(namespace).metricData(metricData).build();
-      cloudWatch.putMetricData(dataRequest);
+      metricsQueue.add(dataRequest);
+    }
+
+    public static class Worker extends Thread {
+      private BlockingQueue<PutMetricDataRequest> metricsQueue;
+
+      Worker(BlockingQueue<PutMetricDataRequest> metricsQueue) {
+        this.metricsQueue = metricsQueue;
+      }
+
+      @Override
+      public void run() {
+        try {
+          while (true) {
+            PutMetricDataRequest dataRequest = metricsQueue.take();
+            if (dataRequest == null) {
+              break;
+            }
+            cloudWatch.putMetricData(dataRequest);
+          }
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+        }
+      }
     }
   }
 }
