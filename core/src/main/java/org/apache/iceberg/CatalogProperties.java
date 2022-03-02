@@ -81,4 +81,12 @@ public class CatalogProperties {
   public static final String APP_ID = "app-id";
   public static final String USER = "user";
 
+  public static final String DEFAULT_METRICS_IMPL = "org.apache.iceberg.hadoop.HadoopMetricsContext";
+  public static final String IO_METRICS_IMPL = "io-metrics-impl";
+  public static final String IO_METRICS_SCHEME = "io.metrics-scheme";
+  public static final String CLOUDWATCH_NAMESPACE = "cloudwatch.namespace";
+  public static final String CLOUDWATCH_MODE = "cloudwatch.mode";
+  public static final String CLOUDWATCH_EMBEDDED = "embedded";
+  public static final String DEFAULT_CLOUDWATCH_NAMESPACE = "iceberg/s3";
+  public static final String DEFAULT_METRICS_MODE = "direct";
 }

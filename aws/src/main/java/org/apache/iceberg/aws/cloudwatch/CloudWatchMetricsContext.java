@@ -20,34 +20,48 @@
 package org.apache.iceberg.aws.cloudwatch;
 
 import java.util.Map;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsClientFactory;
 import org.apache.iceberg.exceptions.ValidationException;
 import org.apache.iceberg.io.FileIOMetricsContext;
+import org.apache.iceberg.relocated.com.google.common.util.concurrent.MoreExecutors;
+import org.apache.iceberg.relocated.com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.apache.iceberg.util.SerializableSupplier;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.MetricDatum;
 import software.amazon.awssdk.services.cloudwatch.model.PutMetricDataRequest;
+import software.amazon.cloudwatchlogs.emf.config.Configuration;
+import software.amazon.cloudwatchlogs.emf.config.EnvironmentConfigurationProvider;
+import software.amazon.cloudwatchlogs.emf.environment.DefaultEnvironment;
+import software.amazon.cloudwatchlogs.emf.logger.MetricsLogger;
 
 public class CloudWatchMetricsContext implements FileIOMetricsContext {
-  public static final String NAMESPACE = "cloudwatch.namespace";
-
   private SerializableSupplier<CloudWatchClient>  cloudWatch;
   private transient CloudWatchClient client;
+  private SerializableSupplier<MetricsLogger>  metricsLogger;
+  private transient MetricsLogger logger;
   private String namespace;
+  private String mode;
 
   public CloudWatchMetricsContext() {
   }
 
   public CloudWatchMetricsContext(SerializableSupplier<CloudWatchClient> cloudWatch) {
-    this((CloudWatchClient) cloudWatch, new String());
+    this((CloudWatchClient) cloudWatch,
+            CatalogProperties.DEFAULT_CLOUDWATCH_NAMESPACE,
+            CatalogProperties.DEFAULT_METRICS_MODE);
   }
 
-  public CloudWatchMetricsContext(SerializableSupplier<CloudWatchClient> cloudWatch, String namespace) {
+  public CloudWatchMetricsContext(SerializableSupplier<CloudWatchClient> cloudWatch,
+                                  MetricsLogger logger, String namespace, String mode) {
     this.cloudWatch =  cloudWatch;
     this.namespace = namespace;
+    this.mode = mode;
+    this.logger = logger;
   }
 
   private CloudWatchClient client() {
@@ -57,9 +71,17 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
     return client;
   }
 
-  public CloudWatchMetricsContext(CloudWatchClient cloudWatch, String namespace) {
+  private MetricsLogger metricsLogger() {
+    if (logger == null) {
+      logger = metricsLogger.get();
+    }
+    return logger;
+  }
+
+  public CloudWatchMetricsContext(CloudWatchClient cloudWatch, String namespace, String mode) {
     this.client = cloudWatch;
     this.namespace = namespace;
+    this.mode = mode;
   }
 
   @Override
@@ -69,7 +91,16 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
     if (cloudWatch == null) {
       this.cloudWatch = AwsClientFactories.from(properties)::cloudWatch;
     }
-    this.namespace = properties.getOrDefault(NAMESPACE, "Iceberg/S3");
+
+    this.namespace = properties.getOrDefault(CatalogProperties.CLOUDWATCH_NAMESPACE,
+            CatalogProperties.DEFAULT_CLOUDWATCH_NAMESPACE);
+    this.mode = properties.getOrDefault(CatalogProperties.CLOUDWATCH_MODE, "normal");
+
+    Configuration config = EnvironmentConfigurationProvider.getConfig();
+    DefaultEnvironment environment = new DefaultEnvironment(EnvironmentConfigurationProvider.getConfig());
+
+    this.logger = new MetricsLogger(environment);
+    this.logger.setNamespace(this.namespace);
   }
 
   @Override
@@ -78,36 +109,59 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
     switch (name) {
       case READ_BYTES:
         ValidationException.check(type == Long.class, "'%s' requires Long type", READ_BYTES);
-        return new CloudWatchCounter("ReadBytes", client(), this.namespace, "Bytes");
+        if (this.mode.equals(CatalogProperties.CLOUDWATCH_EMBEDDED)) {
+          return new CloudWatchEmbeddedMetricsCounter("ReadBytes", metricsLogger(), this.namespace, "Bytes");
+        } else {
+          return new CloudWatchCounter("ReadBytes", client(), this.namespace, "Bytes");
+        }
       case READ_OPERATIONS:
         ValidationException.check(type == Integer.class, "'%s' requires Integer type", READ_OPERATIONS);
-        return new CloudWatchCounter("ReadOperations", client(), this.namespace, "Count");
+        if (this.mode.equals(CatalogProperties.CLOUDWATCH_EMBEDDED)) {
+          return new CloudWatchEmbeddedMetricsCounter("ReadOperations", metricsLogger(), this.namespace, "Count");
+        } else {
+          return new CloudWatchCounter("ReadOperations", client(), this.namespace, "Count");
+        }
       case WRITE_BYTES:
         ValidationException.check(type == Long.class, "'%s' requires Long type", WRITE_BYTES);
-        return new CloudWatchCounter("WriteBytes", client(), this.namespace, "Bytes");
+        if (this.mode.equals(CatalogProperties.CLOUDWATCH_EMBEDDED)) {
+          return new CloudWatchEmbeddedMetricsCounter("WriteBytes", metricsLogger(), this.namespace, "Bytes");
+        } else {
+          return new CloudWatchCounter("WriteBytes", client(), this.namespace, "Bytes");
+        }
+
       case WRITE_OPERATIONS:
         ValidationException.check(type == Integer.class, "'%s' requires Integer type", WRITE_OPERATIONS);
-        return new CloudWatchCounter("WriteOperations", client(), this.namespace, "Count");
+        if (this.mode.equals(CatalogProperties.CLOUDWATCH_EMBEDDED)) {
+          return new CloudWatchEmbeddedMetricsCounter("WriteOperations", metricsLogger(), this.namespace, "Count");
+        } else {
+          return new CloudWatchCounter("WriteOperations", client(), this.namespace, "Count");
+        }
       default:
         throw new IllegalArgumentException(String.format("Unsupported counter: '%s'", name));
     }
   }
 
   private static class CloudWatchCounter implements Counter {
+    private static ExecutorService executorService;
     private static CloudWatchClient cloudWatch;
     private String namespace;
     private String metric;
     private String unit;
-
-    private static final int QUEUE_CAPACITY = 100;
-    private static final int NUMBER_WORKERS = 2;
-    private BlockingQueue<PutMetricDataRequest> metricsQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+    private static final int NUMBER_THREADS = 10;
 
     CloudWatchCounter(String metric, CloudWatchClient cloudWatch, String namespace, String unit) {
-      Worker[] workers = new Worker[NUMBER_WORKERS];
-      for (int i = 0; i < NUMBER_WORKERS; i++) {
-        workers[i] = new Worker(metricsQueue);
-        workers[i].start();
+      if (executorService == null) {
+        synchronized (CloudWatchCounter.class) {
+          if (executorService == null) {
+            executorService = MoreExecutors.getExitingExecutorService(
+                    (ThreadPoolExecutor) Executors.newFixedThreadPool(
+                            NUMBER_THREADS,
+                            new ThreadFactoryBuilder()
+                                    .setDaemon(true)
+                                    .setNameFormat("iceberg-cloudwatch-metric-%d")
+                                    .build()));
+          }
+        }
       }
 
       this.cloudWatch = cloudWatch;
@@ -123,33 +177,47 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
 
     @Override
     public void increment(Number amount) {
-      MetricDatum metricData = MetricDatum.builder().value(amount.doubleValue()).unit(unit).metricName(metric).build();
-      PutMetricDataRequest dataRequest =
-              PutMetricDataRequest.builder().namespace(namespace).metricData(metricData).build();
-      metricsQueue.add(dataRequest);
+      MetricDatum metricData = MetricDatum
+              .builder()
+              .value(amount.doubleValue())
+              .unit(unit)
+              .metricName(metric)
+              .build();
+
+      executorService.execute(new Runnable() {
+        public void run() {
+          PutMetricDataRequest dataRequest = PutMetricDataRequest
+                  .builder()
+                  .namespace(namespace)
+                  .metricData(metricData)
+                  .build();
+          cloudWatch.putMetricData(dataRequest);
+        }
+      });
+    }
+  }
+
+  private static class CloudWatchEmbeddedMetricsCounter implements Counter {
+    private static MetricsLogger metricsLogger;
+    private String namespace;
+    private String metric;
+    private String unit;
+
+    CloudWatchEmbeddedMetricsCounter(String metric, MetricsLogger metricsLogger, String namespace, String unit) {
+      this.metricsLogger = metricsLogger;
+      this.namespace = namespace;
+      this.metric = metric;
+      this.unit = unit;
     }
 
-    public static class Worker extends Thread {
-      private BlockingQueue<PutMetricDataRequest> metricsQueue;
+    @Override
+    public void increment() {
+      increment(1);
+    }
 
-      Worker(BlockingQueue<PutMetricDataRequest> metricsQueue) {
-        this.metricsQueue = metricsQueue;
-      }
+    @Override
+    public void increment(Number amount) {
 
-      @Override
-      public void run() {
-        try {
-          while (true) {
-            PutMetricDataRequest dataRequest = metricsQueue.take();
-            if (dataRequest == null) {
-              break;
-            }
-            cloudWatch.putMetricData(dataRequest);
-          }
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-        }
-      }
     }
   }
 }

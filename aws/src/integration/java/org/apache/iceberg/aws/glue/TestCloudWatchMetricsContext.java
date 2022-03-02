@@ -19,6 +19,7 @@
 
 package org.apache.iceberg.aws.glue;
 
+import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.aws.cloudwatch.CloudWatchMetricsContext;
 import org.apache.iceberg.metrics.MetricsContext;
 import org.junit.Test;
@@ -29,7 +30,8 @@ public class TestCloudWatchMetricsContext extends GlueTestBase {
 
   @Test
   public void testDataIncrement() {
-    CloudWatchMetricsContext context = new CloudWatchMetricsContext(cw, "Check");
+    CloudWatchMetricsContext context = new CloudWatchMetricsContext(cw, "Check",
+            CatalogProperties.DEFAULT_METRICS_MODE);
     MetricsContext.Counter count = context.counter("read.bytes", Long.class, MetricsContext.Unit.COUNT);
     count.increment(30);
   }
