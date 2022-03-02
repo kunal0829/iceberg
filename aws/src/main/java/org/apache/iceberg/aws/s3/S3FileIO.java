@@ -121,7 +121,7 @@ public class S3FileIO implements FileIO {
       DynConstructors.Ctor<MetricsContext> ctor =
           DynConstructors.builder(MetricsContext.class)
                   .impl(properties.getOrDefault(CatalogProperties.IO_METRICS_IMPL,
-                          CatalogProperties.DEFAULT_METRICS_IMPL))
+                          CatalogProperties.DEFAULT_METRICS_IMPL), String.class)
                   .buildChecked();
       this.metrics = ctor.newInstance("s3");
 

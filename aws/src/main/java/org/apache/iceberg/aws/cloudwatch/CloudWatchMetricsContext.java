@@ -46,8 +46,13 @@ public class CloudWatchMetricsContext implements FileIOMetricsContext {
   private transient MetricsLogger logger;
   private String namespace;
   private String mode;
+  private String scheme;
 
   public CloudWatchMetricsContext() {
+  }
+
+  public CloudWatchMetricsContext(String scheme) {
+    this.scheme = scheme;
   }
 
   public CloudWatchMetricsContext(SerializableSupplier<CloudWatchClient> cloudWatch) {
