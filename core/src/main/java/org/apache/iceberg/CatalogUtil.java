@@ -331,7 +331,7 @@ public class CatalogUtil {
       Map<String, String> properties) {
     DynConstructors.Ctor<Listener<T>> ctor;
     try {
-      ctor = DynConstructors.builder(Listener.class).impl(listenerClass, eventType).buildChecked();
+      ctor = DynConstructors.builder(Listener.class).impl(listenerClass).buildChecked();
     } catch (NoSuchMethodException e) {
       throw new IllegalArgumentException(String.format(
               "Cannot initialize Listener, missing no-arg constructor: %s", listenerClass), e);
