@@ -324,6 +324,7 @@ public class CatalogUtil {
   }
 
   @VisibleForTesting
+  @SuppressWarnings("GetClassOnClass")
   static <T> Listener<T> loadAndRegisterListener(
       String listenerClass,
       String listenerName,
@@ -331,7 +332,7 @@ public class CatalogUtil {
       Map<String, String> properties) {
     DynConstructors.Ctor<Listener<T>> ctor;
     try {
-      ctor = DynConstructors.builder(Listener.class).impl(listenerClass).buildChecked();
+      ctor = DynConstructors.builder(Listener.class).impl(listenerClass, eventType.getClass()).buildChecked();
     } catch (NoSuchMethodException e) {
       throw new IllegalArgumentException(String.format(
               "Cannot initialize Listener, missing no-arg constructor: %s", listenerClass), e);
@@ -339,7 +340,7 @@ public class CatalogUtil {
 
     Listener<T> listener;
     try {
-      listener = ctor.newInstance();
+      listener = ctor.newInstance(eventType);
     } catch (ClassCastException e) {
       throw new IllegalArgumentException(String.format(
           "Cannot initialize Listener, %s does not implement org.apache.iceberg.events.Listener", listenerClass), e);
