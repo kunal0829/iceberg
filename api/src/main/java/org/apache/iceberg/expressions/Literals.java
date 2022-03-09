@@ -89,6 +89,32 @@ class Literals {
         "Cannot create expression literal from %s: %s", value.getClass().getName(), value));
   }
 
+  static String typeFromLiteral(Literal literal) {
+    if (literal instanceof BooleanLiteral) {
+      return Types.BooleanType.get().toString();
+    } else if (literal instanceof IntegerLiteral) {
+      return Types.IntegerType.get().toString();
+    } else if (literal instanceof LongLiteral) {
+      return Types.LongType.get().toString();
+    } else if (literal instanceof FloatLiteral) {
+      return Types.FloatType.get().toString();
+    } else if (literal instanceof DoubleLiteral) {
+      return Types.DoubleType.get().toString();
+    } else if (literal instanceof StringLiteral) {
+      return Types.StringType.get().toString();
+    } else if (literal instanceof UUIDLiteral) {
+      return Types.UUIDType.get().toString();
+    } else if (literal instanceof FixedLiteral) {
+      return Types.FixedType.ofLength(StandardCharsets.UTF_8.decode(literal.toByteBuffer()).length()).toString();
+    } else if (literal instanceof BinaryLiteral) {
+      return Types.BinaryType.get().toString();
+    } else if (literal instanceof DecimalLiteral) {
+      return Types.DecimalType.of(((BigDecimal) literal).precision(), ((BigDecimal) literal).scale()).toString();
+    } else {
+      throw new IllegalArgumentException("Cannot find valid Literal Type for " + literal + ".");
+    }
+  }
+
   @SuppressWarnings("unchecked")
   static <T> AboveMax<T> aboveMax() {
     return AboveMax.INSTANCE;
