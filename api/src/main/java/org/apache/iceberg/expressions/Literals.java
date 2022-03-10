@@ -88,7 +88,6 @@ class Literals {
     throw new IllegalArgumentException(String.format(
         "Cannot create expression literal from %s: %s", value.getClass().getName(), value));
   }
-  
 
   @SuppressWarnings("unchecked")
   static <T> AboveMax<T> aboveMax() {
