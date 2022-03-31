@@ -47,6 +47,7 @@ import org.apache.iceberg.exceptions.NoSuchTableException;
 import org.apache.iceberg.hadoop.Configurable;
 import org.apache.iceberg.io.CloseableGroup;
 import org.apache.iceberg.io.FileIO;
+import org.apache.iceberg.io.MetricsProducer;
 import org.apache.iceberg.relocated.com.google.common.annotations.VisibleForTesting;
 import org.apache.iceberg.relocated.com.google.common.base.Preconditions;
 import org.apache.iceberg.relocated.com.google.common.collect.Lists;
@@ -124,13 +125,19 @@ public class GlueCatalog extends BaseMetastoreCatalog
 
   private FileIO initializeFileIO(Map<String, String> properties) {
     String fileIOImpl = properties.get(CatalogProperties.FILE_IO_IMPL);
+    FileIO io;
     if (fileIOImpl == null) {
-      FileIO io = new S3FileIO();
+      io = new S3FileIO();
       io.initialize(properties);
-      return io;
     } else {
-      return CatalogUtil.loadFileIO(fileIOImpl, properties, hadoopConf);
+      io = CatalogUtil.loadFileIO(fileIOImpl, properties, hadoopConf);
     }
+
+    if (io instanceof MetricsProducer) {
+      ((MetricsProducer) io).setMetricsContext(properties);
+    }
+
+    return io;
   }
 
   @VisibleForTesting

@@ -25,8 +25,10 @@ import org.apache.iceberg.CatalogProperties;
 import org.apache.iceberg.CatalogUtil;
 import org.apache.iceberg.aws.AwsClientFactories;
 import org.apache.iceberg.aws.AwsProperties;
+import org.apache.iceberg.common.DynConstructors;
 import org.apache.iceberg.io.FileIO;
 import org.apache.iceberg.io.InputFile;
+import org.apache.iceberg.io.MetricsProducer;
 import org.apache.iceberg.io.OutputFile;
 import org.apache.iceberg.metrics.MetricsContext;
 import org.apache.iceberg.relocated.com.google.common.collect.ImmutableMap;
@@ -43,7 +45,7 @@ import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
  * URIs with schemes s3a, s3n, https are also treated as s3 file paths.
  * Using this FileIO with other schemes will result in {@link org.apache.iceberg.exceptions.ValidationException}.
  */
-public class S3FileIO implements FileIO {
+public class S3FileIO implements FileIO, MetricsProducer {
   private static final Logger LOG = LoggerFactory.getLogger(S3FileIO.class);
   private static final String IO_METRICS_SCHEME_S3 = "s3";
 
@@ -118,6 +120,11 @@ public class S3FileIO implements FileIO {
       this.s3 = AwsClientFactories.from(properties)::s3;
     }
 
+    this.metrics = MetricsContext.nullMetrics();
+  }
+
+  @Override
+  public void setMetricsContext(Map<String, String> properties) {
     String metricsImpl = properties.getOrDefault(
             CatalogProperties.IO_METRICS_IMPL, CatalogProperties.IO_METRICS_IMPL_DEFAULT);
 
@@ -127,10 +134,24 @@ public class S3FileIO implements FileIO {
               .putAll(properties)
               .put(CatalogProperties.IO_METRICS_NAMESPACE, IO_METRICS_SCHEME_S3)
               .build();
-    }
+      // Report Hadoop metrics if Hadoop is available
+      try {
+        DynConstructors.Ctor<MetricsContext> ctor =
+                DynConstructors.builder(MetricsContext.class)
+                        .impl(properties.getOrDefault(CatalogProperties.IO_METRICS_IMPL,
+                                CatalogProperties.IO_METRICS_IMPL_DEFAULT), String.class)
+                        .buildChecked();
+        this.metrics = ctor.newInstance("s3");
 
-    this.metrics = CatalogUtil.loadFileIOMetricsContext(
-            metricsImpl, metricContextProperties, null /* no Hadoop config */);
+        metrics.initialize(properties);
+      } catch (NoSuchMethodException | ClassCastException e) {
+        LOG.warn("Unable to load metrics class: '{}', falling back to null metrics",
+                CatalogProperties.IO_METRICS_IMPL_DEFAULT, e);
+      }
+
+      this.metrics = CatalogUtil.loadFileIOMetricsContext(
+              metricsImpl, metricContextProperties, null /* no Hadoop config */);
+    }
   }
 
   @Override
