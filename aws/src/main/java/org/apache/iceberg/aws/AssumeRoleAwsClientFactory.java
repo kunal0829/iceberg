@@ -30,6 +30,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.kms.KmsClient;
+import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -76,6 +77,11 @@ public class AssumeRoleAwsClientFactory implements AwsClientFactory {
   @Override
   public SqsClient sqs() {
     return SqsClient.builder().applyMutation(this::configure).build();
+  }
+
+  @Override
+  public LambdaClient lambda() {
+    return LambdaClient.builder().applyMutation(this::configure).build();
   }
 
   @Override

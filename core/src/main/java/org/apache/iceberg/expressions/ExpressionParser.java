@@ -104,7 +104,7 @@ public class ExpressionParser {
     } else if (expression instanceof False) {
       toJson((False) expression, generator);
     } else if (expression instanceof Predicate) {
-      toJson((Predicate<?,?>) expression, generator);
+      toJson((Predicate<?, ?>) expression, generator);
     } else {
       throw new IllegalArgumentException("Invalid Operation Type");
     }
@@ -150,7 +150,7 @@ public class ExpressionParser {
     generator.writeEndObject();
   }
 
-  public static void toJson(Predicate<?,?> predicate, JsonGenerator generator) throws IOException {
+  public static void toJson(Predicate<?, ?> predicate, JsonGenerator generator) throws IOException {
     if (predicate instanceof UnboundPredicate) {
       toJson((UnboundPredicate<?>) predicate, generator);
     } else {
@@ -263,7 +263,7 @@ public class ExpressionParser {
     }
   }
 
-  public static Predicate<?,?> fromJsonToPredicate(JsonNode json, String predicateType) {
+  public static Predicate<?, ?> fromJsonToPredicate(JsonNode json, String predicateType) {
     if (UNBOUNDED_PREDICATE.equals(predicateType)) {
       return fromJsonUnboundPredicate(json);
     } else if (BOUNDED_LITERAL_PREDICATE.equals(predicateType)) {

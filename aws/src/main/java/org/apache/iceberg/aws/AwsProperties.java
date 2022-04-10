@@ -233,6 +233,8 @@ public class AwsProperties implements Serializable {
   public static final Integer SNS_RETRY_DEFAULT = 3;
   public static final Integer SNS_RETRY_INTERVAL_MS_DEFAULT = 1000;
 
+  public static final String LAMBDA_FUNCTION_NAME = "lambda.function-name";
+
   private String s3FileIoSseType;
   private String s3FileIoSseKey;
   private String s3FileIoSseMd5;

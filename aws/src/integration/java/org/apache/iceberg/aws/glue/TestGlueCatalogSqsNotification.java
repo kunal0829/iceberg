@@ -47,6 +47,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.services.lambda.LambdaClient;
+import software.amazon.awssdk.services.lambda.model.InvokeRequest;
+import software.amazon.awssdk.services.lambda.model.InvokeResponse;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.CreateQueueRequest;
 import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
@@ -272,5 +276,28 @@ public class TestGlueCatalogSqsNotification extends GlueTestBase {
 
   private <T> Listener<T> listener() {
     return new SQSListener<>(queueUrl, sqs, RETRY, RETRY_INTERVAL_MS);
+  }
+
+  private static final LambdaClient lambda = clientFactory.lambda();
+
+  @Test
+  public void testLambda() {
+    String expectedMessage = "{\"table-name\":\"" + "glue.namespace.tableName\"," +
+            "\"snapshot-id\":123456789," +
+            "\"expression\":{\"type\":\"and\"," +
+            "\"left-operand\":{\"type\":\"unbounded-predicate\"," +
+            "\"operation\":\"eq\",\"term\":{\"type\":\"named-reference\",\"value\":\"c1\"}," +
+            "\"literals\":[{\"type\":\"string\",\"value\":\"First\"}]}," +
+            "\"right-operand\":{\"type\":\"unbounded-predicate\"," +
+            "\"operation\":\"eq\",\"term\":{\"type\":\"named-reference\",\"value\":\"c1\"}," +
+            "\"literals\":[{\"type\":\"string\",\"value\":\"Second\"}]}}," +
+            "\"projection\":{\"type\":\"struct\",\"schema-id\":0,\"fields\":[{\"id\":1,\"name\":\"c1\"," +
+            "\"required\":true,\"type\":\"string\",\"doc\":\"c1\"}]}}";
+
+    InvokeRequest request = InvokeRequest.builder()
+            .functionName("athenaTesting")
+            .payload(SdkBytes.fromUtf8String(("{\"message\":" + expectedMessage + "}")))
+            .build();
+    InvokeResponse response = lambda.invoke(request);
   }
 }

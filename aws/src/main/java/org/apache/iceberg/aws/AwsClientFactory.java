@@ -24,6 +24,7 @@ import java.util.Map;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.glue.GlueClient;
 import software.amazon.awssdk.services.kms.KmsClient;
+import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -61,6 +62,8 @@ public interface AwsClientFactory extends Serializable {
   SnsClient sns();
 
   SqsClient sqs();
+
+  LambdaClient lambda();
 
   /**
    * Initialize AWS client factory from catalog properties.
