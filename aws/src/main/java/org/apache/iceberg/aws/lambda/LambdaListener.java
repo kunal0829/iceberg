@@ -38,7 +38,6 @@ public class LambdaListener<T> implements Listener<T> {
   private String functionName;
 
   public LambdaListener(Class<T> clazz) {
-
   }
 
   public LambdaListener(LambdaClient lambda, String functionName) {

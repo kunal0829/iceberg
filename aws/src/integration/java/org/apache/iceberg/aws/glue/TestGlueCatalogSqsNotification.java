@@ -21,11 +21,16 @@ package org.apache.iceberg.aws.glue;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Maps;
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.apache.iceberg.CatalogUtil;
 import org.apache.iceberg.DataFile;
 import org.apache.iceberg.DataFiles;
 import org.apache.iceberg.Snapshot;
@@ -299,5 +304,15 @@ public class TestGlueCatalogSqsNotification extends GlueTestBase {
             .payload(SdkBytes.fromUtf8String(("{\"message\":" + expectedMessage + "}")))
             .build();
     InvokeResponse response = lambda.invoke(request);
+  }
+
+  @Test
+  public void testListenerInit() {
+    Map<String, String> properties = Maps.newHashMap();
+    properties.put("listeners.prod.impl", "org.apache.iceberg.aws.sqs.SQSListener");
+    properties.put("listeners.prod.sqs.queue-url", "https://sqs.us-east-1.amazonaws.com/420609218074/TestAthena");
+    properties.put("listeners.kunal.impl", "org.apache.iceberg.aws.sqs.LamdbaListener");
+    properties.put("listeners.kunal.lamdba.function-name", "athenaTesting");
+    CatalogUtil.initializeListeners(properties);
   }
 }

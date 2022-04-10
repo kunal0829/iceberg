@@ -114,7 +114,7 @@ public class CatalogProperties {
    * @return a pair of the listener name and listener property
    */
   public static Optional<Pair<String, String>> parseListenerCatalogProperty(String listenerCatalogProperty) {
-    Matcher matcher = Pattern.compile("^listener[.](?<name>[^\\.]+)[.](?<property>.+)$")
+    Matcher matcher = Pattern.compile("^listeners[.](?<name>[^\\.]+)[.](?<property>.+)$")
         .matcher(listenerCatalogProperty);
     if (matcher.matches()) {
       return Optional.of(Pair.of(matcher.group("name"), matcher.group("property")));
